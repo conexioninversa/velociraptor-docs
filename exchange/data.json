@@ -2145,5 +2145,15 @@
         "author_link": "",
         "author_avatar": "",
         "date": ""
+    },
+    {
+        "title": "Custom.Windows.Nirsoft.FileActivityWatch",
+        "author": "",
+        "description": "FileActivityWatch is a tool for Windows that displays information about every read/write/delete operation of files occurs on your system. For every file, FileActivityWatch displays the number of read/write bytes, number of read/write/delete operations, first and last read/write timestamp, and the name/ID of the process responsible for the file operation.\n",
+        "link": "/exchange/artifacts/pages/custom.windows.nirsoft.fileactivitywatch",
+        "tags": [],
+        "author_link": "",
+        "author_avatar": "",
+        "date": ""
     }
 ]
