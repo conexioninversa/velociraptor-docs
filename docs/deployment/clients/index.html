@@ -1,751 +1,256 @@
-<!doctype html><html lang=en class="js csstransforms3d">
-<head>
-<meta charset=utf-8>
-<meta name=viewport content="width=device-width,initial-scale=1">
-<meta name=generator content="Hugo 0.89.4">
-<meta name=description content>
-<link rel=icon href=/images/favicon.png type=image/png>
-<title>Deploying Clients :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1637855120 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1637855120 rel=stylesheet>
-<link href=/css/featherlight.min.css?1637855120 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1637855120 rel=stylesheet>
-<link href=/css/auto-complete.css?1637855120 rel=stylesheet>
-<link href=/css/theme.css?1637855120 rel=stylesheet>
-<link href=/css/tabs.css?1637855120 rel=stylesheet>
-<link href=/css/hugo-theme.css?1637855120 rel=stylesheet>
-<link href=/css/theme-mine.css?1637855120 rel=stylesheet>
-<link href=/css/dark.css?1637855120 rel=stylesheet><link href=/css/syntax.css?1637855120 rel=stylesheet><link href=/css/light.css?1637855120 rel=stylesheet><link href=/css/hljs.css?1637855120 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1637855120 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1637855120></script>
-<style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
-<script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-QYH72LMYCS',{anonymize_ip:!1})}</script>
-<script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga('create','G-QYH72LMYCS','auto'),ga('send','pageview'))</script>
-<script async src=https://www.google-analytics.com/analytics.js></script>
-<script></script>
-</head>
-<body data-url=/docs/deployment/clients/>
-<nav id=sidebar><div id=header-wrapper>
-<div id=header>
-<script>function darkmode(){$("body").addClass("dark").removeClass("light"),document.cookie="theme=darkmode;path=/"}function lightmode(){$("body").removeClass("dark").addClass("light"),document.cookie="theme=lightmode;path=/"}const regex=new RegExp('theme=darkmode');regex.test(document.cookie)?darkmode():lightmode()</script>
-<div class="btn btn-default ThemeSelector darkmode" onclick=darkmode()>
-<i class="fas fa-moon"></i>
-</div>
-<div class="btn btn-default ThemeSelector lightmode" onclick=lightmode()>
-<i class="fas fa-sun"></i>
-</div>
-<a href=https://docs.velociraptor.app/>
-<img src=https://docs.velociraptor.app//images/logo.svg>
-</a>
-</div>
-</div>
-<div class=highlightable>
-<ul class=topics>
-<li data-nav-id=https://docs.velociraptor.app/announcements/ class="dd-item haschildren">
-<div><i class="fa fa-angle-right fa-sm category-icon"></i>
-<a href=/announcements/><i class="fas fa-bullhorn"></i>Announcements</a>
-</div>
-<ul>
-<li data-nav-id=https://docs.velociraptor.app/announcements/2021-artifact-contest/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/announcements/2021-artifact-contest/>2021 Contest</a>
-</div>
-</li>
-</ul>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/docs/ class="dd-item parent haschildren">
-<div>
-<i class="fa fa-angle-down fa-sm category-icon"></i>
-<a href=/docs/><i class="fas fa-book-reader"></i>Documentation</a>
-</div>
-<ul>
-<li data-nav-id=https://docs.velociraptor.app/docs/overview/ class="dd-item haschildren">
-<div><i class="fa fa-angle-right fa-sm category-icon"></i>
-<a href=/docs/overview/>Velociraptor Overview</a>
-</div>
-<ul>
-<li data-nav-id=https://docs.velociraptor.app/docs/overview/history/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/overview/history/>History</a>
-</div>
-</li>
-</ul>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/docs/deployment/ class="dd-item parent haschildren">
-<div>
-<i class="fa fa-angle-down fa-sm category-icon"></i>
-<a href=/docs/deployment/>Deployment</a>
-</div>
-<ul>
-<li data-nav-id=https://docs.velociraptor.app/docs/deployment/self-signed/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/deployment/self-signed/>Self-Signed SSL</a>
-</div>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/docs/deployment/cloud/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/deployment/cloud/>Cloud Deployment</a>
-</div>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/docs/deployment/clients/ class="dd-item parent active">
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/deployment/clients/>Deploying Clients</a>
-</div>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/docs/deployment/rbac/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/deployment/rbac/>Users and Roles</a>
-</div>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/docs/deployment/resources/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/deployment/resources/>Performance</a>
-</div>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/docs/deployment/troubleshooting/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/deployment/troubleshooting/>Troubleshooting</a>
-</div>
-</li>
-</ul>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/docs/gui/ class="dd-item haschildren">
-<div><i class="fa fa-angle-right fa-sm category-icon"></i>
-<a href=/docs/gui/>The Admin GUI</a>
-</div>
-<ul>
-<li data-nav-id=https://docs.velociraptor.app/docs/gui/clients/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/gui/clients/>Inspecting clients</a>
-</div>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/docs/gui/vfs/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/gui/vfs/>The VFS</a>
-</div>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/docs/gui/artifacts/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/gui/artifacts/>Artifacts</a>
-</div>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/docs/gui/hunting/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/gui/hunting/>Hunting</a>
-</div>
-</li>
-</ul>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/docs/vql/ class="dd-item haschildren">
-<div><i class="fa fa-angle-right fa-sm category-icon"></i>
-<a href=/docs/vql/>VQL Fundamentals</a>
-</div>
-<ul>
-<li data-nav-id=https://docs.velociraptor.app/docs/vql/notebooks/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/vql/notebooks/>Notebooks</a>
-</div>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/docs/vql/artifacts/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/vql/artifacts/>Artifacts</a>
-</div>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/docs/vql/events/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/vql/events/>Event Queries</a>
-</div>
-</li>
-</ul>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/docs/forensic/ class="dd-item haschildren">
-<div><i class="fa fa-angle-right fa-sm category-icon"></i>
-<a href=/docs/forensic/>Forensic Analysis</a>
-</div>
-<ul>
-<li data-nav-id=https://docs.velociraptor.app/docs/forensic/filesystem/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/forensic/filesystem/>Searching Filenames</a>
-</div>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/docs/forensic/searching/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/forensic/searching/>Searching Content</a>
-</div>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/docs/forensic/ntfs/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/forensic/ntfs/>NTFS Analysis</a>
-</div>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/docs/forensic/evidence_of_execution/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/forensic/evidence_of_execution/>Evidence Of Execution</a>
-</div>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/docs/forensic/event_logs/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/forensic/event_logs/>Event Logs</a>
-</div>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/docs/forensic/volatile/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/forensic/volatile/>Volatile State</a>
-</div>
-</li>
-</ul>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/docs/offline_triage/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/offline_triage/>Triage and acquisition</a>
-</div>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/docs/client_monitoring/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/client_monitoring/>Client Monitoring</a>
-</div>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/docs/extending_vql/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/extending_vql/>Extending VQL</a>
-</div>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/docs/server_automation/ class="dd-item haschildren">
-<div><i class="fa fa-angle-right fa-sm category-icon"></i>
-<a href=/docs/server_automation/>Server Automation</a>
-</div>
-<ul>
-<li data-nav-id=https://docs.velociraptor.app/docs/server_automation/server_api/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/server_automation/server_api/>Server API</a>
-</div>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/docs/server_automation/server_monitoring/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/server_automation/server_monitoring/>Server Monitoring</a>
-</div>
-</li>
-</ul>
-</li>
-</ul>
-</li><hr>
-<li data-nav-id=https://docs.velociraptor.app/vql_reference/ class="dd-item haschildren">
-<div><i class="fa fa-angle-right fa-sm category-icon"></i>
-<a href=/vql_reference/><i class="fas fa-book"></i>VQL Reference</a>
-</div>
-<ul>
-<li data-nav-id=https://docs.velociraptor.app/vql_reference/basic/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/vql_reference/basic/>Basic VQL</a>
-</div>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/vql_reference/windows/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/vql_reference/windows/>Windows Specific</a>
-</div>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/vql_reference/parsers/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/vql_reference/parsers/>Parsers</a>
-</div>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/vql_reference/server/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/vql_reference/server/>Server Side</a>
-</div>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/vql_reference/plugin/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/vql_reference/plugin/>Client Side</a>
-</div>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/vql_reference/event/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/vql_reference/event/>Event Plugins</a>
-</div>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/vql_reference/experimental/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/vql_reference/experimental/>Experimental</a>
-</div>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/vql_reference/misc/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/vql_reference/misc/>Misc</a>
-</div>
-</li>
-</ul>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/training/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/training/><i class="fas fa-graduation-cap"></i>Training</a>
-</div>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/blog/ class="dd-item haschildren">
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/blog/><i class="fas fa-newspaper"></i>Blog</a>
-</div>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/presentations/ class="dd-item haschildren">
-<div><i class="fa fa-angle-right fa-sm category-icon"></i>
-<a href=/presentations/><i class="fas fa-chalkboard-teacher"></i>Presentations</a>
-</div>
-<ul>
-<li data-nav-id=https://docs.velociraptor.app/presentations/2021_dfrws_us/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/presentations/2021_dfrws_us/>DFRWS US 2021 Workshop</a>
-</div>
-</li>
-</ul>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/exchange/ class="dd-item haschildren">
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/exchange/><i class="fas fa-code"></i>Artifact Exchange</a>
-</div>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/search/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/search/><i class="fas fa-search"></i>Search</a>
-</div>
-</li>
-</ul>
-<hr>
-<section id=shortcuts>
-<h3></h3>
-<ul>
-<li>
-<a class=padding href=https://github.com/Velocidex/velociraptor><i class="fab fa-github"></i>Github</a>
-</li>
-<li>
-<a class=padding href=https://docs.velociraptor.app/discord/><i class="fab fa-discord"></i>Discord</a>
-</li>
-<li>
-<a class=padding href=mailto:velociraptor-discuss@googlegroups.com><i class="fas fa-envelope"></i>Mailing List</a>
-</li>
-</ul>
-</section>
-<section id=footer>
-<div class=footer-copyright>Brought to you by
-<img src=/images/Rapid7_logo.svg class=rapid7>
-<br> <i class="fas fa-copyright"></i> 2021
-</div>
-</section>
-</div>
-</nav>
-<script>$("#sidebar i.fa-angle-right").each(function(){$(this).parent().parent().find("ul").hide()})</script>
-<section id=body>
-<div id=overlay></div>
-<div class="padding highlightable">
-<div>
-<div id=top-bar>
-<div id=top-github-link>
-<a class=github-link title="Edit this page" href=https://github.com/scudette/velociraptor-docs/edit/master/content/docs/deployment/clients/_index.md target=blank>
-<i class="fas fa-code-branch"></i>
-<span id=top-github-link-text>Edit this page</span>
-</a>
-</div>
-<div id=breadcrumbs itemscope itemtype=http://data-vocabulary.org/Breadcrumb>
-<span id=sidebar-toggle-span>
-<a href=# id=sidebar-toggle data-sidebar-toggle>
-<i class="fas fa-bars"></i>
-</a>
-</span>
+<!doctype html><html lang=en class="js csstransforms3d"><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo 0.117.0"><meta name=description content><link rel=icon href=/images/favicon.png type=image/png><title>Deploying Clients :: Velociraptor - Digging deeper!</title><link href=/css/nucleus.css?1692614572 rel=stylesheet><link href=/css/fontawesome-all.min.css?1692614572 rel=stylesheet><link href=/css/featherlight.min.css?1692614572 rel=stylesheet><link href=/css/perfect-scrollbar.min.css?1692614572 rel=stylesheet><link href=/css/auto-complete.css?1692614572 rel=stylesheet><link href=/css/theme.css?1692614572 rel=stylesheet><link href=/css/tabs.css?1692614572 rel=stylesheet><link href=/css/hugo-theme.css?1692614572 rel=stylesheet><link href=/css/theme-mine.css?1692614572 rel=stylesheet><link href=/css/dark.css?1692614572 rel=stylesheet><link href=/css/syntax.css?1692614572 rel=stylesheet><link href=/css/light.css?1692614572 rel=stylesheet><link href=/css/hljs.css?1692614572 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1692614572 rel=stylesheet><script src=/js/jquery-3.3.1.min.js?1692614572></script><style>:root #header+#content>#left>#rlblock_left{display:none!important}</style><script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
+<script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-QYH72LMYCS",{anonymize_ip:!1})}</script><script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","G-QYH72LMYCS","auto"),ga("send","pageview"))</script><script async src=https://www.google-analytics.com/analytics.js></script>
+<script></script></head><body data-url=/docs/deployment/clients/><nav id=sidebar><div id=header-wrapper><div id=header><script>function darkmode(){$("body").addClass("dark").removeClass("light"),document.cookie="theme=darkmode;path=/"}function lightmode(){$("body").removeClass("dark").addClass("light"),document.cookie="theme=lightmode;path=/"}const regex=new RegExp("theme=darkmode");regex.test(document.cookie)?darkmode():lightmode()</script><div class="btn btn-default ThemeSelector darkmode" onclick=darkmode()><i class="fas fa-moon"></i></div><div class="btn btn-default ThemeSelector lightmode" onclick=lightmode()><i class="fas fa-sun"></i></div><a href=https://docs.velociraptor.app/><img src=https://docs.velociraptor.app//images/logo.svg></a></div></div><div class=highlightable><ul class=topics><li data-nav-id=https://docs.velociraptor.app/announcements/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/announcements/><i class="fas fa-bullhorn"></i>Announcements</a></div><ul><li data-nav-id=https://docs.velociraptor.app/announcements/2023-cves/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/announcements/2023-cves/>Current CVEs</a></div></li><li data-nav-id=https://docs.velociraptor.app/announcements/2023-trainings/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/announcements/2023-trainings/>Trainings</a></div></li><li data-nav-id=https://docs.velociraptor.app/announcements/2023-velocon/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/announcements/2023-velocon/>VeloCON 2023</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/docs/ class="dd-item parent haschildren"><div><i class="fa fa-angle-down fa-sm category-icon"></i>
+<a href=/docs/><i class="fas fa-book-reader"></i>Documentation</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/overview/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/docs/overview/>Velociraptor Overview</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/overview/history/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/overview/history/>History</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/overview/support/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/overview/support/>Support Policy</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/docs/deployment/ class="dd-item parent haschildren"><div><i class="fa fa-angle-down fa-sm category-icon"></i>
+<a href=/docs/deployment/>Deployment</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/deployment/self-signed/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/deployment/self-signed/>Self-Signed SSL</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/deployment/cloud/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/docs/deployment/cloud/>Cloud Deployment</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/deployment/cloud/multifrontend/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/deployment/cloud/multifrontend/>Multi-Frontend</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/docs/deployment/clients/ class="dd-item active"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/deployment/clients/>Deploying Clients</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/deployment/rbac/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/deployment/rbac/>Users and Roles</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/deployment/resources/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/deployment/resources/>Performance</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/deployment/troubleshooting/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/deployment/troubleshooting/>Troubleshooting</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/deployment/references/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/deployment/references/>Config Reference</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/docs/gui/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/docs/gui/>The Admin GUI</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/gui/clients/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/gui/clients/>Inspecting clients</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/gui/vfs/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/gui/vfs/>The VFS</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/gui/artifacts/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/gui/artifacts/>Artifacts</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/gui/hunting/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/gui/hunting/>Hunting</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/docs/vql/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/docs/vql/>VQL Fundamentals</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/vql/notebooks/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/vql/notebooks/>Notebooks</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/vql/artifacts/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/vql/artifacts/>Artifacts</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/vql/events/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/vql/events/>Event Queries</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/docs/forensic/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/docs/forensic/>Forensic Analysis</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/forensic/filesystem/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/forensic/filesystem/>Searching Filenames</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/forensic/searching/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/forensic/searching/>Searching Content</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/forensic/ntfs/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/forensic/ntfs/>NTFS Analysis</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/forensic/binary/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/forensic/binary/>Binary parsing</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/forensic/evidence_of_execution/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/forensic/evidence_of_execution/>Evidence Of Execution</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/forensic/event_logs/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/forensic/event_logs/>Event Logs</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/forensic/volatile/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/forensic/volatile/>Volatile State</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/docs/offline_triage/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/docs/offline_triage/>Triage and acquisition</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/offline_triage/remote_uploads/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/offline_triage/remote_uploads/>Remote Uploads</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/docs/client_monitoring/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/client_monitoring/>Client Monitoring</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/extending_vql/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/extending_vql/>Extending VQL</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/server_automation/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/docs/server_automation/>Server Automation</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/server_automation/server_api/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/server_automation/server_api/>Server API</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/server_automation/server_monitoring/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/server_automation/server_monitoring/>Server Monitoring</a></div></li></ul></li></ul></li><hr><li data-nav-id=https://docs.velociraptor.app/vql_reference/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/vql_reference/><i class="fas fa-book"></i>VQL Reference</a></div><ul><li data-nav-id=https://docs.velociraptor.app/vql_reference/basic/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/basic/>Basic VQL</a></div></li><li data-nav-id=https://docs.velociraptor.app/vql_reference/linux/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/linux/>Linux Specific</a></div></li><li data-nav-id=https://docs.velociraptor.app/vql_reference/windows/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/windows/>Windows Specific</a></div></li><li data-nav-id=https://docs.velociraptor.app/vql_reference/parsers/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/parsers/>Parsers</a></div></li><li data-nav-id=https://docs.velociraptor.app/vql_reference/server/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/server/>Server Side</a></div></li><li data-nav-id=https://docs.velociraptor.app/vql_reference/plugin/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/plugin/>Client Side</a></div></li><li data-nav-id=https://docs.velociraptor.app/vql_reference/event/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/event/>Event Plugins</a></div></li><li data-nav-id=https://docs.velociraptor.app/vql_reference/experimental/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/experimental/>Experimental</a></div></li><li data-nav-id=https://docs.velociraptor.app/vql_reference/misc/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/misc/>Misc</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/training/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/training/><i class="fas fa-graduation-cap"></i>Training</a></div></li><li data-nav-id=https://docs.velociraptor.app/blog/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/blog/><i class="fas fa-newspaper"></i>Blog</a></div></li><li data-nav-id=https://docs.velociraptor.app/presentations/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/presentations/><i class="fas fa-chalkboard-teacher"></i>Presentations</a></div><ul><li data-nav-id=https://docs.velociraptor.app/presentations/2022_linuxconf_au/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/presentations/2022_linuxconf_au/>Linux Conf Au 2022</a></div></li><li data-nav-id=https://docs.velociraptor.app/presentations/2022_auscert/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/presentations/2022_auscert/>Auscert 2022</a></div></li><li data-nav-id=https://docs.velociraptor.app/presentations/2022_dfrws_us/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/presentations/2022_dfrws_us/>DFRWS US 2022</a></div></li><li data-nav-id=https://docs.velociraptor.app/presentations/2022_tech_user_group_cbr/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/presentations/2022_tech_user_group_cbr/>Tech Users Group 2022</a></div></li><li data-nav-id=https://docs.velociraptor.app/presentations/2022_sans_summit/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/presentations/2022_sans_summit/>SANS Summit 2022</a></div></li><li data-nav-id=https://docs.velociraptor.app/presentations/2022_velocon/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/presentations/2022_velocon/>Velocon 2022</a></div></li><li data-nav-id=https://docs.velociraptor.app/presentations/2022_dfrws_apac/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/presentations/2022_dfrws_apac/>DFRWS APAC 2022</a></div></li><li data-nav-id=https://docs.velociraptor.app/presentations/2023_everything_open/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/presentations/2023_everything_open/>EverythingOpen 2023</a></div></li><li data-nav-id=https://docs.velociraptor.app/presentations/2023_auscert/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/presentations/2023_auscert/>Auscert 2023</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/exchange/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/exchange/><i class="fas fa-code"></i>Artifact Exchange</a></div></li><li data-nav-id=https://docs.velociraptor.app/artifact_references/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/artifact_references/><i class="fas fa-book"></i>Artifact Reference</a></div></li><li data-nav-id=https://docs.velociraptor.app/knowledge_base/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/knowledge_base/><i class="fas fa-brain"></i>Knowledge Base</a></div></li><li data-nav-id=https://docs.velociraptor.app/search/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/search/><i class='fas fa-search'></i>Search</a></div></li></ul><hr><section id=shortcuts><h3></h3><ul><li><a class=padding href=https://github.com/Velocidex/velociraptor><i class='fab fa-github'></i>Github</a></li><li><a class=padding href=https://docs.velociraptor.app/discord/><i class='fab fa-discord'></i>Discord</a></li><li><a class=padding href=mailto:velociraptor-discuss@googlegroups.com><i class='fas fa-envelope'></i>Mailing List</a></li><li><a class=padding href=https://docs.velociraptor.app/rss/><i class='fas fa-rss'></i>RSS</a></li></ul></section><section id=footer><div class=footer-copyright>Brought to you by
+<img src=/images/Rapid7_logo.svg class=rapid7><br><i class="fas fa-copyright"></i> 2022</div></section></div></nav><script>$("#sidebar i.fa-angle-right").each(function(){$(this).parent().parent().find("ul").hide()})</script><section id=body><div id=overlay></div><div class="padding highlightable"><div><div id=top-bar><div id=top-github-link><a class=github-link title='Edit this page' href=https://github.com/Velocidex/velociraptor-docs/edit/master/content/docs/deployment/clients/_index.md target=blank><i class="fas fa-code-branch"></i>
+<span id=top-github-link-text>Edit this page</span></a></div><div id=breadcrumbs itemscope itemtype=http://data-vocabulary.org/Breadcrumb><span id=sidebar-toggle-span><a href=# id=sidebar-toggle data-sidebar-toggle><i class="fas fa-bars"></i></a></span>
 <span id=toc-menu><i class="fas fa-list-alt"></i></span>
-<span class=links>
-Deploying Clients
-</span>
-</div>
-<div class=progress>
-<div class=wrapper>
-<nav id=TableOfContents>
-<ul>
-<li><a href=#running-clients-interactively>Running clients interactively</a></li>
-<li><a href=#installing-an-msi>Installing an MSI</a>
-<ul>
-<li><a href=#official-release-msi>Official release MSI</a></li>
-<li><a href=#installing-using-custom-msi-package>Installing using custom MSI package</a></li>
-</ul>
-</li>
-<li><a href=#installing-the-client-as-a-service>Installing the client as a service</a>
-<ul>
-<li><a href=#windows>Windows</a></li>
-<li><a href=#mac>Mac</a></li>
-</ul>
-</li>
-<li><a href=#agentless-deployment>Agentless deployment</a>
-<ul>
-<li></li>
-</ul>
-</li>
-</ul>
-</nav>
-</div>
-</div>
-</div>
-</div>
-<div id=head-tags>
-</div>
-<div id=body-inner>
-<h1>
-Deploying Clients
-</h1>
-<p>Velociraptor endpoint agents are called <code>clients</code>. Clients connect to
+<span class=links>Deploying Clients</span></div><div class=progress><div class=wrapper><nav id=TableOfContents><ul><li><a href=#running-clients-interactively>Running clients interactively</a></li><li><a href=#installing-an-msi>Installing an MSI</a><ul><li><a href=#official-release-msi>Official release MSI</a></li><li><a href=#repacking-client-configuration-into-the-windows-msi>Repacking client configuration into the Windows MSI</a></li><li><a href=#installing-using-custom-msi-package>Installing using custom MSI package</a></li></ul></li><li><a href=#installing-the-client-as-a-service>Installing the client as a service</a><ul><li><a href=#windows>Windows</a></li><li><a href=#mac>Mac</a></li><li><a href=#linux>Linux</a></li></ul></li><li><a href=#agentless-deployment>Agentless deployment</a><ul><li></li></ul></li><li><a href=#client-upgrades>Client upgrades</a></li></ul></nav></div></div></div></div><div id=head-tags></div><div id=body-inner><h1>Deploying Clients</h1><p>Velociraptor endpoint agents are called <code>clients</code>. Clients connect to
 the server and wait for instructions, which mostly consist of VQL
 statements, then run any VQL queries and return the result to the
-server.</p>
-<p>There are several ways to run clients, depending on your
+server.</p><p>There are several ways to run clients, depending on your
 needs. Ultimately however, the same Velociraptor binary is run with
 the client configuration file generated in the previous setup steps,
-providing it with the key material and configuration.</p>
-<p>This page summarizes the recommended ways to run the clients and
-discusses the pros and cons of each approach.</p>
-<p>Note that all Velociraptor binaries (for a particular operating
+providing it with the key material and configuration.</p><p>This page summarizes the recommended ways to run the clients and
+discusses the pros and cons of each approach.</p><p>Note that all Velociraptor binaries (for a particular operating
 system) are the same. There is no distinction between the client
 binaries and server binaries. Therefore you can run the server or the
 client on each supported platform. It&rsquo;s simply command line options
-telling the binary to behave as a server or client.</p>
-<h2 id=running-clients-interactively>Running clients interactively</h2>
-<p>This method is most suitable for testing your deployment. In a command
-shell, simply run the client using the client configuration.</p>
-<pre><code class=language-shell>$ velociraptor --config client.config.yaml client -v
-</code></pre>
-<p>The first time the client connects it will <code>enroll</code>. The enrolment
+telling the binary to behave as a server or client.</p><h2 id=running-clients-interactively>Running clients interactively</h2><p>This method is most suitable for testing your deployment. In a command
+shell, simply run the client using the client configuration.</p><pre><code class=language-shell>$ velociraptor --config client.config.yaml client -v
+</code></pre><p>The first time the client connects it will <code>enroll</code>. The enrolment
 process requires the client to reveal basic information about itself
-to the server.</p>
-<p>Note that this type of interactive execution will work effectively the
+to the server.</p><p>Note that this type of interactive execution will work effectively the
 same way for all versions of the client (Windows, Linux, or Mac). In
 the sections that follow, we show options for more scalable and/or
-permanent use.</p>
-<h2 id=installing-an-msi>Installing an MSI</h2>
-<p>An MSI is a standard Windows installer package. The advantages are
+permanent use.</p><h2 id=installing-an-msi>Installing an MSI</h2><p>An MSI is a standard Windows installer package. The advantages are
 that most enterprise system administration tools are used to deploying
 software in MSI packages. Therefore you can use SCCM or Group Policy
-to add the MSI to the assigned software group.</p>
-<p>For more information, see <a href=https://support.microsoft.com/en-us/help/816102/how-to-use-group-policy-to-remotely-install-software-in-windows-server>How to use Group Policy to remotely install
+to add the MSI to the assigned software group.</p><p>For more information, see <a href=https://support.microsoft.com/en-us/help/816102/how-to-use-group-policy-to-remotely-install-software-in-windows-server>How to use Group Policy to remotely install
 software in Windows Server 2008 and in Windows Server
-2003</a></p>
-<h3 id=official-release-msi>Official release MSI</h3>
-<p>The recommended way to install Velociraptor as a client on Windows is
+2003</a></p><h3 id=official-release-msi>Official release MSI</h3><p>The recommended way to install Velociraptor as a client on Windows is
 via the release MSI on the <a href=https://github.com/Velocidex/velociraptor/releases>Github
-releases</a> page.</p>
-<div class="mynotices note">
-<div heading=" The Official Velociraptor MSI package "><p>One of the main benefits in using the official Velociraptor MSI is
-that the MSI and the executable are signed. Windows Defender
-aggressively quarantines unsigned binaries, so it is highly
-recommended that Velociraptor be signed.</p>
-</div>
-</div>
-<p>Since the Velociraptor client requires a unique configuration file to
+releases</a> page.</p><p>Since the Velociraptor client requires a unique configuration file to
 identify the location of the server, we can&rsquo;t package the
-configuration file in the official release. Therefore, the official MSI
-does not include a configuration file. It must be provided separately.</p>
-<p>The official release installs the Velociraptor executable into
+configuration file in the official release. Therefore, the official
+MSI does not include a valid configuration file. You will need to
+modify the MSI to pack your configuration file (that was generated
+earlier) into it.</p><p>The official release installs the Velociraptor executable into
 <code>C:\Program Files\Velociraptor\</code> then creates a new Windows service
 that points to this executable and starts automatically at boot
 time. If an existing Velociraptor service is already installed, it
-will be overwritten.</p>
-<p>When the service starts, it attempts to load the configuration file
-from <code>C:\Program Files\Velociraptor\Velociraptor.config.yaml</code>. Note
-that this is a different name to the configuration file generated by
-the interactive config generator, which was <code>client.config.yaml</code>. If
-your client config file is named otherwise, simply rename it to
-<code>Velociraptor.config.yaml</code> (case insensitive) and move it into the
-<code>C:\Program Files\Velociraptor</code> folder.</p>
-<p>If that file is not found, Velociraptor will wait and retry
-periodically to locate the configuration file. When the file is found,
-the client will be started.</p>
-<p>So to summarize, when installing from the official MSI package you
-need to:</p>
-<ol>
-<li>
-<p>Assign the MSI via Group Policy, or use some other method to deploy
-the official MSI installer.</p>
-</li>
-<li>
-<p>Copy the configuration file from a share to the Velociraptor
-program directory. This can be done via Group Policy Scheduled
-tasks or another way (see the <strong>Group Policy</strong> procedure outlined
-below). As soon as the configuration file is copied, Velociraptor will begin communicating with the server.</p>
-</li>
-</ol>
-<h3 id=installing-using-custom-msi-package>Installing using custom MSI package</h3>
-<p>The official Velociraptor MSI does not include the configuration file
-and therefore requires further steps to deploy. In practice it is
-almost always easier to build a custom MSI which includes your own
-configuration file embedded in it.</p>
-<p>Velociraptor already includes a Wix Framework configuration file that
-creates a proper custom MSI with embedded configuration. You can also
-customize this wix file to specify a different service name,
-destination location etc.</p>
-<p>To do so, follow follow the instructions
-<a href=https://github.com/Velocidex/velociraptor/tree/master/docs/wix>here</a></p>
-<p>To summarize the process, you will need to:</p>
-<ol>
-<li>Download the Velociraptor repository to a Windows host. Specifically,
+will be overwritten.</p><p>When the service starts, it attempts to load the configuration file
+from <code>C:\Program Files\Velociraptor\client.config.yaml</code>.</p><p>By default, the official MSI comes bundled with an invalid
+configuration file which is placed at the above location. This means
+that just installing the official MSI will create a service which is
+unable to fully start. It is possible to overwrite the
+<code>client.config.yaml</code> file at any time to have the service start
+fully. You can arrange for the file to be written using SCCM scheduled
+tasks or other administrative methods.</p><h3 id=repacking-client-configuration-into-the-windows-msi>Repacking client configuration into the Windows MSI</h3><p>By far the easiest method is to update the MSI with the customized
+<code>client.config.yaml</code>. We call this process <code>repacking</code> the MSI because
+we do not need to build a new MSI from scratch we only replace the
+config file in the official MSI.</p><p>You can repack the MSI like this (Even from linux):</p><pre><code>velociraptor-v0.6.7-4-linux-amd64 config repack --msi velociraptor-v0.6.7-4-windows-amd64.msi client.config.yaml output.msi
+</code></pre><p>The above command will repack the provided client.config.yaml into the
+official MSI and write out a new MSI file.</p><p><figure><img src=repacking.png alt="Building custom MSI" class=captioned><figcaption>Building custom MSI</figcaption></figure></p><div class="mynotices note"><div heading=" Resigning the repacked MSI "><p>Modifying the MSI file will invalidate its digital signature. While
+the packaged Velociraptor binary inside the MSI is officially signed
+by the Velociraptor Team, we highly recommend the MSI also be signed
+by a valid code signing certificate.</p></div></div><h3 id=installing-using-custom-msi-package>Installing using custom MSI package</h3><p>If you wish to customize the MSI from scratch (e.g. change name of
+service, install locations etc). You will need to use the Wix
+Framework to build a new MSI.</p><p>Velociraptor already includes a Wix Framework configuration files that
+create a proper custom MSI with embedded configuration. You can also
+customize this Wix file to specify a different service name,
+destination location etc.</p><p>To do so, follow follow the instructions
+<a href=https://github.com/Velocidex/velociraptor/tree/master/docs/wix>here</a></p><p>To summarize the process, you will need to:</p><ol><li>Download the Velociraptor repository to a Windows host. Specifically,
 you need to copy the appropriate custom XML file and build batch file
-from the <code>docs/wix</code> directory into a new working directory on your host.</li>
-</ol>
-<p>
-<figure>
-<img src=image34.png alt="Extracting Wix files" class=captioned>
-<figcaption>Extracting Wix files</figcaption>
-</figure>
-</p>
-<ol start=2>
-<li>Update the custom XML for your installation. The README file from
-<code>docs/wix</code> steps you through the typical settings to customize.</li>
-</ol>
-<p>
-<figure>
-<img src=image36.png alt="Modifying the wix configuration" class=captioned>
-<figcaption>Modifying the wix configuration</figcaption>
-</figure>
-</p>
-<ol start=3>
-<li>
-<p>Install the <a href=http://wixtoolset.org/releases/>WiX application</a> on your
-Windows host.</p>
-</li>
-<li>
-<p>Add your custom client.config.xml file and the appropriate Velociraptor
-executable to a subdirectory of your build directory called <code>output</code>.</p>
-</li>
-</ol>
-<p>
-<figure>
-<img src=image37.png alt="Copy the configuration file into the output directory" class=captioned>
-<figcaption>Copy the configuration file into the output directory</figcaption>
-</figure>
-</p>
-<ol start=5>
-<li>Execute the build batch file to create the new MSI file.</li>
-</ol>
-<p>
-<figure>
-<img src=image38.png alt="Build the MSI" class=captioned>
-<figcaption>Build the MSI</figcaption>
-</figure>
-</p>
-<h2 id=installing-the-client-as-a-service>Installing the client as a service</h2>
-<h3 id=windows>Windows</h3>
-<p>When installing using an MSI, simply run</p>
-<pre><code class=language-shell>msiexec /i velociraptor_custom.msi
-</code></pre>
-<p>To install the binary, create the service and start it.</p>
-<p>It is also possible to tell the executable to install itself as a
+from the <code>docs/wix</code> directory into a new working directory on your host.</li></ol><p><figure><img src=image34.png alt="Extracting Wix files" class=captioned><figcaption>Extracting Wix files</figcaption></figure></p><ol start=2><li>Update the custom XML for your installation. The README file from
+<code>docs/wix</code> steps you through the typical settings to customize.</li></ol><p><figure><img src=image36.png alt="Modifying the Wix configuration" class=captioned><figcaption>Modifying the Wix configuration</figcaption></figure></p><ol start=3><li><p>Install the <a href=http://wixtoolset.org/releases/>Wix application</a> on your
+Windows host.</p></li><li><p>Add your custom client.config.xml file and the appropriate Velociraptor
+executable to a subdirectory of your build directory called <code>output</code>.</p></li></ol><p><figure><img src=image37.png alt="Copy the configuration file into the output directory" class=captioned><figcaption>Copy the configuration file into the output directory</figcaption></figure></p><ol start=5><li>Execute the build batch file to create the new MSI file.</li></ol><p><figure><img src=image38.png alt="Build the MSI" class=captioned><figcaption>Build the MSI</figcaption></figure></p><h2 id=installing-the-client-as-a-service>Installing the client as a service</h2><h3 id=windows>Windows</h3><p>When installing using an MSI, simply run</p><pre><code class=language-shell>msiexec /i velociraptor_custom.msi
+</code></pre><p>To install the binary, create the service and start it.</p><p>It is also possible to tell the executable to install itself as a
 Windows service instead of using an MSI. This option is not
 recommended because it does not use a proper package manager, and
-therefore Velociraptor can not be easily uninstalled or upgraded.</p>
-<p>Nevertheless this approach is possible to do via the Group Policy
+therefore Velociraptor can not be easily uninstalled or upgraded.</p><p>Nevertheless this approach is possible to do via the Group Policy
 scheduled tasks procedure outlined below. Simply run the following
-command:</p>
-<pre><code class=language-shell># velociraptor.exe --config client.config.yaml service install
-</code></pre>
-<p>This will copy the binary to the location specified in the
+command:</p><pre><code class=language-shell># velociraptor.exe --config client.config.yaml service install
+</code></pre><p>This will copy the binary to the location specified in the
 configuration file under <code>Client.windows_installer</code>. You can also
-change the name of the binary and the service name if you wish.</p>
-<h3 id=mac>Mac</h3>
-<p>The <code>service install</code> directive can be used to install Velociraptor on
+change the name of the binary and the service name if you wish.</p><div class="mynotices note"><div heading=" Installing the service directly "><p>Although Velociraptor supports installing the service directly as
+described above, this is not actually the recommended method. We
+recommend using the MSI as described above instead.</p><p>One common problem with installing the service is the difficulty in
+uninstalling without the MSI infrastructure being able to clean up old
+files.</p></div></div><h3 id=mac>Mac</h3><p>The <code>service install</code> directive can be used to install Velociraptor on
 Mac client. The following command installs binary & config to /usr/local/sbin.
 Persistence is via launchd (check with <code>ps -eaf | grep velo</code> and
-<code>sudo launchctl list | grep velo</code>)</p>
-<pre><code class=language-shell># velociraptor --config client.config.yaml service install
-</code></pre>
-<p>The service can be uninstalled with the following command:</p>
-<pre><code class=language-shell># /usr/local/sbin/velociraptor service remove --config=/usr/local/sbin/velociraptor.config.yaml
-</code></pre>
-<p>Confirm with <code>ps -eaf | grep velo</code> and <code>sudo launchctl list | grep velo</code>.</p>
-<h2 id=agentless-deployment>Agentless deployment</h2>
-<p>There has been a lot of interest in &ldquo;agentless hunting&rdquo; especially
-using PowerShell.</p>
-<p>There are many reasons why agentless hunting is appealing - there are
+<code>sudo launchctl list | grep velo</code>)</p><pre><code class=language-shell># velociraptor --config client.config.yaml service install
+</code></pre><p>The service can be uninstalled with the following command:</p><pre><code class=language-shell># /usr/local/sbin/velociraptor service remove --config=/usr/local/sbin/velociraptor.config.yaml
+</code></pre><p>Confirm with <code>ps -eaf | grep velo</code> and <code>sudo launchctl list | grep velo</code>.</p><h3 id=linux>Linux</h3><p>There are many different kinds of Linux system with various
+distributions and vintage. Most binaries compiled for Linux link to
+the system&rsquo;s <code>Glibc</code> library. This means that the binary will fail to
+run on older Linux systems with older <code>Glibc</code> versions. You will see
+an error similar to <code>Version GLIBC_2.14 Not Found</code> when trying to run
+the Linux binary.</p><p>The Velociraptor team ships a <code>Linux MUSL</code> binary. This binary is
+linked against a static version of the <code>MUSL</code> library allowing to run
+without any dependencies on the running OS. We find this binary is
+much more reliable and seems to work perfectly well so we recommend
+the below be used with the MUSL build in all cases.</p><p>The dpkg (Debian) or rpm (Red Hat/CentOS/Fedora) tools can be used to
+install Velociraptor on Linux clients after creating an appropriate
+package.</p><h4 id=debian-package>Debian Package</h4><p>Create a Debian package with embedded configuration file.</p><pre><code class=language-shell># velociraptor-vx.x.x-linux-amd64 --config client.config.yaml debian client
+</code></pre><p>Install the package</p><pre><code class=language-shell># sudo dpkg -i velociraptor_x.x.x_client.deb
+</code></pre><p>Remove the package</p><pre><code class=language-shell># sudo apt-get remove velociraptor-client
+</code></pre><h4 id=red-hat-package>Red Hat Package</h4><p>Create (Most OS variants with systemctl)</p><pre><code class=language-shell># velociraptor-vx.x.x-linux-amd64 --config client.config.yaml rpm client
+</code></pre><p>Very old Linux systems typically do not use the modern <code>systemd</code> and
+instead use the <code>SYSV</code> initialization method. You will need to build a
+slightly different RPM for these (with different initialization scripts).</p><p>Create (OS variants without systemctl and old GLIBC i.e. CentOS6)</p><pre><code class=language-shell># velociraptor-vx.x.x-linux-amd64-musl --config client.config.yaml rpm client --use_sysv
+</code></pre><p>Install the package</p><pre><code class=language-shell># sudo rpm -i velociraptor_x.x.x_client.rpm
+</code></pre><p>Remove the package</p><pre><code class=language-shell># rpm -qa | grep -i velociraptor
+# sudo rpm -e velociraptor-x.x.x.X86_64
+</code></pre><h2 id=agentless-deployment>Agentless deployment</h2><p>There has been a lot of interest in &ldquo;agentless hunting&rdquo; especially
+using PowerShell.</p><p>There are many reasons why agentless hunting is appealing - there are
 already a ton of endpoint agents and yet another one may not be
 welcome. Sometimes we need to deploy endpoint agents as part of a DFIR
 engagement and we may not want to permanently install yet another
-agent on endpoints.</p>
-<p>In the agentless deployment scenario, we simply run the binary from a
+agent on endpoints.</p><p>In the agentless deployment scenario, we simply run the binary from a
 network share using Group Policy settings. The downside to this
 approach is that the endpoint needs to be on the domain network to
 receive the Group Policy update (and have the network share
-accessible) before it can run Velociraptor.</p>
-<p>When we run in agentless mode, we are typically interested in
+accessible) before it can run Velociraptor.</p><p>When we run in agentless mode, we are typically interested in
 collecting a bunch of artifacts via hunts and then exiting - the agent
 will not restart after a reboot. So this method is suitable for quick
-hunts on corporate (non roaming) assets.</p>
-<h4 id=create-a-network-share>Create a network share</h4>
-<p>The first step is to create a network share with the Velociraptor
+hunts on corporate (non roaming) assets.</p><h4 id=create-a-network-share>Create a network share</h4><p>The first step is to create a network share with the Velociraptor
 binary and its configuration file. We will run the binary from the
 share in this example, but for more reliability you may want to copy
 the binary into e.g. a temp folder on the end point in case the system
 becomes disconnected from the domain. For quick hunts though, it
-should be fine.</p>
-<p>We create a directory on the server. Note that in the below example,
+should be fine.</p><p>We create a directory on the server. Note that in the below example,
 we&rsquo;re creating on a Domain Controller, but we strongly recommend using
-another location on real deployments.</p>
-<p>
-<figure>
-<img src=1.png alt="Create Share" class=captioned>
-<figcaption>Create Share</figcaption>
-</figure>
-</p>
-<p>In this example we created a directory called <code>C:\Users\Deployment</code>
+another location on real deployments.</p><p><figure><img src=1.png alt="Create Share" class=captioned><figcaption>Create Share</figcaption></figure></p><p>In this example we created a directory called <code>C:\Users\Deployment</code>
 and ensured that it&rsquo;s read-only. We shared the directory as the name
-<code>Deployment</code>.</p>
-<p>We now place the Velociraptor executable and client config file in
+<code>Deployment</code>.</p><p>We now place the Velociraptor executable and client config file in
 that directory and verify that it can run the binary from the network
 share. The binary should be accessible via
-<code>\\DC\Deployment\velociraptor.exe</code>:</p>
-<p>
-<figure>
-<img src=2.png alt="Testing Client Locally" class=captioned>
-<figcaption>Testing Client Locally</figcaption>
-</figure>
-</p>
-<h4 id=create-the-group-policy-object>Create the Group Policy object</h4>
-<p>Next we create the Group Policy object, which forces all domain
+<code>\\DC\Deployment\velociraptor.exe</code>:</p><p><figure><img src=2.png alt="Testing Client Locally" class=captioned><figcaption>Testing Client Locally</figcaption></figure></p><h4 id=create-the-group-policy-object>Create the Group Policy object</h4><p>Next we create the Group Policy object, which forces all domain
 connected machines to run the Velociraptor client. We use the Group
-Policy Management Console:</p>
-<p>
-<figure>
-<img src=3.png alt="Group Policy Object" class=captioned>
-<figcaption>Group Policy Object</figcaption>
-</figure>
-</p>
-<p>Select the OU or the entire domain and click &ldquo;Create New GPO&rdquo;:</p>
-<p>
-<figure>
-<img src=4.png alt="New GPO" class=captioned>
-<figcaption>New GPO</figcaption>
-</figure>
-</p>
-<p>Now right click the GPO object and select &ldquo;Edit&rdquo;:</p>
-<p>
-<figure>
-<img src=5.png alt="Edit GPO" class=captioned>
-<figcaption>Edit GPO</figcaption>
-</figure>
-</p>
-<p>We will create a new scheduled task. Rather than schedule it at a
+Policy Management Console:</p><p><figure><img src=3.png alt="Group Policy Object" class=captioned><figcaption>Group Policy Object</figcaption></figure></p><p>Select the OU or the entire domain and click &ldquo;Create New GPO&rdquo;:</p><p><figure><img src=4.png alt="New GPO" class=captioned><figcaption>New GPO</figcaption></figure></p><p>Now right click the GPO object and select &ldquo;Edit&rdquo;:</p><p><figure><img src=5.png alt="Edit GPO" class=captioned><figcaption>Edit GPO</figcaption></figure></p><p>We will create a new scheduled task. Rather than schedule it at a
 particular time, we will select to run it immediately. This will force
 the command to run as soon as the endpoint updates its Group Policy
 settings, because we don&rsquo;t want to wait for the next reboot of the
-endpoint.</p>
-<p>
-<figure>
-<img src=6.png alt="Scheduled Task" class=captioned>
-<figcaption>Scheduled Task</figcaption>
-</figure>
-</p>
-<p>Next we give the task a name and a description. In order to allow
+endpoint.</p><p><figure><img src=6.png alt="Scheduled Task" class=captioned><figcaption>Scheduled Task</figcaption></figure></p><p>Next we give the task a name and a description. In order to allow
 Velociraptor to access raw devices (e.g. to collect memory or NTFS
 artifacts) we can specify that the client will run at
 <code>NT_AUTHORITY\SYSTEM</code> privileges and run without any user being logged
-on.</p>
-<p>It&rsquo;s also worth ticking the &ldquo;hidden&rdquo; checkbox here to prevent a
-console box from appearing.</p>
-<p>
-<figure>
-<img src=7.png alt="Adding a new task" class=captioned>
-<figcaption>Adding a new task</figcaption>
-</figure>
-</p>
-<p>Next click the Actions tab and add a new action. This is where we
+on.</p><p>It&rsquo;s also worth ticking the &ldquo;hidden&rdquo; checkbox here to prevent a
+console box from appearing.</p><p><figure><img src=7.png alt="Adding a new task" class=captioned><figcaption>Adding a new task</figcaption></figure></p><p>Next click the Actions tab and add a new action. This is where we
 launch the Velociraptor client. The program will simply be launched
 from the share (i.e. <code>\\DC\Deployment\velociraptor.exe</code>) and we give
 it the arguments allowing it to read the provided configuration file
-(i.e. <code>--config \\DC\Deployment\client.config.yaml client -v</code>).</p>
-<p>
-<figure>
-<img src=8.png alt="Specifying task action" class=captioned>
-<figcaption>Specifying task action</figcaption>
-</figure>
-</p>
-<p>In the &ldquo;Setting&rdquo; tab we can control how long we want the client to
+(i.e. <code>--config \\DC\Deployment\client.config.yaml client -v</code>).</p><p><figure><img src=8.png alt="Specifying task action" class=captioned><figcaption>Specifying task action</figcaption></figure></p><p>In the &ldquo;Setting&rdquo; tab we can control how long we want the client to
 run. For a quick hunt, this may be an hour or two depending on the
 network size and hunt scope. For a more comprehensive DFIR collection,
 be prepared to wait several hours or even days while user machines are
 naturally disconnected and reconnected from the network. The GPO will
-ensure the client is killed after the allotted time.</p>
-<p>
-<figure>
-<img src=9.png alt="Task settings" class=captioned>
-<figcaption>Task settings</figcaption>
-</figure>
-</p>
-<p>Once the GPO is installed it becomes active for all domain
+ensure the client is killed after the allotted time.</p><p><figure><img src=9.png alt="Task settings" class=captioned><figcaption>Task settings</figcaption></figure></p><p>Once the GPO is installed it becomes active for all domain
 machines. You can now schedule any hunts you wish using the
 Velociraptor GUI. When a domain machine refreshes its Group Policy, it
 will run the client, which will enrol and immediately participate in
 any outstanding hunts - thus collecting and delivering its artifacts
-to the server.</p>
-<p>After the allotted time has passed, the client will shut down without
-having installed anything on the endpoint.</p>
-<p>You can force a Group Policy update by running the <code>gpupdate</code>
-program. Now you can verify that Velociraptor is running:</p>
-<p>
-<figure>
-<img src=10.png alt="Task manager output" class=captioned>
-<figcaption>Task manager output</figcaption>
-</figure>
-</p>
-<footer class=footline>
-</footer>
-</div>
-</div>
-<div id=navigation>
-</div>
-</section>
-<div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
-<div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
-</div>
-<script src=/js/clipboard.min.js?1637855120></script>
-<script src=/js/perfect-scrollbar.min.js?1637855120></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1637855120></script>
-<script src=/js/jquery.sticky.js?1637855120></script>
-<script src=/js/featherlight.min.js?1637855120></script>
-<script src=/js/highlight.min.js?1637855120></script>
-<script>hljs.highlightAll()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1637855120></script>
-<script src=/js/learn.js?1637855120></script>
-<script src=/js/hugo-learn.js?1637855120></script>
-</body>
-</html>
+to the server.</p><p>After the allotted time has passed, the client will shut down without
+having installed anything on the endpoint.</p><p>You can force a Group Policy update by running the <code>gpupdate</code>
+program. Now you can verify that Velociraptor is running:</p><p><figure><img src=10.png alt="Task manager output" class=captioned><figcaption>Task manager output</figcaption></figure></p><div class="mynotices note"><div heading=" Preventing multiple instances of Velociraptor "><p>In our experience GPO deployments are not very reliable - we often
+find the Velociraptor client will be launched multiple times on the
+endpoint. It is highly recommended that you use the <code>--mutant</code> flag to
+specify a mutant preventing the client from starting multiple times.</p><pre><code>velociraptor.exe --config ... client -v --mutant ArandomString
+</code></pre></div></div><h2 id=client-upgrades>Client upgrades</h2><p>The client&rsquo;s identity is derived from the client&rsquo;s cryptographic
+certificate which is stored in the <code>writeback</code> location on the
+endpoint (For example by default <code>C:\Program Files\Velociraptor\velociraptor.writeback.yaml</code>).</p><p>We generally try to preserve this file between updates in order to
+ensure clients do not change their client id. The default provided
+<code>Wix</code> script ensures the file remains (even if the package is
+uninstalled completely) in order to ensure a consistent client id for
+the host.</p><p>Generally it is sufficient to repackage the latest client binary in a
+new MSI, after downloading it from the <a href=https://github.com/Velocidex/velociraptor/releases>GitHub Release
+Page</a>. Installing
+the new MSI is simply a matter of using standard software management
+tools.</p><div class="mynotices tip"><div heading=" Remotely upgrading Velociraptor "><p>It is possible to remotely upgrade the client by pushing the new MSI
+to the endpoint and installing it. This is handled by the
+<code>Admin.Client.Upgrade</code> artifact. To use it, simply collect the
+artifact from the endpoint and click the tool setup screen.</p><p><figure><img src=remote_upgrade_msi.png alt="Configuring remote upgrade artifact" class=captioned><figcaption>Configuring remote upgrade artifact</figcaption></figure></p><p>In the tools setup screen select the MSI to push from your browser and
+upload it to the server.</p><p><figure><img src=remote_upgrade_msi_2.png alt="Uploading client MSI to the server" class=captioned><figcaption>Uploading client MSI to the server</figcaption></figure></p><p>Note that when installing the MSI using Velociraptor, the Velociraptor
+process will be killed part way through collecting the artifact, so it
+would appear to never complete it (in the GUI the flow looks
+hung). This is OK and part of the upgrade process.</p></div></div><p>To verify that clients are upgraded we recommend running the
+<code>Generic.Client.Info</code> hunt periodically. This hunt will refresh the
+server&rsquo;s datastore of client details (including reporting the client&rsquo;s
+version).</p><footer class=footline></footer></div></div><div id=navigation></div></section><div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px><div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div></div><script src=/js/clipboard.min.js?1692614572></script>
+<script src=/js/perfect-scrollbar.min.js?1692614572></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1692614572></script>
+<script src=/js/jquery.sticky.js?1692614572></script>
+<script src=/js/featherlight.min.js?1692614572></script>
+<script src=/js/highlight.min.js?1692614572></script>
+<script>hljs.highlightAll()</script><script src=/js/modernizr.custom-3.6.0.js?1692614572></script>
+<script src=/js/learn.js?1692614572></script>
+<script src=/js/hugo-learn.js?1692614572></script></body></html>

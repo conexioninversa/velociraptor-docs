@@ -1,0 +1,480 @@
+<!doctype html><html lang=en class="js csstransforms3d"><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo 0.117.0"><meta name=description content><link rel=icon href=/images/favicon.png type=image/png><title>Reporting.Default :: Velociraptor - Digging deeper!</title><link href=/css/nucleus.css?1692614563 rel=stylesheet><link href=/css/fontawesome-all.min.css?1692614563 rel=stylesheet><link href=/css/featherlight.min.css?1692614563 rel=stylesheet><link href=/css/perfect-scrollbar.min.css?1692614563 rel=stylesheet><link href=/css/auto-complete.css?1692614563 rel=stylesheet><link href=/css/theme.css?1692614563 rel=stylesheet><link href=/css/tabs.css?1692614563 rel=stylesheet><link href=/css/hugo-theme.css?1692614563 rel=stylesheet><link href=/css/theme-mine.css?1692614563 rel=stylesheet><link href=/css/dark.css?1692614563 rel=stylesheet><link href=/css/syntax.css?1692614563 rel=stylesheet><link href=/css/light.css?1692614563 rel=stylesheet><link href=/css/hljs.css?1692614563 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1692614563 rel=stylesheet><script src=/js/jquery-3.3.1.min.js?1692614563></script><style>:root #header+#content>#left>#rlblock_left{display:none!important}</style><script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
+<script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-QYH72LMYCS",{anonymize_ip:!1})}</script><script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","G-QYH72LMYCS","auto"),ga("send","pageview"))</script><script async src=https://www.google-analytics.com/analytics.js></script>
+<script></script></head><body data-url=/artifact_references/pages/reporting.default/><nav id=sidebar><div id=header-wrapper><div id=header><script>function darkmode(){$("body").addClass("dark").removeClass("light"),document.cookie="theme=darkmode;path=/"}function lightmode(){$("body").removeClass("dark").addClass("light"),document.cookie="theme=lightmode;path=/"}const regex=new RegExp("theme=darkmode");regex.test(document.cookie)?darkmode():lightmode()</script><div class="btn btn-default ThemeSelector darkmode" onclick=darkmode()><i class="fas fa-moon"></i></div><div class="btn btn-default ThemeSelector lightmode" onclick=lightmode()><i class="fas fa-sun"></i></div><a href=https://docs.velociraptor.app/><img src=https://docs.velociraptor.app//images/logo.svg></a></div></div><div class=highlightable><ul class=topics><li data-nav-id=https://docs.velociraptor.app/announcements/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/announcements/><i class="fas fa-bullhorn"></i>Announcements</a></div><ul><li data-nav-id=https://docs.velociraptor.app/announcements/2023-cves/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/announcements/2023-cves/>Current CVEs</a></div></li><li data-nav-id=https://docs.velociraptor.app/announcements/2023-trainings/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/announcements/2023-trainings/>Trainings</a></div></li><li data-nav-id=https://docs.velociraptor.app/announcements/2023-velocon/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/announcements/2023-velocon/>VeloCON 2023</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/docs/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/docs/><i class="fas fa-book-reader"></i>Documentation</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/overview/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/docs/overview/>Velociraptor Overview</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/overview/history/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/overview/history/>History</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/overview/support/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/overview/support/>Support Policy</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/docs/deployment/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/docs/deployment/>Deployment</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/deployment/self-signed/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/deployment/self-signed/>Self-Signed SSL</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/deployment/cloud/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/docs/deployment/cloud/>Cloud Deployment</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/deployment/cloud/multifrontend/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/deployment/cloud/multifrontend/>Multi-Frontend</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/docs/deployment/clients/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/deployment/clients/>Deploying Clients</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/deployment/rbac/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/deployment/rbac/>Users and Roles</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/deployment/resources/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/deployment/resources/>Performance</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/deployment/troubleshooting/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/deployment/troubleshooting/>Troubleshooting</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/deployment/references/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/deployment/references/>Config Reference</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/docs/gui/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/docs/gui/>The Admin GUI</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/gui/clients/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/gui/clients/>Inspecting clients</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/gui/vfs/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/gui/vfs/>The VFS</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/gui/artifacts/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/gui/artifacts/>Artifacts</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/gui/hunting/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/gui/hunting/>Hunting</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/docs/vql/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/docs/vql/>VQL Fundamentals</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/vql/notebooks/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/vql/notebooks/>Notebooks</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/vql/artifacts/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/vql/artifacts/>Artifacts</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/vql/events/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/vql/events/>Event Queries</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/docs/forensic/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/docs/forensic/>Forensic Analysis</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/forensic/filesystem/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/forensic/filesystem/>Searching Filenames</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/forensic/searching/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/forensic/searching/>Searching Content</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/forensic/ntfs/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/forensic/ntfs/>NTFS Analysis</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/forensic/binary/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/forensic/binary/>Binary parsing</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/forensic/evidence_of_execution/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/forensic/evidence_of_execution/>Evidence Of Execution</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/forensic/event_logs/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/forensic/event_logs/>Event Logs</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/forensic/volatile/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/forensic/volatile/>Volatile State</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/docs/offline_triage/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/docs/offline_triage/>Triage and acquisition</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/offline_triage/remote_uploads/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/offline_triage/remote_uploads/>Remote Uploads</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/docs/client_monitoring/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/client_monitoring/>Client Monitoring</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/extending_vql/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/extending_vql/>Extending VQL</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/server_automation/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/docs/server_automation/>Server Automation</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/server_automation/server_api/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/server_automation/server_api/>Server API</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/server_automation/server_monitoring/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/server_automation/server_monitoring/>Server Monitoring</a></div></li></ul></li></ul></li><hr><li data-nav-id=https://docs.velociraptor.app/vql_reference/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/vql_reference/><i class="fas fa-book"></i>VQL Reference</a></div><ul><li data-nav-id=https://docs.velociraptor.app/vql_reference/basic/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/basic/>Basic VQL</a></div></li><li data-nav-id=https://docs.velociraptor.app/vql_reference/linux/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/linux/>Linux Specific</a></div></li><li data-nav-id=https://docs.velociraptor.app/vql_reference/windows/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/windows/>Windows Specific</a></div></li><li data-nav-id=https://docs.velociraptor.app/vql_reference/parsers/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/parsers/>Parsers</a></div></li><li data-nav-id=https://docs.velociraptor.app/vql_reference/server/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/server/>Server Side</a></div></li><li data-nav-id=https://docs.velociraptor.app/vql_reference/plugin/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/plugin/>Client Side</a></div></li><li data-nav-id=https://docs.velociraptor.app/vql_reference/event/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/event/>Event Plugins</a></div></li><li data-nav-id=https://docs.velociraptor.app/vql_reference/experimental/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/experimental/>Experimental</a></div></li><li data-nav-id=https://docs.velociraptor.app/vql_reference/misc/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/misc/>Misc</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/training/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/training/><i class="fas fa-graduation-cap"></i>Training</a></div></li><li data-nav-id=https://docs.velociraptor.app/blog/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/blog/><i class="fas fa-newspaper"></i>Blog</a></div></li><li data-nav-id=https://docs.velociraptor.app/presentations/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/presentations/><i class="fas fa-chalkboard-teacher"></i>Presentations</a></div><ul><li data-nav-id=https://docs.velociraptor.app/presentations/2022_linuxconf_au/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/presentations/2022_linuxconf_au/>Linux Conf Au 2022</a></div></li><li data-nav-id=https://docs.velociraptor.app/presentations/2022_auscert/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/presentations/2022_auscert/>Auscert 2022</a></div></li><li data-nav-id=https://docs.velociraptor.app/presentations/2022_dfrws_us/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/presentations/2022_dfrws_us/>DFRWS US 2022</a></div></li><li data-nav-id=https://docs.velociraptor.app/presentations/2022_tech_user_group_cbr/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/presentations/2022_tech_user_group_cbr/>Tech Users Group 2022</a></div></li><li data-nav-id=https://docs.velociraptor.app/presentations/2022_sans_summit/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/presentations/2022_sans_summit/>SANS Summit 2022</a></div></li><li data-nav-id=https://docs.velociraptor.app/presentations/2022_velocon/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/presentations/2022_velocon/>Velocon 2022</a></div></li><li data-nav-id=https://docs.velociraptor.app/presentations/2022_dfrws_apac/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/presentations/2022_dfrws_apac/>DFRWS APAC 2022</a></div></li><li data-nav-id=https://docs.velociraptor.app/presentations/2023_everything_open/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/presentations/2023_everything_open/>EverythingOpen 2023</a></div></li><li data-nav-id=https://docs.velociraptor.app/presentations/2023_auscert/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/presentations/2023_auscert/>Auscert 2023</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/exchange/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/exchange/><i class="fas fa-code"></i>Artifact Exchange</a></div></li><li data-nav-id=https://docs.velociraptor.app/artifact_references/ class="dd-item parent haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/artifact_references/><i class="fas fa-book"></i>Artifact Reference</a></div></li><li data-nav-id=https://docs.velociraptor.app/knowledge_base/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/knowledge_base/><i class="fas fa-brain"></i>Knowledge Base</a></div></li><li data-nav-id=https://docs.velociraptor.app/search/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/search/><i class='fas fa-search'></i>Search</a></div></li></ul><hr><section id=shortcuts><h3></h3><ul><li><a class=padding href=https://github.com/Velocidex/velociraptor><i class='fab fa-github'></i>Github</a></li><li><a class=padding href=https://docs.velociraptor.app/discord/><i class='fab fa-discord'></i>Discord</a></li><li><a class=padding href=mailto:velociraptor-discuss@googlegroups.com><i class='fas fa-envelope'></i>Mailing List</a></li><li><a class=padding href=https://docs.velociraptor.app/rss/><i class='fas fa-rss'></i>RSS</a></li></ul></section><section id=footer><div class=footer-copyright>Brought to you by
+<img src=/images/Rapid7_logo.svg class=rapid7><br><i class="fas fa-copyright"></i> 2022</div></section></div></nav><script>$("#sidebar i.fa-angle-right").each(function(){$(this).parent().parent().find("ul").hide()})</script><section id=body><div id=overlay></div><div class="padding highlightable"><div><div id=top-bar><div id=top-github-link><a class=github-link title='Edit this page' href=https://github.com/Velocidex/velociraptor-docs/edit/master/content/artifact_references/pages/reporting.default.md target=blank><i class="fas fa-code-branch"></i>
+<span id=top-github-link-text>Edit this page</span></a></div><div id=breadcrumbs itemscope itemtype=http://data-vocabulary.org/Breadcrumb><span id=sidebar-toggle-span><a href=# id=sidebar-toggle data-sidebar-toggle><i class="fas fa-bars"></i></a></span>
+<span id=toc-menu><i class="fas fa-list-alt"></i></span>
+<span class=links>Reporting.Default</span></div><div class=progress><div class=wrapper><nav id=TableOfContents><ul><li><a href=#notes>Notes</a></li></ul></nav></div></div></div></div><div id=head-tags><div class=tags><a class=tag-link href=/tags/server-artifact>Server Artifact</a></div></div><div id=body-inner><h1>Reporting.Default</h1><p>A default template for HTML export. This template will be used to
+host html exports such as the notebook and the reporting
+templates. Velociraptor will evaluate this template on the following
+dict:</p><ul><li>key main: contains a string with all the results of rendering
+the notebook inside.</li></ul><h2 id=notes>Notes</h2><ol><li><p>All html elements are allowed in a html template.</p></li><li><p>It is possible to run arbitrary VQL (and therefore arbitrary
+code) inside HTML templates. Therefore to modify this you will
+need the SERVER_ARTIFACT_WRITER permission.</p></li></ol><pre><code class=language-yaml>name: Reporting.Default
+
+type: SERVER
+
+description: |
+  A default template for HTML export.  This template will be used to
+  host html exports such as the notebook and the reporting
+  templates. Velociraptor will evaluate this template on the following
+  dict:
+
+    - key main: contains a string with all the results of rendering
+                the notebook inside.
+
+  ## Notes
+
+  1. All html elements are allowed in a html template.
+
+  2. It is possible to run arbitrary VQL (and therefore arbitrary
+     code) inside HTML templates. Therefore to modify this you will
+     need the SERVER_ARTIFACT_WRITER permission.
+
+reports:
+  - name: Templates
+    type: TEMPLATES
+    template: |
+       {{ define &quot;fold_start&quot; }}
+       &lt;div role=&quot;button&quot; class=&quot;btn btn-primary btn-block row collapsible&quot;&gt;View Details&lt;/div&gt;
+       &lt;div class=&quot;collapse row&quot;&gt;&lt;div class=&quot;card card-body overflow-auto&quot;&gt;
+       {{end}}
+       {{ define &quot;fold_end&quot; }}
+       &lt;/div&gt;&lt;/div&gt;
+       {{ end }}
+
+       {{ define &quot;hidden_paragraph_start&quot; }}
+       {{- if .description -}}
+       &lt;div&gt;&lt;a href=&quot;#&quot; class=&quot;collapsible&quot;&gt;{{ .description }} ...&lt;/a&gt;
+       {{- else -}}
+       &lt;div&gt;&lt;a href=&quot;#&quot; class=&quot;collapsible&quot;&gt;More ...&lt;/a&gt;
+       {{- end -}}
+       &lt;div class=&quot;collapse&quot;&gt;
+       {{end}}
+
+       {{ define &quot;hidden_paragraph_end&quot; }}
+       &lt;/div&gt;&lt;/div&gt;
+       {{ end }}
+
+
+  - type: HTML
+    template: |
+      {{ import &quot;Reporting.Default&quot; &quot;Templates&quot; }}
+
+      &lt;!doctype html&gt;
+       &lt;html lang=&quot;en-US&quot;&gt;
+         &lt;head&gt;
+         {{ $hostinfo := Query &quot;SELECT timestamp(epoch=now()).UTC.String AS Time, \
+             OS, Fqdn FROM info()&quot; | Expand }}
+
+           &lt;meta charset=&quot;utf-8&quot;&gt;
+           &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;
+           &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+
+           &lt;!-- Name of the scan --&gt;
+           &lt;title&gt;{{ Get $hostinfo &quot;0.Fqdn&quot; }} Artifact Collection&lt;/title&gt;
+           &lt;style&gt;
+             @charset &quot;UTF-8&quot;;
+           body {
+             padding-top: 57px;
+           }
+           .btn-primary.btn {
+              color: #00aa00;
+              background-color: #fff;
+              border-color: #fff;
+           }
+           .btn-primary.btn:hover {
+              color: #fff;
+              background-color: #00911e;
+              border-color: #00911e;
+           }
+           .btn.btn-primary:not(:disabled):not(.disabled):active, .btn.btn-primary:not(:disabled):not(.disabled).active {
+              color: #fff;
+              background-color: #008773;
+              border-color: #008773;
+           }
+           .btn.btn-primary:focus, .btn.btn-primary.focus {
+             color: #fff;
+              background-color: #00911e;
+              border-color: #00911e;
+             box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.5);
+           }
+           .header {
+               background-color: black;
+               border-bottom: 1px solid #00aa00;
+           }
+           .collapse {
+             display: none;
+           }
+           .anchor {
+             display: block;
+             position: relative;
+             top: -57px;
+             visibility: hidden;
+           }
+           .logo {
+             margin-top: -17px;
+             margin-bottom: -10px;
+             margin-left: 20px;
+             height: 40px;
+           }
+
+           .section {
+               color: #FFFFFF;
+               font-size: 24px;
+               background-color: #00aa00;
+               font-family: Gotham, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif;
+               font-variant: normal;
+               padding-top: 15px;
+               padding-bottom: 15px;
+               text-align: center;
+           }
+           .top-section {
+               border-bottom-left-radius: 40px;
+               border-bottom-right-radius: 40px;
+           }
+
+           /* Error */  .chromaerr { color: #a61717; background-color: #e3d2d2 }
+           /* LineTableTD */  .chromalntd { vertical-align: top; padding: 0; margin: 0; border: 0; }
+           /* LineTable */  .chromalntable { border-spacing: 0; padding: 0; margin: 0; border: 0; width: auto; overflow: auto; display: block; }
+           /* LineHighlight */  .chromahl { display: block; width: 100%; }
+           /* LineNumbersTable */  .chromalnt { margin-right: 0.4em; padding: 0 0.4em 0 0.4em; }
+           /* LineNumbers */  .chromaln { display: none; margin-right: 0.4em; padding: 0 0.4em 0 0.4em; }
+           /* Keyword */  .chromak { color: #000000; font-weight: bold }
+           /* KeywordConstant */  .chromakc { color: #000000; font-weight: bold }
+           /* KeywordDeclaration */  .chromakd { color: #000000; font-weight: bold }
+           /* KeywordNamespace */  .chromakn { color: #000000; font-weight: bold }
+           /* KeywordPseudo */  .chromakp { color: #000000; font-weight: bold }
+           /* KeywordReserved */  .chromakr { color: #000000; font-weight: bold }
+           /* KeywordType */  .chromakt { color: #445588; font-weight: bold }
+           /* NameAttribute */  .chromana { color: #008080 }
+           /* NameBuiltin */  .chromanb { color: #0086b3 }
+           /* NameBuiltinPseudo */  .chromabp { color: #999999 }
+           /* NameClass */  .chromanc { color: #445588; font-weight: bold }
+           /* NameConstant */  .chromano { color: #008080 }
+           /* NameDecorator */  .chromand { color: #3c5d5d; font-weight: bold }
+           /* NameEntity */  .chromani { color: #800080 }
+           /* NameException */  .chromane { color: #990000; font-weight: bold }
+           /* NameFunction */  .chromanf { color: #990000; font-weight: bold }
+           /* NameLabel */  .chromanl { color: #990000; font-weight: bold }
+           /* NameNamespace */  .chromann { color: #555555 }
+           /* NameTag */  .chromant { color: #000080 }
+           /* NameVariable */  .chromanv { color: #008080 }
+           /* NameVariableClass */  .chromavc { color: #008080 }
+           /* NameVariableGlobal */  .chromavg { color: #008080 }
+           /* NameVariableInstance */  .chromavi { color: #008080 }
+           /* LiteralString */  .chromas { color: #dd1144 }
+           /* LiteralStringAffix */  .chromasa { color: #dd1144 }
+           /* LiteralStringBacktick */  .chromasb { color: #dd1144 }
+           /* LiteralStringChar */  .chromasc { color: #dd1144 }
+           /* LiteralStringDelimiter */  .chromadl { color: #dd1144 }
+           /* LiteralStringDoc */  .chromasd { color: #dd1144 }
+           /* LiteralStringDouble */  .chromas2 { color: #dd1144 }
+           /* LiteralStringEscape */  .chromase { color: #dd1144 }
+           /* LiteralStringHeredoc */  .chromash { color: #dd1144 }
+           /* LiteralStringInterpol */  .chromasi { color: #dd1144 }
+           /* LiteralStringOther */  .chromasx { color: #dd1144 }
+           /* LiteralStringRegex */  .chromasr { color: #009926 }
+           /* LiteralStringSingle */  .chromas1 { color: #dd1144 }
+           /* LiteralStringSymbol */  .chromass { color: #990073 }
+           /* LiteralNumber */  .chromam { color: #009999 }
+           /* LiteralNumberBin */  .chromamb { color: #009999 }
+           /* LiteralNumberFloat */  .chromamf { color: #009999 }
+           /* LiteralNumberHex */  .chromamh { color: #009999 }
+           /* LiteralNumberInteger */  .chromami { color: #009999 }
+           /* LiteralNumberIntegerLong */  .chromail { color: #009999 }
+           /* LiteralNumberOct */  .chromamo { color: #009999 }
+           /* Operator */  .chromao { color: #000000; font-weight: bold }
+           /* OperatorWord */  .chromaow { color: #000000; font-weight: bold }
+           /* Comment */  .chromac { color: #999988; font-style: italic }
+           /* CommentHashbang */  .chromach { color: #999988; font-style: italic }
+           /* CommentMultiline */  .chromacm { color: #999988; font-style: italic }
+           /* CommentSingle */  .chromac1 { color: #999988; font-style: italic }
+           /* CommentSpecial */  .chromacs { color: #999999; font-weight: bold; font-style: italic }
+           /* CommentPreproc */  .chromacp { color: #999999; font-weight: bold; font-style: italic }
+           /* CommentPreprocFile */  .chromacpf { color: #999999; font-weight: bold; font-style: italic }
+           /* GenericDeleted */  .chromagd { color: #000000; background-color: #ffdddd }
+           /* GenericEmph */  .chromage { color: #000000; font-style: italic }
+           /* GenericError */  .chromagr { color: #aa0000 }
+           /* GenericHeading */  .chromagh { color: #999999 }
+           /* GenericInserted */  .chromagi { color: #000000; background-color: #ddffdd }
+           /* GenericOutput */  .chromago { color: #888888 }
+           /* GenericPrompt */  .chromagp { color: #555555 }
+           /* GenericStrong */  .chromags { font-weight: bold }
+           /* GenericSubheading */  .chromagu { color: #aaaaaa }
+           /* GenericTraceback */  .chromagt { color: #aa0000 }
+           /* TextWhitespace */  .chromaw { color: #bbbbbb }
+
+           &lt;/style&gt;
+           &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1, shrink-to-fit=no&quot;&gt;
+
+           &lt;!-- Bootstrap core CSS --&gt;
+           &lt;link rel=&quot;stylesheet&quot; href=&quot;https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css&quot; integrity=&quot;sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh&quot; crossorigin=&quot;anonymous&quot;&gt;
+           &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css&quot; &gt;
+
+           &lt;script src=&quot;https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js&quot;&gt;&lt;/script&gt;
+           &lt;script src=&quot;https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js&quot; integrity=&quot;sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6&quot; crossorigin=&quot;anonymous&quot;&gt;&lt;/script&gt;
+           &lt;script src=&quot;https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js&quot;&gt;&lt;/script&gt;
+         &lt;/head&gt;
+         &lt;body&gt;
+           &lt;nav class=&quot;header navbar navbar-expand-lg navbar-dark fixed-top&quot;&gt;
+             &lt;a class=&quot;navbar-brand&quot; href=&quot;#&quot; aria-label=&quot;CyberCX&quot;&gt;
+               &lt;img src=&quot;https://www.velocidex.com/images/logos/velo_word_on_side.svg&quot; class=&quot;logo&quot;/&gt;
+             &lt;/a&gt;
+             &lt;button class=&quot;navbar-toggler&quot; type=&quot;button&quot;
+                     data-toggle=&quot;collapse&quot;
+                     data-target=&quot;#navbarSupportedContent&quot;
+                     aria-controls=&quot;navbarSupportedContent&quot;
+                     aria-expanded=&quot;false&quot; aria-label=&quot;Toggle navigation&quot;&gt;
+               &lt;span class=&quot;navbar-toggler-icon&quot;&gt;&lt;/span&gt;
+             &lt;/button&gt;
+             &lt;div class=&quot;collapse navbar-collapse&quot; id=&quot;navbarSupportedContent&quot;&gt;
+               &lt;ul class=&quot;navbar-nav mr-auto&quot;&gt;
+                 &lt;li class=&quot;nav-item active&quot;&gt;
+                   &lt;a class=&quot;nav-link&quot; href=&quot;#&quot;&gt;Top &lt;span class=&quot;sr-only&quot;&gt;(top)&lt;/span&gt;&lt;/a&gt;
+                 &lt;/li&gt;
+                 &lt;li class=&quot;nav-item&quot;&gt;
+                   &lt;a class=&quot;nav-link&quot; href=&quot;https://github.com/Velocidex/velociraptor&quot;&gt;GitHub&lt;/a&gt;
+                 &lt;/li&gt;
+                 &lt;li class=&quot;nav-item&quot;&gt;
+                   &lt;a class=&quot;nav-link&quot; href=&quot;#&quot; id=&quot;print-button&quot;&gt;Print&lt;/a&gt;
+                 &lt;/li&gt;
+
+                 &lt;li class=&quot;nav-item dropdown&quot;&gt;
+                   &lt;a class=&quot;nav-link dropdown-toggle&quot; href=&quot;#&quot;
+                   id=&quot;navbarDropdown&quot; role=&quot;button&quot;
+                   data-toggle=&quot;dropdown&quot;
+                   aria-haspopup=&quot;true&quot; aria-expanded=&quot;false&quot;&gt;
+                     Artifacts Collected
+                   &lt;/a&gt;
+                   &lt;div class=&quot;dropdown-menu&quot; aria-labelledby=&quot;navbarDropdown&quot;&gt;
+                     {{ range .parts }}
+                     &lt;a class=&quot;dropdown-item&quot; href=&quot;#{{- .Artifact.Name -}}&quot;&gt;
+                         {{ .Artifact.Name }}
+                     &lt;/a&gt;
+                     {{ end }}
+                   &lt;/div&gt;
+                 &lt;/li&gt;
+               &lt;/ul&gt;
+             &lt;/div&gt;
+           &lt;/nav&gt;
+
+           &lt;main role=&quot;main&quot; class=&quot;container&quot;&gt;
+             &lt;div class=&quot;row section top-section&quot;&gt;
+               &lt;div class=&quot;col&quot;&gt;
+                 {{ $data := Query &quot;SELECT timestamp(epoch=now()).UTC.String AS Time, OS, Fqdn FROM info()&quot; | Expand }}
+                 {{ Get $hostinfo &quot;0.Fqdn&quot; }} Artifact Collection
+               &lt;/div&gt;
+               &lt;div class=&quot;col&quot;&gt;{{- Get $data &quot;0&quot; -}}&lt;/div&gt;
+             &lt;/div&gt;
+
+             {{ range .parts }}
+
+             &lt;div class=&quot;&quot;&gt;
+               &lt;a class=&quot;anchor&quot; name=&quot;{{- .Artifact.Name -}}&quot;&gt;&lt;/a&gt;
+               &lt;!-- If the artifact has its own report, just include it as is --&gt;
+               {{ if .HTML }}
+                 {{ .HTML }}
+               {{ else }}
+                 &lt;!-- Default report in case the artifact does not have one --&gt;
+                 &lt;h1&gt;{{ .Artifact.Name }}
+                     &lt;div class=&quot;btn btn-primary-outline float-right&quot;&gt;{{ .Artifact.Author }}
+                     &lt;/div&gt;
+                 &lt;/h1&gt;
+
+                 {{ $name := .Artifact.Name }}
+
+                 {{ template &quot;hidden_paragraph_start&quot; dict &quot;description&quot; &quot;View Artifact Description&quot; }}
+                   {{ Markdown .Artifact.Description }}
+
+                   {{ if .Artifact.Reference }}
+                     &lt;h3&gt;References&lt;/h3&gt;
+                     &lt;ul&gt;
+                       {{ range .Artifact.Reference }}
+                       &lt;li&gt;&lt;a href=&quot;{{ . }}&quot;&gt;{{ . }}&lt;/a&gt;&lt;/li&gt;
+                       {{ end }}
+                     &lt;/ul&gt;
+                   {{ end }}
+                 {{ template &quot;hidden_paragraph_end&quot; }}
+
+                 {{ range .Artifact.Sources }}
+                    {{ $source := print &quot;source(\n  source='&quot; .Name &quot;', artifact='&quot; $name &quot;')&quot; }}
+                    {{ $query := print &quot;SELECT * FROM &quot; $source &quot; \nLIMIT 100&quot; }}
+
+                    &lt;!-- There could be a huge number of rows just to get the count, so we cap at 10000 --&gt;
+                    {{ $count := Get ( Query (print &quot;LET X = SELECT * FROM &quot; $source \
+                       &quot; LIMIT 10000 SELECT 1 AS ALL, count() AS Count FROM X Group BY ALL&quot;) | Expand ) \
+                       &quot;0.Count&quot; }}
+
+                    {{ if $count }}
+                      {{ if .Name }}
+                        &lt;h3&gt;Source {{ $name }}/{{ .Name }}&lt;/h3&gt;
+                        {{ Markdown .Description }}
+                      {{ end }}
+
+                      &lt;!-- Show the artifact source if required. --&gt;
+                      {{ template &quot;hidden_paragraph_start&quot; dict &quot;description&quot; &quot;Source&quot; }}
+                      &lt;div class=&quot;row card card-body noprint&quot;&gt;
+                        {{ if .Query }}
+                          {{ Markdown ( print &quot;```vql\n&quot; .Query  &quot;```\n&quot;) }}
+                        {{ else }}
+                          {{ range .Queries }}
+                            {{ Markdown ( print &quot;```vql\n&quot; .  &quot;```\n&quot;) }}
+                          {{ end }}
+                        {{ end }}
+                      &lt;/div&gt;
+                      {{ template &quot;hidden_paragraph_end&quot; }}
+
+                      &lt;!-- If this is a flow show the parameters. --&gt;
+                      {{ $flow := Query &quot;LET X = SELECT Request.Parameters.env AS Env FROM flows(client_id=ClientId, flow_id=FlowId)&quot; \
+                      &quot;SELECT * FROM foreach(row=X[0].Env, query={ SELECT Key, Value FROM scope()})&quot; | Expand }}
+                      {{ if $flow }}
+                        {{ template &quot;hidden_paragraph_start&quot; dict &quot;description&quot; &quot;Parameters&quot; }}
+                        &lt;div class=&quot;row card card-body noprint&quot;&gt;
+                          &lt;h3&gt; Parameters &lt;/h3&gt;
+
+                          &lt;table class=&quot;table&quot;&gt;&lt;thead&gt;&lt;th&gt;Key&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;/thead&gt;
+                            &lt;tbody&gt;
+                              {{ range $flow }}
+                                &lt;tr&gt;&lt;td&gt;{{ Get . &quot;Key&quot; }}&lt;/td&gt;&lt;td&gt;{{ Get . &quot;Value&quot; }}&lt;/td&gt;&lt;/tr&gt;
+                              {{ end }}
+                            &lt;/tbody&gt;
+                          &lt;/table&gt;
+                        &lt;/div&gt;
+                        {{ template &quot;hidden_paragraph_end&quot; }}
+                      {{ end }}
+
+                      {{ if gt $count 9999 }}
+                        &lt;p&gt;The source produced more than {{ $count }} rows.&lt;/p&gt;
+                      {{ else }}
+                        &lt;p&gt;The source retrieved a total of {{ $count }} rows.&lt;/p&gt;
+                      {{ end }}
+
+                      {{ template &quot;fold_start&quot; }}
+                      &lt;div class=&quot;noprint&quot;&gt;
+                        &lt;p&gt; Below you will find a table of the first 100 rows, obtained by the VQL query:
+                        &lt;/p&gt;
+                        {{ Markdown (print &quot;```vql\n&quot; $query &quot;\n```\n&quot; ) }}
+                      &lt;/div&gt;
+                      {{ Query $query | Table }}
+                      {{ template &quot;fold_end&quot; }}
+
+                    {{ else }}
+                      &lt;p&gt;No rows returned&lt;/p&gt;
+                    {{ end }}
+                 {{ end }}
+               {{ end }}
+             &lt;/div&gt;
+
+           {{ end }}
+           &lt;/main&gt;
+           &lt;script&gt;
+             $(&quot;.collapsible&quot;).click(function() {
+               $(this).next().toggle(&quot;slow&quot;);
+               try {
+                 $(&quot;table.table-striped&quot;).DataTable().columns.adjust();
+               } catch(e) {
+
+               };
+             });
+
+             $(&quot;#print-button&quot;).click(function() {
+                $(&quot;.collapse&quot;).removeClass(&quot;collapse&quot;);
+                $('table.table-striped').DataTable().destroy();
+                $(&quot;.collapsible&quot;).hide();
+                $(&quot;.noprint&quot;).hide();
+                setTimeout(function() {
+                   window.print();
+                   location.reload();
+                }, 1000);
+             });
+
+             $(document).ready( function () {
+                try {
+                   $('table.table-striped').DataTable({
+                      &quot;scrollY&quot;: 400,
+                      &quot;scrollX&quot;: true,
+                      &quot;autoWidth&quot;: false,
+                   });
+                } catch(e) {};
+             });
+           &lt;/script&gt;
+        &lt;/body&gt;
+       &lt;/html&gt;
+
+</code></pre><footer class=footline></footer></div></div><div id=navigation></div></section><div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px><div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div></div><script src=/js/clipboard.min.js?1692614563></script>
+<script src=/js/perfect-scrollbar.min.js?1692614563></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1692614563></script>
+<script src=/js/jquery.sticky.js?1692614563></script>
+<script src=/js/featherlight.min.js?1692614563></script>
+<script src=/js/highlight.min.js?1692614563></script>
+<script>hljs.highlightAll()</script><script src=/js/modernizr.custom-3.6.0.js?1692614563></script>
+<script src=/js/learn.js?1692614563></script>
+<script src=/js/hugo-learn.js?1692614563></script></body></html>

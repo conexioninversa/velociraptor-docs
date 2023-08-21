@@ -1,0 +1,804 @@
+<!doctype html><html lang=en class="js csstransforms3d"><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo 0.117.0"><meta name=description content><link rel=icon href=/images/favicon.png type=image/png><title>Windows.Carving.CobaltStrike :: Velociraptor - Digging deeper!</title><link href=/css/nucleus.css?1692614565 rel=stylesheet><link href=/css/fontawesome-all.min.css?1692614565 rel=stylesheet><link href=/css/featherlight.min.css?1692614565 rel=stylesheet><link href=/css/perfect-scrollbar.min.css?1692614565 rel=stylesheet><link href=/css/auto-complete.css?1692614565 rel=stylesheet><link href=/css/theme.css?1692614565 rel=stylesheet><link href=/css/tabs.css?1692614565 rel=stylesheet><link href=/css/hugo-theme.css?1692614565 rel=stylesheet><link href=/css/theme-mine.css?1692614565 rel=stylesheet><link href=/css/dark.css?1692614565 rel=stylesheet><link href=/css/syntax.css?1692614565 rel=stylesheet><link href=/css/light.css?1692614565 rel=stylesheet><link href=/css/hljs.css?1692614565 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1692614565 rel=stylesheet><script src=/js/jquery-3.3.1.min.js?1692614565></script><style>:root #header+#content>#left>#rlblock_left{display:none!important}</style><script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
+<script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-QYH72LMYCS",{anonymize_ip:!1})}</script><script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","G-QYH72LMYCS","auto"),ga("send","pageview"))</script><script async src=https://www.google-analytics.com/analytics.js></script>
+<script></script></head><body data-url=/artifact_references/pages/windows.carving.cobaltstrike/><nav id=sidebar><div id=header-wrapper><div id=header><script>function darkmode(){$("body").addClass("dark").removeClass("light"),document.cookie="theme=darkmode;path=/"}function lightmode(){$("body").removeClass("dark").addClass("light"),document.cookie="theme=lightmode;path=/"}const regex=new RegExp("theme=darkmode");regex.test(document.cookie)?darkmode():lightmode()</script><div class="btn btn-default ThemeSelector darkmode" onclick=darkmode()><i class="fas fa-moon"></i></div><div class="btn btn-default ThemeSelector lightmode" onclick=lightmode()><i class="fas fa-sun"></i></div><a href=https://docs.velociraptor.app/><img src=https://docs.velociraptor.app//images/logo.svg></a></div></div><div class=highlightable><ul class=topics><li data-nav-id=https://docs.velociraptor.app/announcements/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/announcements/><i class="fas fa-bullhorn"></i>Announcements</a></div><ul><li data-nav-id=https://docs.velociraptor.app/announcements/2023-cves/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/announcements/2023-cves/>Current CVEs</a></div></li><li data-nav-id=https://docs.velociraptor.app/announcements/2023-trainings/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/announcements/2023-trainings/>Trainings</a></div></li><li data-nav-id=https://docs.velociraptor.app/announcements/2023-velocon/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/announcements/2023-velocon/>VeloCON 2023</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/docs/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/docs/><i class="fas fa-book-reader"></i>Documentation</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/overview/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/docs/overview/>Velociraptor Overview</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/overview/history/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/overview/history/>History</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/overview/support/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/overview/support/>Support Policy</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/docs/deployment/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/docs/deployment/>Deployment</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/deployment/self-signed/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/deployment/self-signed/>Self-Signed SSL</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/deployment/cloud/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/docs/deployment/cloud/>Cloud Deployment</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/deployment/cloud/multifrontend/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/deployment/cloud/multifrontend/>Multi-Frontend</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/docs/deployment/clients/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/deployment/clients/>Deploying Clients</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/deployment/rbac/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/deployment/rbac/>Users and Roles</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/deployment/resources/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/deployment/resources/>Performance</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/deployment/troubleshooting/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/deployment/troubleshooting/>Troubleshooting</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/deployment/references/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/deployment/references/>Config Reference</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/docs/gui/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/docs/gui/>The Admin GUI</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/gui/clients/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/gui/clients/>Inspecting clients</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/gui/vfs/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/gui/vfs/>The VFS</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/gui/artifacts/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/gui/artifacts/>Artifacts</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/gui/hunting/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/gui/hunting/>Hunting</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/docs/vql/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/docs/vql/>VQL Fundamentals</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/vql/notebooks/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/vql/notebooks/>Notebooks</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/vql/artifacts/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/vql/artifacts/>Artifacts</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/vql/events/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/vql/events/>Event Queries</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/docs/forensic/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/docs/forensic/>Forensic Analysis</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/forensic/filesystem/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/forensic/filesystem/>Searching Filenames</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/forensic/searching/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/forensic/searching/>Searching Content</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/forensic/ntfs/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/forensic/ntfs/>NTFS Analysis</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/forensic/binary/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/forensic/binary/>Binary parsing</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/forensic/evidence_of_execution/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/forensic/evidence_of_execution/>Evidence Of Execution</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/forensic/event_logs/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/forensic/event_logs/>Event Logs</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/forensic/volatile/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/forensic/volatile/>Volatile State</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/docs/offline_triage/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/docs/offline_triage/>Triage and acquisition</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/offline_triage/remote_uploads/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/offline_triage/remote_uploads/>Remote Uploads</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/docs/client_monitoring/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/client_monitoring/>Client Monitoring</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/extending_vql/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/extending_vql/>Extending VQL</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/server_automation/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/docs/server_automation/>Server Automation</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/server_automation/server_api/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/server_automation/server_api/>Server API</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/server_automation/server_monitoring/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/server_automation/server_monitoring/>Server Monitoring</a></div></li></ul></li></ul></li><hr><li data-nav-id=https://docs.velociraptor.app/vql_reference/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/vql_reference/><i class="fas fa-book"></i>VQL Reference</a></div><ul><li data-nav-id=https://docs.velociraptor.app/vql_reference/basic/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/basic/>Basic VQL</a></div></li><li data-nav-id=https://docs.velociraptor.app/vql_reference/linux/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/linux/>Linux Specific</a></div></li><li data-nav-id=https://docs.velociraptor.app/vql_reference/windows/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/windows/>Windows Specific</a></div></li><li data-nav-id=https://docs.velociraptor.app/vql_reference/parsers/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/parsers/>Parsers</a></div></li><li data-nav-id=https://docs.velociraptor.app/vql_reference/server/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/server/>Server Side</a></div></li><li data-nav-id=https://docs.velociraptor.app/vql_reference/plugin/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/plugin/>Client Side</a></div></li><li data-nav-id=https://docs.velociraptor.app/vql_reference/event/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/event/>Event Plugins</a></div></li><li data-nav-id=https://docs.velociraptor.app/vql_reference/experimental/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/experimental/>Experimental</a></div></li><li data-nav-id=https://docs.velociraptor.app/vql_reference/misc/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/misc/>Misc</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/training/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/training/><i class="fas fa-graduation-cap"></i>Training</a></div></li><li data-nav-id=https://docs.velociraptor.app/blog/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/blog/><i class="fas fa-newspaper"></i>Blog</a></div></li><li data-nav-id=https://docs.velociraptor.app/presentations/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/presentations/><i class="fas fa-chalkboard-teacher"></i>Presentations</a></div><ul><li data-nav-id=https://docs.velociraptor.app/presentations/2022_linuxconf_au/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/presentations/2022_linuxconf_au/>Linux Conf Au 2022</a></div></li><li data-nav-id=https://docs.velociraptor.app/presentations/2022_auscert/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/presentations/2022_auscert/>Auscert 2022</a></div></li><li data-nav-id=https://docs.velociraptor.app/presentations/2022_dfrws_us/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/presentations/2022_dfrws_us/>DFRWS US 2022</a></div></li><li data-nav-id=https://docs.velociraptor.app/presentations/2022_tech_user_group_cbr/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/presentations/2022_tech_user_group_cbr/>Tech Users Group 2022</a></div></li><li data-nav-id=https://docs.velociraptor.app/presentations/2022_sans_summit/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/presentations/2022_sans_summit/>SANS Summit 2022</a></div></li><li data-nav-id=https://docs.velociraptor.app/presentations/2022_velocon/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/presentations/2022_velocon/>Velocon 2022</a></div></li><li data-nav-id=https://docs.velociraptor.app/presentations/2022_dfrws_apac/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/presentations/2022_dfrws_apac/>DFRWS APAC 2022</a></div></li><li data-nav-id=https://docs.velociraptor.app/presentations/2023_everything_open/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/presentations/2023_everything_open/>EverythingOpen 2023</a></div></li><li data-nav-id=https://docs.velociraptor.app/presentations/2023_auscert/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/presentations/2023_auscert/>Auscert 2023</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/exchange/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/exchange/><i class="fas fa-code"></i>Artifact Exchange</a></div></li><li data-nav-id=https://docs.velociraptor.app/artifact_references/ class="dd-item parent haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/artifact_references/><i class="fas fa-book"></i>Artifact Reference</a></div></li><li data-nav-id=https://docs.velociraptor.app/knowledge_base/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/knowledge_base/><i class="fas fa-brain"></i>Knowledge Base</a></div></li><li data-nav-id=https://docs.velociraptor.app/search/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/search/><i class='fas fa-search'></i>Search</a></div></li></ul><hr><section id=shortcuts><h3></h3><ul><li><a class=padding href=https://github.com/Velocidex/velociraptor><i class='fab fa-github'></i>Github</a></li><li><a class=padding href=https://docs.velociraptor.app/discord/><i class='fab fa-discord'></i>Discord</a></li><li><a class=padding href=mailto:velociraptor-discuss@googlegroups.com><i class='fas fa-envelope'></i>Mailing List</a></li><li><a class=padding href=https://docs.velociraptor.app/rss/><i class='fas fa-rss'></i>RSS</a></li></ul></section><section id=footer><div class=footer-copyright>Brought to you by
+<img src=/images/Rapid7_logo.svg class=rapid7><br><i class="fas fa-copyright"></i> 2022</div></section></div></nav><script>$("#sidebar i.fa-angle-right").each(function(){$(this).parent().parent().find("ul").hide()})</script><section id=body><div id=overlay></div><div class="padding highlightable"><div><div id=top-bar><div id=top-github-link><a class=github-link title='Edit this page' href=https://github.com/Velocidex/velociraptor-docs/edit/master/content/artifact_references/pages/windows.carving.cobaltstrike.md target=blank><i class="fas fa-code-branch"></i>
+<span id=top-github-link-text>Edit this page</span></a></div><div id=breadcrumbs itemscope itemtype=http://data-vocabulary.org/Breadcrumb><span id=sidebar-toggle-span><a href=# id=sidebar-toggle data-sidebar-toggle><i class="fas fa-bars"></i></a></span>
+<span id=toc-menu><i class="fas fa-list-alt"></i></span>
+<span class=links>Windows.Carving.CobaltStrike</span></div><div class=progress><div class=wrapper><nav id=TableOfContents></nav></div></div></div></div><div id=head-tags><div class=tags><a class=tag-link href=/tags/client-artifact>Client Artifact</a></div></div><div id=body-inner><h1>Windows.Carving.CobaltStrike</h1><p>This artifact extracts cobalt strike configuration from a byte stream, process
+or file on disk such as a process dump. Best used as a triage step against a
+detection of a cobalt strike beacon via a yara process scan.</p><p>The User can define bytes, file glob, process name or pid regex as a target. The
+content will search for a configuration pattern, extract a defined byte size,
+xor with discovered key, then attempt configuration extraction.</p><ul><li>Cobalt Strike beacon configuration is typically XORed with 0x69 or 0x2e
+(depending on version) but trivial to change.</li><li>Configuration is built in a typical index / type / length / value structure
+with either big endian values or zero terminated strings.</li><li>If no beacon is found, parser will fallback to CobaltStrike Shellcode analysis.</li></ul><p>This content simply carves the configuration and does not unpack files on
+disk. That means pointing this artifact as a packed or obfuscated file may not
+obtain the expected results.</p><p>Unpacking later version.</p><pre><code class=language-yaml>name: Windows.Carving.CobaltStrike
+author: Matt Green - @mgreen27
+description: |
+  This artifact extracts cobalt strike configuration from a byte stream, process
+  or file on disk such as a process dump. Best used as a triage step against a
+  detection of a cobalt strike beacon via a yara process scan.
+
+  The User can define bytes, file glob, process name or pid regex as a target. The
+  content will search for a configuration pattern, extract a defined byte size,
+  xor with discovered key, then attempt configuration extraction.
+
+  - Cobalt Strike beacon configuration is typically XORed with 0x69 or 0x2e
+  (depending on version) but trivial to change.
+  - Configuration is built in a typical index / type / length / value structure
+  with either big endian values or zero terminated strings.
+  - If no beacon is found, parser will fallback to CobaltStrike Shellcode analysis.
+
+  This content simply carves the configuration and does not unpack files on
+  disk. That means pointing this artifact as a packed or obfuscated file may not
+  obtain the expected results.
+
+  Unpacking later version.
+
+reference:
+  - https://attack.mitre.org/software/S0154/
+  - https://blog.didierstevens.com/2020/11/07/1768-k/
+
+parameters:
+  - name: TargetBytes
+    default:
+  - name: TargetFileGlob
+    default:
+  - name: PidRegex
+    default: .
+    type: regex
+  - name: ProcessRegex
+    default: .
+    type: regex
+  - name: ExtractBytes
+    type: int
+    default: 10000
+  - name: BruteXor
+    type: bool
+    description: Select to attempt brute forcing Xor byte in config. Default is 0x2e or 0x69.
+  - name: IncludeDecodedData
+    type: bool
+    description: Select to include decoded data in output.
+  - name: FindConfigTemplate
+    type: hidden
+    default: |
+        rule cobalt_strike_beacon {
+            strings:
+                $REPLACEME
+
+            condition:
+                any of them
+        }
+  - name: FindShellcode
+    type: hidden
+    default: |
+        rule cobalt_strike_shellcode {
+            strings:
+                $header = { FC }
+                $s1 = &quot;hwini&quot;
+                $s2 = &quot;hws2_&quot;
+                $s3 = &quot;wininet&quot;
+
+            condition:
+                ( $header at 0 and filesize &lt; 4096 )
+                or any of ($s*) // we enact offset limits in VQL ( 0..4096 )
+        }
+  - name: FindSleepFunction
+    type: hidden
+    default: |
+        rule cobalt_strike_sleepfunction {
+            strings:
+                $x64 = { 4C 8B 53 08 45 8B 0A 45 8B 5A 04 4D 8D 52 08 45 85 C9 75 05 45 85 DB 74 33 45 3B CB 73 E6 49 8B F9 4C 8B 03 }
+                $x86 = { 8B 46 04 8B 08 8B 50 04 83 C0 08 89 55 08 89 45 0C 85 C9 75 04 85 D2 74 23 3B CA 73 E6 8B 06 8D 3C 08 33 D2 }
+
+            condition:
+                any of them
+        }
+
+export: |
+  LET PROFILE = '''[
+    [CobaltConfig, 0, [
+        # 0x0001:BeaconType, 0x0001:Type, 0x0002:Length
+        [&quot;BeaconType&quot;, 6, &quot;Enumeration&quot;, {
+            &quot;type&quot;: &quot;uint16b&quot;,
+            &quot;choices&quot;: {
+                 &quot;0&quot;: &quot;windows-beacon_http-reverse_http&quot;,
+                 &quot;1&quot;: &quot;windows-beacon_dns-reverse_http&quot;,
+                 &quot;2&quot;: &quot;windows-beacon_smb-bind_pipe&quot;,
+                 &quot;8&quot;: &quot;windows-beacon_https-reverse_https&quot;,
+                 &quot;16&quot;: &quot;windows-beacon_tcp-bind_tcp&quot;
+            }
+        }],
+
+        # 0x0002:Port, 0x0001:Type, 0x0002:Length
+        [&quot;__port_prefix&quot;, 0, &quot;String&quot;,{&quot;term_hex&quot;: &quot;000200010002&quot;, length: 10000, max_length: 10000}],
+        [&quot;Port&quot;, &quot;x=&gt;len(list=x.__port_prefix) + 6&quot;, &quot;uint16b&quot;],
+
+        # 0x0003:Sleeptime,0x0002:Type, 0x0004:Length
+        [&quot;__sleeptime_prefix&quot;, 0, &quot;String&quot;, {&quot;term_hex&quot;: &quot;000300020004&quot;, length: 10000, max_length: 10000}],
+        [&quot;Sleeptime&quot;, &quot;x=&gt;len(list=x.__sleeptime_prefix) + 6&quot;, &quot;uint32b&quot;],
+
+        # 0x0004:Maxgetsize, 0x0002:Type, 0x0004:Length
+        [&quot;__maxgetsize_prefix&quot;, 0, &quot;String&quot;,{&quot;term_hex&quot;: &quot;000400020004&quot;, length: 10000, max_length: 10000}],
+        [&quot;Maxgetsize&quot;, &quot;x=&gt;len(list=x.__maxgetsize_prefix) + 6&quot;, &quot;uint32b&quot;],
+
+        # 0x0005:Jitter, 0x0001:Type, 0x0002:Length
+        [&quot;__jitter_prefix&quot;, 0, &quot;String&quot;,{&quot;term_hex&quot;: &quot;000500010002&quot;, length: 10000, max_length: 10000}],
+        [&quot;Jitter&quot;, &quot;x=&gt;len(list=x.__jitter_prefix) + 6&quot;, &quot;uint16b&quot;],
+
+        # 0x0006:MaxDns, 0x0001:Type, 0x0002:Length
+        [&quot;__maxdns_prefix&quot;, 0, &quot;String&quot;,{&quot;term_hex&quot;: &quot;000600010002&quot;, length: 10000, max_length: 10000}],
+        [&quot;MaxDns&quot;, &quot;x=&gt;len(list=x.__maxdns_prefix) + 6&quot;, &quot;uint16b&quot;],
+
+        # 0x0007:Publickey,0x0003:Type,
+        [&quot;__publickey_prefix&quot;, 0, &quot;String&quot;,{&quot;term_hex&quot;: &quot;000700030100&quot;, length: 10000, max_length: 10000}],
+        [&quot;__publickey_raw&quot;, &quot;x=&gt;len(list=x.__publickey_prefix) + 6&quot;, &quot;String&quot;,{&quot;term_hex&quot;:&quot;00000008&quot;}],
+        [&quot;PublicKey&quot;, &quot;x=&gt;len(list=x.__publickey_prefix) + 6&quot;, &quot;Value&quot;,{&quot;value&quot;:&quot;x=&gt;format(format='% x',args=x.__publickey_raw)&quot;}],
+
+        # 0x0008:server/get-uri,0x0003:Type,
+        [&quot;__c2server_prefix&quot;, 0, &quot;String&quot;,{&quot;term_hex&quot;: &quot;00080003&quot;, length: 10000, max_length: 10000}],
+        [&quot;C2Server&quot;, &quot;x=&gt;len(list=x.__c2server_prefix) + 6&quot;, &quot;String&quot;],
+
+        # 0x0009:useragent,0x0003:Type,
+        [&quot;__useragent_prefix&quot;, 0, &quot;String&quot;,{&quot;term_hex&quot;: &quot;00090003&quot;, length: 10000, max_length: 10000}],
+        [&quot;UserAgent&quot;, &quot;x=&gt;len(list=x.__useragent_prefix) + 6&quot;, &quot;String&quot;],
+
+        # 0x000a:PostUri,0x0003:Type,
+        [&quot;__PostUri_prefix&quot;, 0, &quot;String&quot;, {&quot;term_hex&quot;: &quot;000a0003&quot;, length: 10000, max_length: 10000}],
+        [&quot;PostURI&quot;, &quot;x=&gt;len(list=x.__PostUri_prefix) + 6&quot;, &quot;String&quot;],
+
+        # 0x000b:Malleable_C2_Instructions,0x0003:Type, adding length check as not sure if we can rely on termination
+        [&quot;__Malleable_C2_Instructions_prefix&quot;, 0, &quot;String&quot;,{&quot;term_hex&quot;: &quot;000b0003&quot;, length: 10000, max_length: 10000}],
+        [&quot;__Malleable_C2_Instructions_length&quot;,&quot;x=&gt;len(list=x.__Malleable_C2_Instructions_prefix) + 4&quot;,&quot;uint16b&quot;],
+        [&quot;__Malleable_C2_Instructions&quot;, &quot;x=&gt;len(list=x.__Malleable_C2_Instructions_prefix) + 6&quot;, &quot;String&quot;,{&quot;term&quot;:&quot;***NOTERM***&quot;, &quot;length&quot;: &quot;x=&gt; x.__Malleable_C2_Instructions_length&quot;}],
+        [&quot;MalleableC2Instructions&quot;,0,&quot;Value&quot;,{ &quot;value&quot;: &quot;x=&gt;format(format='%s', args=[regex_replace(source=x.__Malleable_C2_Instructions, re='[^ -~\\r\\n]', replace='')])&quot; }],
+        #[&quot;Malleable_C2_Instructions&quot;,0,&quot;Value&quot;,{ &quot;value&quot;: &quot;x=&gt;'base64:' + base64encode(string=x.__Malleable_C2_Instructions)&quot; }], #uncomment to return base64 encoded raw Malleable_C2_Instructions
+
+        # 0x000c:HttpGetHeader,0x0003:Type, adding length check as we can not rely on termination
+        [&quot;__HttpGetHeader_prefix&quot;, 0, &quot;String&quot;,{&quot;term_hex&quot;: &quot;000c0003&quot;, length: 10000, max_length: 10000}],
+        [&quot;__HttpGetHeader_length&quot;,&quot;x=&gt;len(list=x.__HttpGetHeader_prefix) + 4&quot;,&quot;uint16b&quot;],
+        [&quot;__HttpGetHeader&quot;,&quot;x=&gt;len(list=x.__HttpGetHeader_prefix) + 6&quot;,&quot;String&quot;,{&quot;term&quot;:&quot;***NOTERM***&quot;, &quot;length&quot;: &quot;x=&gt; x.__HttpGetHeader_length&quot;}],
+        [&quot;HttpGetHeader&quot;,0,&quot;Value&quot;,{ &quot;value&quot;: &quot;x=&gt;format(format='%s', args=[regex_replace(source=x.__HttpGetHeader, re='[^ -~\\r\\n]', replace='')])&quot; }],
+        #[&quot;HttpGetHeader&quot;,0,&quot;Value&quot;,{ &quot;value&quot;: &quot;x=&gt;'base64:' + base64encode(string=x.__HttpGetHeader)&quot; }], #uncomment to return base64 encoded raw HttpGetHeader
+
+        # 0x000d:HttpPostHeader,0x0003:Type, adding length check as we can not rely on termination
+        [&quot;__http_post_header_prefix&quot;, 0, &quot;String&quot;,{&quot;term_hex&quot;: &quot;000d0003&quot;, length: 10000, max_length: 10000}],
+        [&quot;__HttpPostHeader_length&quot;,&quot;x=&gt;len(list=x.__http_post_header_prefix) + 4&quot;,&quot;uint16b&quot;],
+        [&quot;__HttpPostHeader&quot;,&quot;x=&gt;len(list=x.__http_post_header_prefix) + 6&quot;,&quot;String&quot;,{&quot;term&quot;:&quot;***NOTERM***&quot;, &quot;length&quot;: &quot;x=&gt; x.__HttpPostHeader_length&quot;}],
+        [&quot;HttpPostHeader&quot;,0,&quot;Value&quot;,{ &quot;value&quot;: &quot;x=&gt;format(format='%s', args=[regex_replace(source=x.__HttpPostHeader, re='[^ -~\\r\\n]', replace='')])&quot; }],
+        #[&quot;HttpPostHeader&quot;,0,&quot;Value&quot;,{ &quot;value&quot;: &quot;x=&gt;'base64:' + base64encode(string=x.__HttpPostHeader)&quot; }], #uncomment to return base64 encoded raw HttpPostHeader
+
+        # 0x000e:SpawnTo,0x0003:Type # Adding length check as we can not rely on termination
+        [&quot;__SpawnTo_header_prefix&quot;, 0, &quot;String&quot;,{&quot;term_hex&quot;: &quot;000e0003&quot;, length: 10000, max_length: 10000}],
+        [&quot;__SpawnTo_header_length&quot;,&quot;x=&gt;len(list=x.__SpawnTo_header_prefix) + 4&quot;,&quot;uint16b&quot;],
+        [&quot;__SpawnTo&quot;, &quot;x=&gt;len(list=x.__SpawnTo_header_prefix) + 6&quot;, &quot;String&quot;,{&quot;term&quot;:&quot;***NOTERM***&quot;, &quot;length&quot;: &quot;x=&gt; x.__SpawnTo_header_length&quot;}],
+        [&quot;SpawnTo&quot;,0,&quot;Value&quot;,{ &quot;value&quot;: &quot;x=&gt;format(format='%s', args=[regex_replace(source=x.__SpawnTo, re='[^ -~\\r\\n]', replace='')])&quot; }],
+        #[&quot;SpawnTo&quot;,0,&quot;Value&quot;,{ &quot;value&quot;: &quot;x=&gt;'base64:' + base64encode(string=x.__SpawnTo)&quot; }], #uncomment to return base64 encoded raw SpawnTo
+
+        # 0x000f:PipeName,0x0003:Type
+        [&quot;__pipename_prefix&quot;, 0, &quot;String&quot;,{&quot;term_hex&quot;: &quot;000f0003&quot;, length: 10000, max_length: 10000}],
+        [&quot;Pipename&quot;, &quot;x=&gt;len(list=x.__pipename_prefix) + 6&quot;, &quot;String&quot;,{&quot;term_hex&quot;:&quot;0000&quot;}],
+
+        # 0x0010:KillDateYear, 0x0001:Type, 0x0002:Length
+        [&quot;__KillDateYear_prefix&quot;, 0, &quot;String&quot;,{&quot;term_hex&quot;: &quot;001000010002&quot;, length: 10000, max_length: 10000}],
+        [&quot;KillDateYear&quot;, &quot;x=&gt;len(list=x.__KillDateYear_prefix) + 6&quot;, &quot;uint16b&quot;],
+
+        # 0x0011:KillDateMonth, 0x0001:Type, 0x0002:Length
+        [&quot;__KillDateMonth_prefix&quot;, 0, &quot;String&quot;,{&quot;term_hex&quot;: &quot;001200010002&quot;, length: 10000, max_length: 10000}],
+        [&quot;KillDateMonth&quot;, &quot;x=&gt;len(list=x.__KillDateMonth_prefix) + 6&quot;, &quot;uint16b&quot;],
+
+        # 0x0012:KillDateDay, 0x0001:Type, 0x0002:Length
+        [&quot;__KillDateDay_prefix&quot;, 0, &quot;String&quot;,{&quot;term_hex&quot;: &quot;001200010002&quot;, length: 10000, max_length: 10000}],
+        [&quot;KillDateDay&quot;, &quot;x=&gt;len(list=x.__KillDateDay_prefix) + 6&quot;, &quot;uint16b&quot;],
+
+        # 0x0013:DNSIdle, 0x0002:Type, 0x0004:Length
+        [&quot;__DNSIdle_prefix&quot;, 0, &quot;String&quot;,{&quot;term_hex&quot;: &quot;001300020004&quot;, length: 10000, max_length: 10000}],
+        [&quot;__DNSIdle1&quot;, &quot;x=&gt;len(list=x.__DNSIdle_prefix) + 6&quot;, &quot;uint8&quot;],
+        [&quot;__DNSIdle2&quot;, &quot;x=&gt;len(list=x.__DNSIdle_prefix) + 7&quot;, &quot;uint8&quot;],
+        [&quot;__DNSIdle3&quot;, &quot;x=&gt;len(list=x.__DNSIdle_prefix) + 8&quot;, &quot;uint8&quot;],
+        [&quot;__DNSIdle4&quot;, &quot;x=&gt;len(list=x.__DNSIdle_prefix) + 9&quot;, &quot;uint8&quot;],
+        [&quot;DNSIdle&quot;, 0, &quot;Value&quot;, {
+            &quot;value&quot;: &quot;x=&gt; str(str=x.__DNSIdle1) + '.' + str(str=x.__DNSIdle2) + '.' + str(str=x.__DNSIdle3) + '.' + str(str=x.__DNSIdle4)&quot;
+        }],
+
+        # 0x0014:DNSSleep', 0x0002:Type, 0x0004:Length
+        [&quot;__DNSSleep_prefix&quot;, 0, &quot;String&quot;,{&quot;term_hex&quot;: &quot;001400020004&quot;, length: 10000, max_length: 10000}],
+        [&quot;DNSSleep&quot;, &quot;x=&gt;len(list=x.__DNSSleep_prefix) + 6&quot;, &quot;uint32b&quot;],
+
+        # 0x0015:SSH_1, to complete - didnt find any examples assuming zero terminated
+        [&quot;__SSH_1_prefix&quot;, 0, &quot;String&quot;,{&quot;term_hex&quot;: &quot;00150003&quot;, length: 10000, max_length: 10000}],
+        [&quot;SSH_1&quot;, &quot;x=&gt;len(list=x.__SSH_1_prefix) + 6&quot;, &quot;String&quot;],
+
+        # 0x0016:SSH_2, to complete - didnt find any examples assuming zero terminated
+        [&quot;__SSH_2_prefix&quot;, 0, &quot;String&quot;,{&quot;term_hex&quot;: &quot;00160003&quot;, length: 10000, max_length: 10000}],
+        [&quot;SSH_2&quot;, &quot;x=&gt;len(list=x.__SSH_2_prefix) + 6&quot;, &quot;String&quot;],
+
+        # 0x0017:SSH_3, to complete - didnt find any examples assuming zero terminated
+        [&quot;__SSH_3_prefix&quot;, 0, &quot;String&quot;,{&quot;term_hex&quot;: &quot;00170003&quot;, length: 10000, max_length: 10000}],
+        [&quot;SSH_3&quot;, &quot;x=&gt;len(list=x.__SSH_3_prefix) + 6&quot;, &quot;String&quot;],
+
+        # 0x0018:SSH_4, to complete - didnt find any examples assuming zero terminated
+        [&quot;__SSH_4_prefix&quot;, 0, &quot;String&quot;,{&quot;term_hex&quot;: &quot;00180003&quot;, length: 10000, max_length: 10000}],
+        [&quot;SSH_4&quot;, &quot;x=&gt;len(list=x.__SSH_4_prefix) + 6&quot;, &quot;String&quot;],
+
+        # 0x0019:SSH_5, to complete - didnt find any examples assuming zero terminated
+        [&quot;__SSH_5_prefix&quot;, 0, &quot;String&quot;,{&quot;term_hex&quot;: &quot;00190003&quot;, length: 10000, max_length: 10000}],
+        [&quot;SSH_5&quot;, &quot;x=&gt;len(list=x.__SSH_5_prefix) + 6&quot;, &quot;String&quot;],
+
+        # 0x001a:GetVerb,0x0003:Type
+        [&quot;__GetVerb_prefix&quot;, 0, &quot;String&quot;,{&quot;term_hex&quot;: &quot;001a0003&quot;}],
+        [&quot;GetVerb&quot;, &quot;x=&gt;len(list=x.__GetVerb_prefix) + 6&quot;, &quot;String&quot;,{&quot;term_hex&quot;:&quot;0000&quot;}],
+
+        # 0x001b: PostVerb, 0x0003:Type
+        [&quot;__PostVerb_prefix&quot;, 0, &quot;String&quot;,{&quot;term_hex&quot;: &quot;001b0003&quot;}],
+        [&quot;PostVerb&quot;, &quot;x=&gt;len(list=x.__PostVerb_prefix) + 6&quot;, &quot;String&quot;,{&quot;term_hex&quot;:&quot;0000&quot;}],
+
+        # 0x001c:HttpPostChunk,0x0002:Type, 0x0004:Length
+        [&quot;__HttpPostChunk_prefix&quot;, 0, &quot;String&quot;, {&quot;term_hex&quot;: &quot;001c00020004&quot;}],
+        [&quot;HttpPostChunk&quot;, &quot;x=&gt;len(list=x.__HttpPostChunk_prefix) + 6&quot;, &quot;uint32b&quot;],
+
+        # 0x001d:spawnto_x86,0x0003:Type
+        [&quot;__spawnx86_prefix&quot;, 0, &quot;String&quot;,{&quot;term_hex&quot;: &quot;001d0003&quot;, length: 10000, max_length: 10000}],
+        [&quot;SpawnTox86&quot;, &quot;x=&gt;len(list=x.__spawnx86_prefix) + 6&quot;, &quot;String&quot;,{&quot;term_hex&quot;:&quot;0000&quot;}],
+
+        # 0x001e:spawn_to_x64,0x0003:Type
+        [&quot;__spawnx64_prefix&quot;, 0, &quot;String&quot;,{&quot;term_hex&quot;: &quot;001e0003&quot;, length: 10000, max_length: 10000}],
+        [&quot;SpawnTox64&quot;, &quot;x=&gt;len(list=x.__spawnx64_prefix) + 6&quot;, &quot;String&quot;,{&quot;term_hex&quot;:&quot;0000&quot;}],
+
+        # 0x001f:CryptoScheme, 0x0001:Type, 0x0002:Length
+        [&quot;__CryptoScheme_prefix&quot;, 0, &quot;String&quot;,{&quot;term_hex&quot;: &quot;001f00010002&quot;, length: 10000, max_length: 10000}],
+        [&quot;CryptoScheme&quot;, &quot;x=&gt;len(list=x.__CryptoScheme_prefix) + 6&quot;, &quot;uint16b&quot;],
+
+        # 0x0020:Proxy, 0x0003:Type
+        [&quot;__Proxy_prefix&quot;, 0, &quot;String&quot;,{&quot;term_hex&quot;: &quot;000e0003&quot;, length: 10000, max_length: 10000}],
+        #[&quot;__Proxy_length&quot;,&quot;x=&gt;len(list=x.__Proxy_prefix) + 4&quot;,&quot;uint16b&quot;],
+        [&quot;Proxy&quot;, &quot;x=&gt;len(list=x.__Proxy_prefix) + 6&quot;, &quot;String&quot;],
+
+        # 0x0021:ProxyUsername, 0x0003:Type
+        [&quot;__ProxyUsername_prefix&quot;, 0, &quot;String&quot;,{&quot;term_hex&quot;: &quot;000e0003&quot;, length: 10000, max_length: 10000}],
+        [&quot;__ProxyUsername_length&quot;,&quot;x=&gt;len(list=x.__ProxyUsername_prefix) + 4&quot;,&quot;uint16b&quot;],
+        [&quot;ProxyUsername&quot;, &quot;x=&gt;len(list=x.__ProxyUsername_prefix) + 6&quot;, &quot;String&quot;],
+
+        # 0x0022:ProxyPassword, 0x0003:Type
+        [&quot;__ProxyPassword_prefix&quot;, 0, &quot;String&quot;,{&quot;term_hex&quot;: &quot;000e0003&quot;, length: 10000, max_length: 10000}],
+        [&quot;__ProxyPassword_length&quot;,&quot;x=&gt;len(list=x.__ProxyPassword_prefix) + 4&quot;,&quot;uint16b&quot;],
+        [&quot;ProxyPassword&quot;, &quot;x=&gt;len(list=x.__ProxyPassword_prefix) + 6&quot;, &quot;String&quot;],
+
+        # 0x0023:ProxyType, 0x0001:Type, 0x0002:Length
+        [&quot;__ProxyType&quot;, 0, &quot;String&quot;,{&quot;term_hex&quot;: &quot;002300010002&quot;, length: 10000, max_length: 10000}],
+        [&quot;ProxyType&quot;, &quot;x=&gt;len(list=x.__ProxyType) + 6&quot;, &quot;Enumeration&quot;, {
+            &quot;type&quot;: &quot;uint16b&quot;,
+            &quot;choices&quot;: {
+                 &quot;1&quot;: &quot;No proxy&quot;,
+                 &quot;2&quot;: &quot;IE settings&quot;,
+                 &quot;4&quot;: &quot;Hardcoded proxy&quot;}
+        }],
+
+        # 0x0024:Deprecated, 0x0001:Type, 0x0002:Length
+        [&quot;__Deprecated_prefix&quot;, 0, &quot;String&quot;,{&quot;term_hex&quot;: &quot;002400010002&quot;, length: 10000, max_length: 10000}],
+        [&quot;Deprecated&quot;, &quot;x=&gt;len(list=x.__Deprecated_prefix) + 6&quot;, &quot;uint16b&quot;],
+
+        # 0x0025:LicenseId,0x0002:Type, 0x0004:Length
+        [&quot;__LicenseId_prefix&quot;, 0, &quot;String&quot;, {&quot;term_hex&quot;: &quot;002500020004&quot;, length: 10000, max_length: 10000}],
+        [&quot;LicenseId&quot;, &quot;x=&gt;len(list=x.__LicenseId_prefix) + 6&quot;, &quot;uint32b&quot;],
+
+        # 0x0026:bStageCleanup, 0x0001:Type, 0x0002:Length
+        [&quot;__bStageCleanup_prefix&quot;, 0, &quot;String&quot;,{&quot;term_hex&quot;: &quot;002600010002&quot;, length: 10000, max_length: 10000}],
+        [&quot;bStageCleanup&quot;, &quot;x=&gt;len(list=x.__bStageCleanup_prefix) + 6&quot;, &quot;uint16b&quot;],
+
+        # 0x0027:bCFGCaution, 0x0001:Type, 0x0002:Length
+        [&quot;__bCFGCaution_prefix&quot;, 0, &quot;String&quot;,{&quot;term_hex&quot;: &quot;002700010002&quot;, length: 10000, max_length: 10000}],
+        [&quot;bCFGCaution&quot;, &quot;x=&gt;len(list=x.__bCFGCaution_prefix) + 6&quot;, &quot;uint16b&quot;],
+
+        # 0x0028:KillDate,0x0002:Type, 0x0004:Length
+        [&quot;__KillDate_prefix&quot;, 0, &quot;String&quot;, {&quot;term_hex&quot;: &quot;002800020004&quot;, length: 10000, max_length: 10000}],
+        [&quot;KillDate&quot;, &quot;x=&gt;len(list=x.__KillDate_prefix) + 6&quot;, &quot;uint32b&quot;],
+
+        # 0x0029:TextSectionEnd,0x0002:Type, 0x0004:Length
+        [&quot;__TextSectionEnd_prefix&quot;, 0, &quot;String&quot;, {&quot;term_hex&quot;: &quot;002900020004&quot;, length: 10000, max_length: 10000}],
+        [&quot;TextSectionEnd&quot;, &quot;x=&gt;len(list=x.__TextSectionEnd_prefix) + 6&quot;, &quot;uint32b&quot;],
+
+        # 0x002a:ObfuscateSectionsInfo,0x0003:Type # Adding length check as we can not rely on termination
+        [&quot;__ObfuscateSectionsInfo_prefix&quot;, 0, &quot;String&quot;,{&quot;term_hex&quot;: &quot;002a0003&quot;, length: 10000, max_length: 10000}],
+        [&quot;__ObfuscateSectionsInfo_length&quot;,&quot;x=&gt;len(list=x.__ObfuscateSectionsInfo_prefix) + 4&quot;,&quot;uint16b&quot;],
+        [&quot;__ObfuscateSectionsInfo&quot;, &quot;x=&gt;len(list=x.__ObfuscateSectionsInfo_prefix) + 6&quot;, &quot;String&quot;,{&quot;term&quot;:&quot;***NOTERM***&quot;, &quot;length&quot;: &quot;x=&gt; x.__ObfuscateSectionsInfo_length&quot;}],
+        [&quot;ObfuscateSectionsInfo&quot;,0,&quot;Value&quot;,{ &quot;value&quot;: &quot;x=&gt;format(format='%s', args=[regex_replace(source=x.__ObfuscateSectionsInfo, re='[^ -~\\r\\n]', replace='')])&quot; }],
+        #[&quot;ObfuscateSectionsInfo&quot;,0,&quot;Value&quot;,{ &quot;value&quot;: &quot;x=&gt;'base64:' + base64encode(string=x.__ObfuscateSectionsInfo)&quot; }], #uncomment to return base64 encoded raw ObfuscateSectionsInfo
+
+        #0x002b:ProcessInjectStartRWX, 0x0001:Type, 0x0002:Length
+        [&quot;__ProcessInjectStartRWX&quot;, 0, &quot;String&quot;,{&quot;term_hex&quot;: &quot;002b00010002&quot;, length: 10000, max_length: 10000}],
+        [&quot;ProcessInjectStartRWX&quot;, &quot;x=&gt;len(list=x.__ProcessInjectStartRWX) + 6&quot;, &quot;Enumeration&quot;, {
+            &quot;type&quot;: &quot;uint16b&quot;,
+            &quot;choices&quot;: {
+                 &quot;0x1&quot;: &quot;PAGE_NOACCESS&quot;,
+                 &quot;0x2&quot;: &quot;PAGE_READONLY&quot;,
+                 &quot;0x4&quot;: &quot;PAGE_READWRITE&quot;,
+                 &quot;0x8&quot;: &quot;PAGE_WRITECOPY&quot;,
+                &quot;0x10&quot;: &quot;PAGE_EXECUTE&quot;,
+                &quot;0x20&quot;: &quot;PAGE_EXECUTE_READ&quot;,
+                &quot;0x40&quot;: &quot;PAGE_EXECUTE_READWRITE&quot;,
+                &quot;0x80&quot;: &quot;PAGE_EXECUTE_WRITECOPY&quot;}
+        }],
+
+        #0x002c:ProcessInjectUseRWX, 0x0001:Type, 0x0002:Length
+        [&quot;__ProcessInjectUseRWX&quot;, 0, &quot;String&quot;,{&quot;term_hex&quot;: &quot;002c00010002&quot;, length: 10000, max_length: 10000}],
+        [&quot;ProcessInjectUseRWX&quot;, &quot;x=&gt;len(list=x.__ProcessInjectUseRWX) + 6&quot;, &quot;Enumeration&quot;, {
+            &quot;type&quot;: &quot;uint16b&quot;,
+            &quot;choices&quot;: {
+                 &quot;0x1&quot;: &quot;PAGE_NOACCESS&quot;,
+                 &quot;0x2&quot;: &quot;PAGE_READONLY&quot;,
+                 &quot;0x4&quot;: &quot;PAGE_READWRITE&quot;,
+                 &quot;0x8&quot;: &quot;PAGE_WRITECOPY&quot;,
+                &quot;0x10&quot;: &quot;PAGE_EXECUTE&quot;,
+                &quot;0x20&quot;: &quot;PAGE_EXECUTE_READ&quot;,
+                &quot;0x40&quot;: &quot;PAGE_EXECUTE_READWRITE&quot;,
+                &quot;0x80&quot;: &quot;PAGE_EXECUTE_WRITECOPY&quot;}
+        }],
+
+        # 0x002d:ProcessInjectMinAlloc,0x0002:Type, 0x0004:Length
+        [&quot;__ProcessInjectMinAlloc_prefix&quot;, 0, &quot;String&quot;, {&quot;term_hex&quot;: &quot;002d00020004&quot;, length: 10000, max_length: 10000}],
+        [&quot;ProcessInjectMinAlloc&quot;, &quot;x=&gt;len(list=x.__ProcessInjectMinAlloc_prefix) + 6&quot;, &quot;uint32b&quot;],
+
+        # 0x002e:ProcessInjectTransformx86, 0x0003:Type, # Adding length check as we can not rely on termination
+        [&quot;__ProcessInjectTransformx86_prefix&quot;, 0, &quot;String&quot;,{&quot;term_hex&quot;: &quot;002e0003&quot;, length: 10000, max_length: 10000}],
+        [&quot;__ProcessInjectTransformx86_length&quot;,&quot;x=&gt;len(list=x.__ProcessInjectTransformx86_prefix) + 4&quot;,&quot;uint16b&quot;],
+        [&quot;__ProcessInjectTransformx86&quot;, &quot;x=&gt;len(list=x.__ProcessInjectTransformx86_prefix) + 6&quot;, &quot;String&quot;,{&quot;term&quot;:&quot;***NOTERM***&quot;, &quot;length&quot;: &quot;x=&gt; x.__ProcessInjectTransformx86_length&quot;}],
+        [&quot;ProcessInjectTransformx86&quot;,0,&quot;Value&quot;,{ &quot;value&quot;: &quot;x=&gt;format(format='%s', args=[regex_replace(source=x.__ProcessInjectTransformx86, re='[^ -~\\r\\n]', replace='')])&quot; }],
+        #[&quot;ProcessInjectTransformx86&quot;,0,&quot;Value&quot;,{ &quot;value&quot;: &quot;x=&gt;'base64:' + base64encode(string=x.__ProcessInjectTransformx86)&quot; }],#uncomment to return base64 encoded raw ProcessInjectTransformx86
+
+
+        # 0x002f:ProcessInjectTransformx64, 0x0003:Type, # Adding length check as we can not rely on termination
+        [&quot;__ProcessInjectTransformx64_prefix&quot;, 0, &quot;String&quot;,{&quot;term_hex&quot;: &quot;002f0003&quot;, length: 10000, max_length: 10000}],
+        [&quot;__ProcessInjectTransformx64_length&quot;,&quot;x=&gt;len(list=x.__ProcessInjectTransformx64_prefix) + 4&quot;,&quot;uint16b&quot;],
+        [&quot;__ProcessInjectTransformx64&quot;, &quot;x=&gt;len(list=x.__ProcessInjectTransformx64_prefix) + 6&quot;, &quot;String&quot;,{&quot;term&quot;:&quot;***NOTERM***&quot;, &quot;length&quot;: &quot;x=&gt; x.__ProcessInjectTransformx64_length&quot;}],
+        [&quot;ProcessInjectTransformx64&quot;,0,&quot;Value&quot;,{ &quot;value&quot;: &quot;x=&gt;format(format='%s', args=[regex_replace(source=x.__ProcessInjectTransformx64, re='[^ -~\\r\\n]', replace='')])&quot; }],
+        #[&quot;ProcessInjectTransformx64&quot;,0,&quot;Value&quot;,{ &quot;value&quot;: &quot;x=&gt;'base64:' + base64encode(string=x.__ProcessInjectTransformx64)&quot; }],#uncomment to return base64 encoded raw ProcessInjectTransformx64
+
+        # 0x0032:UsesCookies, 0x0001:Type, 0x0002:Length
+        [&quot;__UsesCookies_prefix&quot;, 0, &quot;String&quot;,{&quot;term_hex&quot;: &quot;003200010002&quot;, length: 10000, max_length: 10000}],
+        [&quot;UsesCookies&quot;, &quot;x=&gt;len(list=x.__UsesCookies_prefix) + 6&quot;, &quot;uint16b&quot;],
+
+        # 0x0033:ProcessInjectExecute, 0x0003:Type # Adding length check as we can not rely on termination
+        [&quot;__ProcessInjectExecute_prefix&quot;, 0, &quot;String&quot;,{&quot;term_hex&quot;: &quot;00330003&quot;, length: 10000, max_length: 10000}],
+        [&quot;__ProcessInjectExecute_length&quot;,&quot;x=&gt;len(list=x.__ProcessInjectExecute_prefix) + 4&quot;,&quot;uint16b&quot;],
+        [&quot;__ProcessInjectExecute&quot;, &quot;x=&gt;len(list=x.__ProcessInjectExecute_prefix) + 6&quot;, &quot;String&quot;,{&quot;term&quot;:&quot;***NOTERM***&quot;, &quot;length&quot;: &quot;x=&gt; x.__ProcessInjectExecute_length&quot;}],
+        [&quot;ProcessInjectExecute&quot;,0,&quot;Value&quot;,{ &quot;value&quot;: &quot;x=&gt;format(format='%s', args=[regex_replace(source=x.__ProcessInjectExecute, re='[^ -~\\r\\n]', replace='')])&quot; }],
+        #[&quot;ProcessInjectExecute&quot;,0,&quot;Value&quot;,{ &quot;value&quot;: &quot;x=&gt;'base64:' + base64encode(string=x.__ProcessInjectExecute)&quot; }], #uncomment to return base64 encoded raw ProcessInjectExecute
+
+        # 0x0034:ProcessInjectAllocationMethod, 0x0001:Type, 0x0002:Length
+        [&quot;__ProcessInjectAllocationMethod_prefix&quot;, 0, &quot;String&quot;,{&quot;term_hex&quot;: &quot;003400010002&quot;, length: 10000, max_length: 10000}],
+        [&quot;ProcessInjectAllocationMethod&quot;, &quot;x=&gt;len(list=x.__ProcessInjectAllocationMethod_prefix) + 6&quot;, &quot;uint16b&quot;],
+
+        # 0x0035:ProcessInjectStub, 0x0003:Type # Adding length check as we can not rely on termination
+        [&quot;__ProcessInjectStub_prefix&quot;, 0, &quot;String&quot;,{&quot;term_hex&quot;: &quot;00350003&quot;, length: 10000, max_length: 10000}],
+        [&quot;__ProcessInjectStub_length&quot;,&quot;x=&gt;len(list=x.__ProcessInjectStub_prefix) + 4&quot;,&quot;uint16b&quot;],
+        [&quot;__ProcessInjectStub&quot;, &quot;x=&gt;len(list=x.__ProcessInjectStub_prefix) + 6&quot;, &quot;String&quot;,{&quot;term_hex&quot;:&quot;00000000&quot;, &quot;length&quot;: &quot;x=&gt; x.__ProcessInjectStub_length&quot;}],
+        [&quot;ProcessInjectStub&quot;,0,&quot;Value&quot;,{ &quot;value&quot;: &quot;x=&gt;format(format='% x', args=x.__ProcessInjectStub)&quot; }],
+
+        # 0x0036:HostHeader, 0x0003:Type # Adding length check as we can not rely on termination
+        [&quot;__HostHeader_prefix&quot;, 0, &quot;String&quot;,{&quot;term_hex&quot;: &quot;00360003&quot;, length: 10000, max_length: 10000}],
+        [&quot;__HostHeader_length&quot;,&quot;x=&gt;len(list=x.__HostHeader_prefix) + 4&quot;,&quot;uint16b&quot;],
+        [&quot;HostHeader&quot;, &quot;x=&gt;len(list=x.__HostHeader_prefix) + 6&quot;, &quot;String&quot;,{&quot;term_hex&quot;:&quot;00000000&quot;, &quot;length&quot;: &quot;x=&gt; x.__HostHeader_length&quot;}],
+
+    ]],
+    [Shellcode, 0, [
+        [&quot;__Position&quot;, 0, &quot;Value&quot;,{&quot;value&quot;:&quot;x=&gt;unhex(string=position(data=_Data))&quot;}],
+        [&quot;Server&quot;, 0, &quot;Value&quot;,{&quot;value&quot;:&quot;x=&gt;regex_replace(source=regex_replace(source=x.__Position,re='\\x{00}.{4}[^$]*$',replace=''),re='\u0000',replace='')&quot;}],
+        [&quot;TargetUri&quot;, 0, &quot;Value&quot;,{&quot;value&quot;:&quot;x=&gt;find_strings(data=_Data,length=5,filter='^/').Strings[0]&quot;}],
+        [&quot;__LicenseBytes&quot;, 0, &quot;Value&quot;,{&quot;value&quot;:&quot;x=&gt;read_file(accessor='data',filename=x.__Position || '', offset=len(list=x.Server) + 1 ,length=4)&quot;}],
+        [&quot;License&quot;, 0, &quot;Value&quot;,{&quot;value&quot;:&quot;x=&gt;parse_binary(accessor='data', filename=x.__LicenseBytes,struct='uint32b')&quot;}],
+        [&quot;Strings&quot;, 0, &quot;Value&quot;,{&quot;value&quot;:&quot;x=&gt;find_strings(data=_Data,length=5,filter='.').Strings&quot;}],
+    ]],
+
+    [&quot;EmbeddedPE&quot;, 0, [
+        [&quot;__PayloadType&quot;, 0, &quot;uint32&quot;],
+        [&quot;PayloadType&quot;, 0, &quot;Value&quot;,{&quot;value&quot;:&quot;x=&gt;format(format='0x%08x',args=x.__PayloadType)&quot;}],
+        [&quot;__PayloadSize&quot;, 4, &quot;uint32&quot;],
+        #[&quot;PayloadSize&quot;, 4, &quot;Value&quot;,{&quot;value&quot;:&quot;x=&gt;format(format='0x%08x',args=x.__PayloadSize)&quot;}],
+        [&quot;__XorKey&quot;, 8, &quot;uint32b&quot;],
+        [&quot;XorKey&quot;, 8, &quot;Value&quot;,{&quot;value&quot;:&quot;x=&gt;format(format='0x%08x',args=x.__XorKey)&quot;}],
+        [&quot;__Id2&quot;, 12, &quot;uint32&quot;],
+        [&quot;Id2&quot;, 12, &quot;Value&quot;,{&quot;value&quot;:&quot;x=&gt;format(format='0x%08x',args=x.__Id2)&quot;}],
+        [&quot;__Payload&quot;, 16, &quot;Value&quot;,{&quot;value&quot;:&quot;x=&gt;read_file(accessor='data',filename=embedded_section(path=TargetBytes || OSPath,
+                type=if(condition=TargetBytes,then='data',else='auto'))[0].Data || '', offset=16,length=x.__PayloadSize)&quot;}],
+        #[&quot;__Payload&quot;, 16, &quot;String&quot;,{&quot;term_hex&quot;:&quot;&quot;,length=x.__PayloadSize)&quot;}],
+        [&quot;DecodedPayload&quot;, 16, &quot;Value&quot;,{&quot;value&quot;:&quot;x=&gt;xor(string=x.__Payload,key=unhex(string=x.XorKey))&quot;}],
+        [&quot;PayloadHash&quot;, 16, &quot;Value&quot;,{&quot;value&quot;:&quot;x=&gt;hash(path=xor(string=x.__Payload,key=unhex(string=x.XorKey)),accessor='data')&quot;}],
+        [&quot;OriginalFileHash&quot;, 16, &quot;Value&quot;,{&quot;value&quot;:&quot;x=&gt;hash(path=OSPath)&quot;}],
+    ]]]'''
+
+
+sources:
+  - query: |
+      -- unique function to groupby value for enumerate
+      LET unique(values) = SELECT _value as value FROM foreach(row=values) GROUP BY _value
+
+      -- section to dynamically generate Xor configuration yara hunt strings
+      LET a &lt;= unhex(string='01')
+      LET b &lt;= unhex(string='02')
+      LET c &lt;= unhex(string='03')
+
+      LET XorChars &lt;=
+        SELECT format(format=&quot;%#02x&quot;, args=_value) AS H,
+            unhex(string=format(format=&quot;%02x&quot;, args=_value)) as X
+        FROM range(start=0, end=256, step=1)
+        WHERE if(condition=BruteXor,
+                    then=True,
+                    else= H=~ '0x2e|0x69')
+
+      Let XorCharsStep2 =
+        SELECT H, X,
+            xor(string=a, key=X) as aXor,
+            xor(string=b, key=X) as bXor,
+            xor(string=c, key=X) as cXor,
+            len(list=X)
+        FROM XorChars
+
+      LET YaraStrings =
+        SELECT -- { 00 01 00 01 00 02 ?? ?? 00 02 00 01 00 02 ?? ?? 00 03 }
+            X,H,
+            H + ' = { ' + format(format='% x', args=X + aXor + X + aXor + X + bXor) +
+            ' ?? ?? ' + format(format='% x', args=X + bXor + X + aXor + X + bXor) +
+            ' ?? ?? ' + format(format='% x', args=X + cXor) + ' }'  as Line
+        FROM XorCharsStep2
+
+      LET FindConfig =
+            regex_replace(
+                source=FindConfigTemplate,
+                re='REPLACEME',
+                replace=join(array=YaraStrings.Line, sep=&quot; $$&quot;))
+
+
+      -- function to extract potential additional encoded PE in data section
+      LET embedded_section(path,type) = SELECT
+            path as OriginalFileName,
+            _value.Name as Name,
+            _value.Size as Size,
+            _value.FileOffset as FileOffset,
+            _value.VMA as VMA,
+            _value.RVA as RVA,
+            _value.Perm as Perm,
+            read_file(filename=path,
+                      accessor=type,
+                      offset=_value.FileOffset,
+                      length=_value.Size) as Data
+        FROM foreach(row= parse_pe(file=path,accessor=type).Sections)
+        WHERE Name = '.data' AND Size &gt; 15
+
+
+      -- scan DataBytes for CobaltStrike config
+      LET ByteConfiguration = SELECT Rule,
+                len(list=TargetBytes) as Size,
+                hash(path=TargetBytes,accessor='data') as Hash,
+                format(format=&quot;%v_%v.bin&quot;, args=[Rule,String.Offset]) as _DecodedDataName,
+                Xor,_Data,
+                Rule  as _Group
+            FROM switch( -- switchcase will find beacon as priority, then search for shellcode
+                beacon = {
+                    SELECT *,
+                        substr(start=0,end=1,str=String.Data) as Xor,
+                        read_file(accessor='data',
+                                  filename=TargetBytes,
+                                  offset= String.Offset,
+                                  length=ExtractBytes) as _Data
+                    FROM yara(accessor='data',files=TargetBytes || &quot;&quot;,
+                              rules=FindConfig, number=99)
+                },
+                shellcode = {
+                    SELECT *, '' as Xor,
+                        read_file(accessor='data',
+                                  filename=TargetBytes,
+                                  offset=String.Offset,length=4096) as _Data
+                    FROM yara(accessor='data',
+                              files=TargetBytes,
+                              rules=FindShellcode, number=99)
+                },
+                section_encoded_pe = {
+                    SELECT *,
+                        'Embedded data section: ' + Rule as Rule,
+                        substr(start=0,end=1,str=String.Data) as Xor,
+                        read_file(accessor='data',
+                                  filename=File.OSPath,
+                                  offset=String.Offset,
+                                  length=ExtractBytes) as _Data
+                    FROM yara(files=parse_binary(
+                                accessor='data',
+                                filename= embedded_section(
+                                     path=TargetBytes, type='data')[0].Data || &quot;&quot;,
+                                profile=PROFILE,
+                                struct=&quot;EmbeddedPE&quot;).DecodedPayload,
+                              accessor='data', rules=FindConfig, number=99)
+                },
+                    section_encoded_stager = {
+                        SELECT *,
+                            '' as Xor,
+                            'Embedded data section: ' + Rule as Rule,
+                            read_file(accessor='data',
+                                      filename=File.OSPath) as _Data
+                        FROM yara(files=parse_binary(
+                                     accessor='data',
+                                     filename= embedded_section(
+                                          path=TargetBytes,type='data')[0].Data || &quot;&quot;,
+                                     profile=PROFILE,
+                                     struct=&quot;EmbeddedPE&quot;).DecodedPayload,
+                                  accessor='data', rules=FindShellcode, number=99)
+                    },
+                sleepfunction = {
+                    SELECT *, '' as Xor,
+                    if(condition= String.Name= '$x86',
+                            then= 'Sleep mask 32-bit 4.2 deobfuscation routine found.',
+                            else= 'Sleep mask 64-bit 4.2 deobfuscation routine found.') as _Data
+                    FROM yara(accessor='data',files=TargetBytes, rules=FindSleepFunction, number=1)
+                })
+
+      -- find target files
+      LET TargetFiles = SELECT OSPath AS OSPath,Size
+        FROM glob(globs=TargetFileGlob) WHERE NOT IsDir
+
+
+      -- scan files in scope with our rule
+      LET FileConfiguration = SELECT * FROM foreach(row=TargetFiles,
+            query={
+                SELECT
+                    Rule,
+                    OSPath, Size,
+                    hash(path=OSPath) as Hash,
+                    Xor,_Data,
+                    Rule + '|' + OSPath.String as _Group,
+                    format(format=&quot;%v_%v_%v.bin&quot;, args=[Rule,OSPath,String.Offset]) as _DecodedDataName
+                FROM switch( -- switchcase will find beacon as priority, then search for shellcode
+                    beacon = {
+                        SELECT *,
+                            substr(start=0,end=1,str=String.Data) as Xor,
+                            read_file(
+                               filename=OSPath,
+                               offset= String.Offset,
+                               length=ExtractBytes) as _Data
+                        FROM yara(files=OSPath, rules=FindConfig, number=99)
+                    },
+
+                    shellcode = {
+                        SELECT *, '' as Xor,
+                            read_file(filename=OSPath,length=4096) as _Data
+                        FROM yara(files=OSPath, rules=FindShellcode, number=99)
+                    },
+
+                    section_encoded_pe = {
+                        SELECT *,
+                            'Embedded data section: ' + Rule as Rule,
+                            substr(start=0,end=1,str=String.Data) as Xor,
+                            read_file(accessor='data',filename=File.OSPath,
+                                      offset=String.Offset,length=ExtractBytes) as _Data
+                        FROM yara(files=parse_binary(
+                                      accessor='data',
+                                      filename= embedded_section(path=OSPath,type='auto')[0].Data || &quot;&quot;,
+                                      profile=PROFILE,
+                                      struct=&quot;EmbeddedPE&quot;).DecodedPayload,
+                                  accessor='data', rules=FindConfig, number=99)
+                    },
+                    section_encoded_stager = {
+                        SELECT *,
+                            '' as Xor,
+                            'Embedded data section: ' + Rule as Rule,
+                            read_file(accessor='data',
+                                      filename=File.OSPath,
+                                      length=ExtractBytes) as _Data
+                        FROM yara(files=parse_binary(
+                                      accessor='data',
+                                      filename= embedded_section(path=OSPath,type='auto')[0].Data || &quot;&quot;,
+                                      profile=PROFILE,
+                                      struct=&quot;EmbeddedPE&quot;).DecodedPayload,
+                                  accessor='data', rules=FindShellcode, number=99)
+                    },
+                    sleepfunction = {
+                        SELECT *, '' as Xor,
+                            if(condition= String.Name= '$x86',
+                                then= 'Sleep mask 32-bit 4.2 deobfuscation routine found.',
+                                else= 'Sleep mask 64-bit 4.2 deobfuscation routine found.') as _Data
+                        FROM yara(files=OSPath, rules=FindSleepFunction, number=1)
+                    })
+            })
+
+
+      -- find velociraptor process
+      LET me &lt;= SELECT * FROM if(condition= NOT ( TargetFileGlob OR TargetBytes ),
+                    then = { SELECT Pid FROM pslist(pid=getpid()) })
+
+
+      -- find all processes and add filters
+      LET processes = SELECT Name as ProcessName, CommandLine, Pid
+        FROM pslist()
+        WHERE
+            Name =~ ProcessRegex
+            AND format(format=&quot;%d&quot;, args=Pid) =~ PidRegex
+            AND NOT Pid in me.Pid
+
+      -- scan processes in scope with our rule
+      LET ProcessConfiguration = SELECT * FROM foreach(
+        row=processes,
+        query={
+            SELECT Rule,
+                Pid, ProcessName, CommandLine,
+                format(format=&quot;%v_%v_%v_%v.bin&quot;, args=[Rule,ProcessName,Pid,String.Offset]) as _DecodedDataName,
+                Xor,_Data,_Group
+            FROM switch( -- switchcase will find beacon as priority, then search for shellcode
+                beacon = {
+                    SELECT *,
+                        substr(start=0,end=1,str=String.Data) as Xor,
+                        read_file(accessor='process',
+                                  filename=str(str=Pid),
+                                  offset= String.Offset,
+                                  length=ExtractBytes) as _Data,
+                        Rule +'|'+ str(str=Pid) +'|'+ ProcessName +'|'+ CommandLine as _Group
+                    FROM yara(accessor='process',files=str(str=Pid), rules=FindConfig, number=99)
+                },
+                shellcode = {
+                    SELECT *, '' as Xor,
+                        read_file(accessor='process',
+                                  filename=str(str=Pid),
+                                  offset=String.Offset,length=4096) as _Data,
+                        Rule +'|'+ str(str=Pid) +'|'+ ProcessName +'|'+ CommandLine as _Group
+                    FROM yara(accessor='process',files=str(str=Pid), rules=FindShellcode, number=99)
+                },
+                sleepfunction = {
+                    SELECT *, '' as Xor,
+                        if(condition= String.Name= '$x86',
+                            then= 'Sleep mask 32-bit 4.2 deobfuscation routine found.',
+                            else= 'Sleep mask 64-bit 4.2 deobfuscation routine found.') as _Data,
+                        '' as _Group
+                    FROM yara(accessor='process',files=str(str=Pid), rules=FindSleepFunction, number=1)
+                })
+        })
+
+
+      -- Add dynamic functions for shellcode parsing
+      LET position(data) = if(condition= len(list=split(string=format(format='%x',args=data),sep='ffff')) &gt; 1,
+            then= split(string=format(format='%x',args=data),sep='ffff')[-1],
+            else= False )
+      LET find_strings(data,length,filter) = SELECT Strings
+        FROM parse_records_with_regex(file=data,accessor='data',regex='(?P&lt;Strings&gt;[ -~]+)')
+        WHERE len(list=Strings) &gt; length - 1
+            AND Strings =~ filter
+            AND NOT Strings =~ '^\\s+$'
+        LIMIT 150
+
+
+      -- generate results remove any FPs
+      LET results &lt;= SELECT *,
+            if(condition= Rule=~'cobalt_strike_beacon$',
+                then= format(format='0x%x',args=Xor),else='0x00') as Xor,
+            if(condition= Rule=~'cobalt_strike_beacon',
+                then= parse_binary(accessor='data',
+                    filename= xor(string=_Data || &quot;&quot; ,key=Xor),
+                    profile = PROFILE,struct  = &quot;CobaltConfig&quot;),
+                else= if(condition= Rule=~'cobalt_strike_shellcode',
+                    then= parse_binary(accessor='data',
+                        filename= _Data || &quot;&quot;,
+                        profile = PROFILE,struct=&quot;Shellcode&quot;),
+                    else= _Data )) AS DecodedConfig
+        FROM if(condition=TargetBytes,
+            then=ByteConfiguration,
+            else= if(condition=TargetFileGlob,
+                then= FileConfiguration,
+                else= ProcessConfiguration))
+        WHERE _Data
+            AND
+              (( DecodedConfig.C2Server =~ '^[ -~]+$' AND DecodedConfig.BeaconType )
+            OR ( DecodedConfig.Pipename =~ '^[ -~]+$' AND DecodedConfig.BeaconType )
+            OR DecodedConfig.Server =~ '^[ -~]+' -- AND DecodedConfig.TargetUri )
+            OR Rule='cobalt_strike_sleepfunction' )
+
+      -- add decoded data seperate to keep pretty output
+      LET output_decoded_data = SELECT *,
+            upload(accessor = 'data',
+                file = if(condition = Rule='cobalt_strike_beacon',
+                            then = xor(string=_Data,key=unhex(string=Xor)),
+                            else = _Data),
+                name = _DecodedDataName) as DecodedData
+        FROM results
+
+      LET cleanup(config) = to_dict(item=
+            {
+                SELECT _key, _value
+                FROM items(item=config)
+                WHERE NOT _key =~ '^__'  AND ( _value  OR _key =~ '^license' )
+            })
+
+      -- output rows, standard config priority, exclude _Data
+      SELECT *,
+        if(condition= format(format='%T',args=DecodedConfig)='string',
+            then= DecodedConfig,
+            else= cleanup(config=DecodedConfig)) as DecodedConfig
+      FROM column_filter(
+        query={
+            SELECT * ,
+                 -- NOTE: some junk strings for shellcode _Group are removed in GROUP BY
+                if(condition= Rule='cobalt_strike_beacon',
+                    then= _Group +'|'+ str(str=DecodedConfig),
+                    else= _Group +'|'+ str(str=DecodedConfig.Server) +'|'+ str(str=DecodedConfig.TargetUri) +'|'+ str(str=DecodedConfig.Licence) ) as _Group
+            FROM if(condition=IncludeDecodedData,
+                then= output_decoded_data,
+                else= results)
+            GROUP BY _Group
+        }, exclude=[&quot;_Data&quot;,&quot;_Group&quot;])
+
+column_types:
+  - name: DecodedData
+    type: preview_upload
+
+</code></pre><footer class=footline></footer></div></div><div id=navigation></div></section><div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px><div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div></div><script src=/js/clipboard.min.js?1692614565></script>
+<script src=/js/perfect-scrollbar.min.js?1692614565></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1692614565></script>
+<script src=/js/jquery.sticky.js?1692614565></script>
+<script src=/js/featherlight.min.js?1692614565></script>
+<script src=/js/highlight.min.js?1692614565></script>
+<script>hljs.highlightAll()</script><script src=/js/modernizr.custom-3.6.0.js?1692614565></script>
+<script src=/js/learn.js?1692614565></script>
+<script src=/js/hugo-learn.js?1692614565></script></body></html>

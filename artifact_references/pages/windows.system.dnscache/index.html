@@ -1,0 +1,241 @@
+<!doctype html><html lang=en class="js csstransforms3d"><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo 0.117.0"><meta name=description content><link rel=icon href=/images/favicon.png type=image/png><title>Windows.System.DNSCache :: Velociraptor - Digging deeper!</title><link href=/css/nucleus.css?1692614567 rel=stylesheet><link href=/css/fontawesome-all.min.css?1692614567 rel=stylesheet><link href=/css/featherlight.min.css?1692614567 rel=stylesheet><link href=/css/perfect-scrollbar.min.css?1692614567 rel=stylesheet><link href=/css/auto-complete.css?1692614567 rel=stylesheet><link href=/css/theme.css?1692614567 rel=stylesheet><link href=/css/tabs.css?1692614567 rel=stylesheet><link href=/css/hugo-theme.css?1692614567 rel=stylesheet><link href=/css/theme-mine.css?1692614567 rel=stylesheet><link href=/css/dark.css?1692614567 rel=stylesheet><link href=/css/syntax.css?1692614567 rel=stylesheet><link href=/css/light.css?1692614567 rel=stylesheet><link href=/css/hljs.css?1692614567 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1692614567 rel=stylesheet><script src=/js/jquery-3.3.1.min.js?1692614567></script><style>:root #header+#content>#left>#rlblock_left{display:none!important}</style><script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
+<script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-QYH72LMYCS",{anonymize_ip:!1})}</script><script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","G-QYH72LMYCS","auto"),ga("send","pageview"))</script><script async src=https://www.google-analytics.com/analytics.js></script>
+<script></script></head><body data-url=/artifact_references/pages/windows.system.dnscache/><nav id=sidebar><div id=header-wrapper><div id=header><script>function darkmode(){$("body").addClass("dark").removeClass("light"),document.cookie="theme=darkmode;path=/"}function lightmode(){$("body").removeClass("dark").addClass("light"),document.cookie="theme=lightmode;path=/"}const regex=new RegExp("theme=darkmode");regex.test(document.cookie)?darkmode():lightmode()</script><div class="btn btn-default ThemeSelector darkmode" onclick=darkmode()><i class="fas fa-moon"></i></div><div class="btn btn-default ThemeSelector lightmode" onclick=lightmode()><i class="fas fa-sun"></i></div><a href=https://docs.velociraptor.app/><img src=https://docs.velociraptor.app//images/logo.svg></a></div></div><div class=highlightable><ul class=topics><li data-nav-id=https://docs.velociraptor.app/announcements/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/announcements/><i class="fas fa-bullhorn"></i>Announcements</a></div><ul><li data-nav-id=https://docs.velociraptor.app/announcements/2023-cves/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/announcements/2023-cves/>Current CVEs</a></div></li><li data-nav-id=https://docs.velociraptor.app/announcements/2023-trainings/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/announcements/2023-trainings/>Trainings</a></div></li><li data-nav-id=https://docs.velociraptor.app/announcements/2023-velocon/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/announcements/2023-velocon/>VeloCON 2023</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/docs/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/docs/><i class="fas fa-book-reader"></i>Documentation</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/overview/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/docs/overview/>Velociraptor Overview</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/overview/history/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/overview/history/>History</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/overview/support/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/overview/support/>Support Policy</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/docs/deployment/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/docs/deployment/>Deployment</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/deployment/self-signed/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/deployment/self-signed/>Self-Signed SSL</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/deployment/cloud/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/docs/deployment/cloud/>Cloud Deployment</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/deployment/cloud/multifrontend/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/deployment/cloud/multifrontend/>Multi-Frontend</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/docs/deployment/clients/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/deployment/clients/>Deploying Clients</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/deployment/rbac/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/deployment/rbac/>Users and Roles</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/deployment/resources/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/deployment/resources/>Performance</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/deployment/troubleshooting/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/deployment/troubleshooting/>Troubleshooting</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/deployment/references/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/deployment/references/>Config Reference</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/docs/gui/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/docs/gui/>The Admin GUI</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/gui/clients/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/gui/clients/>Inspecting clients</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/gui/vfs/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/gui/vfs/>The VFS</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/gui/artifacts/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/gui/artifacts/>Artifacts</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/gui/hunting/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/gui/hunting/>Hunting</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/docs/vql/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/docs/vql/>VQL Fundamentals</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/vql/notebooks/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/vql/notebooks/>Notebooks</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/vql/artifacts/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/vql/artifacts/>Artifacts</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/vql/events/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/vql/events/>Event Queries</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/docs/forensic/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/docs/forensic/>Forensic Analysis</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/forensic/filesystem/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/forensic/filesystem/>Searching Filenames</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/forensic/searching/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/forensic/searching/>Searching Content</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/forensic/ntfs/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/forensic/ntfs/>NTFS Analysis</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/forensic/binary/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/forensic/binary/>Binary parsing</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/forensic/evidence_of_execution/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/forensic/evidence_of_execution/>Evidence Of Execution</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/forensic/event_logs/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/forensic/event_logs/>Event Logs</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/forensic/volatile/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/forensic/volatile/>Volatile State</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/docs/offline_triage/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/docs/offline_triage/>Triage and acquisition</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/offline_triage/remote_uploads/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/offline_triage/remote_uploads/>Remote Uploads</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/docs/client_monitoring/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/client_monitoring/>Client Monitoring</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/extending_vql/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/extending_vql/>Extending VQL</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/server_automation/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/docs/server_automation/>Server Automation</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/server_automation/server_api/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/server_automation/server_api/>Server API</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/server_automation/server_monitoring/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/server_automation/server_monitoring/>Server Monitoring</a></div></li></ul></li></ul></li><hr><li data-nav-id=https://docs.velociraptor.app/vql_reference/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/vql_reference/><i class="fas fa-book"></i>VQL Reference</a></div><ul><li data-nav-id=https://docs.velociraptor.app/vql_reference/basic/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/basic/>Basic VQL</a></div></li><li data-nav-id=https://docs.velociraptor.app/vql_reference/linux/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/linux/>Linux Specific</a></div></li><li data-nav-id=https://docs.velociraptor.app/vql_reference/windows/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/windows/>Windows Specific</a></div></li><li data-nav-id=https://docs.velociraptor.app/vql_reference/parsers/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/parsers/>Parsers</a></div></li><li data-nav-id=https://docs.velociraptor.app/vql_reference/server/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/server/>Server Side</a></div></li><li data-nav-id=https://docs.velociraptor.app/vql_reference/plugin/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/plugin/>Client Side</a></div></li><li data-nav-id=https://docs.velociraptor.app/vql_reference/event/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/event/>Event Plugins</a></div></li><li data-nav-id=https://docs.velociraptor.app/vql_reference/experimental/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/experimental/>Experimental</a></div></li><li data-nav-id=https://docs.velociraptor.app/vql_reference/misc/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/misc/>Misc</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/training/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/training/><i class="fas fa-graduation-cap"></i>Training</a></div></li><li data-nav-id=https://docs.velociraptor.app/blog/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/blog/><i class="fas fa-newspaper"></i>Blog</a></div></li><li data-nav-id=https://docs.velociraptor.app/presentations/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/presentations/><i class="fas fa-chalkboard-teacher"></i>Presentations</a></div><ul><li data-nav-id=https://docs.velociraptor.app/presentations/2022_linuxconf_au/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/presentations/2022_linuxconf_au/>Linux Conf Au 2022</a></div></li><li data-nav-id=https://docs.velociraptor.app/presentations/2022_auscert/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/presentations/2022_auscert/>Auscert 2022</a></div></li><li data-nav-id=https://docs.velociraptor.app/presentations/2022_dfrws_us/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/presentations/2022_dfrws_us/>DFRWS US 2022</a></div></li><li data-nav-id=https://docs.velociraptor.app/presentations/2022_tech_user_group_cbr/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/presentations/2022_tech_user_group_cbr/>Tech Users Group 2022</a></div></li><li data-nav-id=https://docs.velociraptor.app/presentations/2022_sans_summit/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/presentations/2022_sans_summit/>SANS Summit 2022</a></div></li><li data-nav-id=https://docs.velociraptor.app/presentations/2022_velocon/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/presentations/2022_velocon/>Velocon 2022</a></div></li><li data-nav-id=https://docs.velociraptor.app/presentations/2022_dfrws_apac/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/presentations/2022_dfrws_apac/>DFRWS APAC 2022</a></div></li><li data-nav-id=https://docs.velociraptor.app/presentations/2023_everything_open/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/presentations/2023_everything_open/>EverythingOpen 2023</a></div></li><li data-nav-id=https://docs.velociraptor.app/presentations/2023_auscert/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/presentations/2023_auscert/>Auscert 2023</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/exchange/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/exchange/><i class="fas fa-code"></i>Artifact Exchange</a></div></li><li data-nav-id=https://docs.velociraptor.app/artifact_references/ class="dd-item parent haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/artifact_references/><i class="fas fa-book"></i>Artifact Reference</a></div></li><li data-nav-id=https://docs.velociraptor.app/knowledge_base/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/knowledge_base/><i class="fas fa-brain"></i>Knowledge Base</a></div></li><li data-nav-id=https://docs.velociraptor.app/search/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/search/><i class='fas fa-search'></i>Search</a></div></li></ul><hr><section id=shortcuts><h3></h3><ul><li><a class=padding href=https://github.com/Velocidex/velociraptor><i class='fab fa-github'></i>Github</a></li><li><a class=padding href=https://docs.velociraptor.app/discord/><i class='fab fa-discord'></i>Discord</a></li><li><a class=padding href=mailto:velociraptor-discuss@googlegroups.com><i class='fas fa-envelope'></i>Mailing List</a></li><li><a class=padding href=https://docs.velociraptor.app/rss/><i class='fas fa-rss'></i>RSS</a></li></ul></section><section id=footer><div class=footer-copyright>Brought to you by
+<img src=/images/Rapid7_logo.svg class=rapid7><br><i class="fas fa-copyright"></i> 2022</div></section></div></nav><script>$("#sidebar i.fa-angle-right").each(function(){$(this).parent().parent().find("ul").hide()})</script><section id=body><div id=overlay></div><div class="padding highlightable"><div><div id=top-bar><div id=top-github-link><a class=github-link title='Edit this page' href=https://github.com/Velocidex/velociraptor-docs/edit/master/content/artifact_references/pages/windows.system.dnscache.md target=blank><i class="fas fa-code-branch"></i>
+<span id=top-github-link-text>Edit this page</span></a></div><div id=breadcrumbs itemscope itemtype=http://data-vocabulary.org/Breadcrumb><span id=sidebar-toggle-span><a href=# id=sidebar-toggle data-sidebar-toggle><i class="fas fa-bars"></i></a></span>
+<span id=toc-menu><i class="fas fa-list-alt"></i></span>
+<span class=links>Windows.System.DNSCache</span></div><div class=progress><div class=wrapper><nav id=TableOfContents></nav></div></div></div></div><div id=head-tags><div class=tags><a class=tag-link href=/tags/client-artifact>Client Artifact</a></div></div><div id=body-inner><h1>Windows.System.DNSCache</h1><p>Windows maintains DNS lookups for a short time in the DNS cache.</p><p>This artifact collects DNS cache entries using the WMI class MSFT_DNSClientCache.</p><pre><code class=language-yaml>name: Windows.System.DNSCache
+description: |
+  Windows maintains DNS lookups for a short time in the DNS cache.
+
+  This artifact collects DNS cache entries using the WMI class MSFT_DNSClientCache.
+
+parameters:
+  - name: kMapOfRecordType
+    description: |
+      Mapping of decimal DNS record types to human-readable types
+    type: hidden
+    default: |
+      {
+      &quot;0&quot;: &quot;Reserved&quot;,
+      &quot;1&quot;: &quot;A&quot;,
+      &quot;2&quot;: &quot;NS&quot;,
+      &quot;3&quot;: &quot;MD&quot;,
+      &quot;4&quot;: &quot;MF&quot;,
+      &quot;5&quot;: &quot;CNAME&quot;,
+      &quot;6&quot;: &quot;SOA&quot;,
+      &quot;7&quot;: &quot;MB&quot;,
+      &quot;8&quot;: &quot;MG&quot;,
+      &quot;9&quot;: &quot;MR&quot;,
+      &quot;10&quot;: &quot;NULL&quot;,
+      &quot;11&quot;: &quot;WKS&quot;,
+      &quot;12&quot;: &quot;PTR&quot;,
+      &quot;13&quot;: &quot;HINFO&quot;,
+      &quot;14&quot;: &quot;MINFO&quot;,
+      &quot;15&quot;: &quot;MX&quot;,
+      &quot;16&quot;: &quot;TXT&quot;,
+      &quot;17&quot;: &quot;RP&quot;,
+      &quot;18&quot;: &quot;AFSDB&quot;,
+      &quot;19&quot;: &quot;X25&quot;,
+      &quot;20&quot;: &quot;ISDN&quot;,
+      &quot;21&quot;: &quot;RT&quot;,
+      &quot;22&quot;: &quot;NSAP&quot;,
+      &quot;23&quot;: &quot;NSAP-PTR&quot;,
+      &quot;24&quot;: &quot;SIG&quot;,
+      &quot;25&quot;: &quot;KEY&quot;,
+      &quot;26&quot;: &quot;PX&quot;,
+      &quot;27&quot;: &quot;GPOS&quot;,
+      &quot;28&quot;: &quot;AAAA&quot;,
+      &quot;29&quot;: &quot;LOC&quot;,
+      &quot;30&quot;: &quot;NXT&quot;,
+      &quot;31&quot;: &quot;EID&quot;,
+      &quot;32&quot;: &quot;NIMLOC&quot;,
+      &quot;33&quot;: &quot;SRV&quot;,
+      &quot;34&quot;: &quot;ATMA&quot;,
+      &quot;35&quot;: &quot;NAPTR&quot;,
+      &quot;36&quot;: &quot;KX&quot;,
+      &quot;37&quot;: &quot;CERT&quot;,
+      &quot;38&quot;: &quot;A6&quot;,
+      &quot;39&quot;: &quot;DNAME&quot;,
+      &quot;40&quot;: &quot;SINK&quot;,
+      &quot;41&quot;: &quot;OPT&quot;,
+      &quot;42&quot;: &quot;APL&quot;,
+      &quot;43&quot;: &quot;DS&quot;,
+      &quot;44&quot;: &quot;SSHFP&quot;,
+      &quot;45&quot;: &quot;IPSECKEY&quot;,
+      &quot;46&quot;: &quot;RRSIG&quot;,
+      &quot;47&quot;: &quot;NSEC&quot;,
+      &quot;48&quot;: &quot;DNSKEY&quot;,
+      &quot;49&quot;: &quot;DHCID&quot;,
+      &quot;50&quot;: &quot;NSEC3&quot;,
+      &quot;51&quot;: &quot;NSEC3PARAM&quot;,
+      &quot;52&quot;: &quot;TLSA&quot;,
+      &quot;53&quot;: &quot;SMIMEA&quot;,
+      &quot;54&quot;: &quot;Unassigned&quot;,
+      &quot;55&quot;: &quot;HIP&quot;,
+      &quot;56&quot;: &quot;NINFO&quot;,
+      &quot;57&quot;: &quot;RKEY&quot;,
+      &quot;58&quot;: &quot;TALINK&quot;,
+      &quot;59&quot;: &quot;CDS&quot;,
+      &quot;60&quot;: &quot;CDNSKEY&quot;,
+      &quot;61&quot;: &quot;OPENPGPKEY&quot;,
+      &quot;62&quot;: &quot;CSYNC&quot;,
+      &quot;63&quot;: &quot;ZONEMD&quot;,
+      &quot;64&quot;: &quot;SVCB&quot;,
+      &quot;65&quot;: &quot;HTTPS&quot;,
+      &quot;99&quot;: &quot;SPF&quot;,
+      &quot;100&quot;: &quot;UINFO&quot;,
+      &quot;101&quot;: &quot;UID&quot;,
+      &quot;102&quot;: &quot;GID&quot;,
+      &quot;103&quot;: &quot;UNSPEC&quot;,
+      &quot;104&quot;: &quot;NID&quot;,
+      &quot;105&quot;: &quot;L32&quot;,
+      &quot;106&quot;: &quot;L64&quot;,
+      &quot;107&quot;: &quot;LP&quot;,
+      &quot;108&quot;: &quot;EUI48&quot;,
+      &quot;109&quot;: &quot;EUI64&quot;,
+      &quot;249&quot;: &quot;TKEY&quot;,
+      &quot;250&quot;: &quot;TSIG&quot;,
+      &quot;251&quot;: &quot;IXFR&quot;,
+      &quot;252&quot;: &quot;AXFR&quot;,
+      &quot;253&quot;: &quot;MAILB&quot;,
+      &quot;254&quot;: &quot;MAILA&quot;,
+      &quot;255&quot;: &quot;*&quot;,
+      &quot;256&quot;: &quot;URI&quot;,
+      &quot;257&quot;: &quot;CAA&quot;,
+      &quot;258&quot;: &quot;AVC&quot;,
+      &quot;259&quot;: &quot;DOA&quot;,
+      &quot;260&quot;: &quot;AMTRELAY&quot;,
+      &quot;32768&quot;: &quot;TA&quot;,
+      &quot;32769&quot;: &quot;DLV&quot;,
+      &quot;65535&quot;: &quot;Reserved&quot;
+      }
+
+  - name: kMapOfStatus
+    description: |
+      Mapping of decimal status to human-readable status
+    type: hidden
+    default: |
+      {
+      &quot;0&quot;: &quot;Success&quot;,
+      &quot;9003&quot;: &quot;NotExist&quot;,
+      &quot;9701&quot;: &quot;NoRecords&quot;
+      }
+
+  - name: kMapOfSection
+    description: |
+      Mapping of decimal section to human-readable section
+    type: hidden
+    default: |
+      {
+      &quot;1&quot;: &quot;Answer&quot;,
+      &quot;2&quot;: &quot;Authority&quot;,
+      &quot;3&quot;: &quot;Additional&quot;
+      }
+
+sources:
+  - precondition: |
+      SELECT OS from info() where OS = &quot;windows&quot;
+    query: |
+      LET wmiQuery &lt;= '''
+         SELECT Data, Entry, Status, TimeToLive, Type, Section
+         FROM MSFT_DNSClientCache
+      '''
+      LET wmiNamespace &lt;= &quot;root/StandardCimv2&quot;
+      LET MapOfRecordType &lt;= parse_json(data=kMapOfRecordType)
+      LET MapOfStatus &lt;= parse_json(data=kMapOfStatus)
+      LET MapOfSection &lt;= parse_json(data=kMapOfSection)
+
+      LET dns_cache_entries = SELECT
+          Entry AS Name,
+          Data AS Record,
+          get(item=MapOfRecordType,
+              member=str(str=Type), default=Type) AS RecordType,
+          Type AS _RecordType,
+          atoi(string=TimeToLive) AS TTL,
+          get(item=MapOfStatus,
+              member=str(str=Status), default=Status) AS QueryStatus,
+          Status AS _QueryStatus,
+          get(item=MapOfSection,
+              member=str(str=Section), default=Section) AS SectionType,
+          Section AS _SectionType
+      FROM wmi(query=wmiQuery, namespace=wmiNamespace)
+
+      SELECT * FROM dns_cache_entries
+
+</code></pre><footer class=footline></footer></div></div><div id=navigation></div></section><div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px><div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div></div><script src=/js/clipboard.min.js?1692614567></script>
+<script src=/js/perfect-scrollbar.min.js?1692614567></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1692614567></script>
+<script src=/js/jquery.sticky.js?1692614567></script>
+<script src=/js/featherlight.min.js?1692614567></script>
+<script src=/js/highlight.min.js?1692614567></script>
+<script>hljs.highlightAll()</script><script src=/js/modernizr.custom-3.6.0.js?1692614567></script>
+<script src=/js/learn.js?1692614567></script>
+<script src=/js/hugo-learn.js?1692614567></script></body></html>

@@ -1,439 +1,91 @@
-<!doctype html><html lang=en class="js csstransforms3d">
-<head>
-<meta charset=utf-8>
-<meta name=viewport content="width=device-width,initial-scale=1">
-<meta name=generator content="Hugo 0.89.4">
-<meta name=description content="We are often asked how many resources does a Velociraptor deployment use? How should one spec a machine for a Velociraptor deployment?">
-<link rel=icon href=/images/favicon.png type=image/png>
-<title>Velociraptor Performance :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1637855120 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1637855120 rel=stylesheet>
-<link href=/css/featherlight.min.css?1637855120 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1637855120 rel=stylesheet>
-<link href=/css/auto-complete.css?1637855120 rel=stylesheet>
-<link href=/css/theme.css?1637855120 rel=stylesheet>
-<link href=/css/tabs.css?1637855120 rel=stylesheet>
-<link href=/css/hugo-theme.css?1637855120 rel=stylesheet>
-<link href=/css/theme-mine.css?1637855120 rel=stylesheet>
-<link href=/css/dark.css?1637855120 rel=stylesheet><link href=/css/syntax.css?1637855120 rel=stylesheet><link href=/css/light.css?1637855120 rel=stylesheet><link href=/css/hljs.css?1637855120 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1637855120 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1637855120></script>
-<style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
-<script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-QYH72LMYCS',{anonymize_ip:!1})}</script>
-<script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga('create','G-QYH72LMYCS','auto'),ga('send','pageview'))</script>
-<script async src=https://www.google-analytics.com/analytics.js></script>
-<script></script>
-</head>
-<body data-url=/blog/html/2019/02/10/velociraptor_performance/>
-<nav id=sidebar><div id=header-wrapper>
-<div id=header>
-<script>function darkmode(){$("body").addClass("dark").removeClass("light"),document.cookie="theme=darkmode;path=/"}function lightmode(){$("body").removeClass("dark").addClass("light"),document.cookie="theme=lightmode;path=/"}const regex=new RegExp('theme=darkmode');regex.test(document.cookie)?darkmode():lightmode()</script>
-<div class="btn btn-default ThemeSelector darkmode" onclick=darkmode()>
-<i class="fas fa-moon"></i>
-</div>
-<div class="btn btn-default ThemeSelector lightmode" onclick=lightmode()>
-<i class="fas fa-sun"></i>
-</div>
-<a href=https://docs.velociraptor.app/>
-<img src=https://docs.velociraptor.app//images/logo.svg>
-</a>
-</div>
-</div>
-<div class=highlightable>
-<ul class=topics>
-<li data-nav-id=https://docs.velociraptor.app/announcements/ class="dd-item haschildren">
-<div><i class="fa fa-angle-right fa-sm category-icon"></i>
-<a href=/announcements/><i class="fas fa-bullhorn"></i>Announcements</a>
-</div>
-<ul>
-<li data-nav-id=https://docs.velociraptor.app/announcements/2021-artifact-contest/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/announcements/2021-artifact-contest/>2021 Contest</a>
-</div>
-</li>
-</ul>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/docs/ class="dd-item haschildren">
-<div><i class="fa fa-angle-right fa-sm category-icon"></i>
-<a href=/docs/><i class="fas fa-book-reader"></i>Documentation</a>
-</div>
-<ul>
-<li data-nav-id=https://docs.velociraptor.app/docs/overview/ class="dd-item haschildren">
-<div><i class="fa fa-angle-right fa-sm category-icon"></i>
-<a href=/docs/overview/>Velociraptor Overview</a>
-</div>
-<ul>
-<li data-nav-id=https://docs.velociraptor.app/docs/overview/history/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/overview/history/>History</a>
-</div>
-</li>
-</ul>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/docs/deployment/ class="dd-item haschildren">
-<div><i class="fa fa-angle-right fa-sm category-icon"></i>
-<a href=/docs/deployment/>Deployment</a>
-</div>
-<ul>
-<li data-nav-id=https://docs.velociraptor.app/docs/deployment/self-signed/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/deployment/self-signed/>Self-Signed SSL</a>
-</div>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/docs/deployment/cloud/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/deployment/cloud/>Cloud Deployment</a>
-</div>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/docs/deployment/clients/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/deployment/clients/>Deploying Clients</a>
-</div>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/docs/deployment/rbac/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/deployment/rbac/>Users and Roles</a>
-</div>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/docs/deployment/resources/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/deployment/resources/>Performance</a>
-</div>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/docs/deployment/troubleshooting/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/deployment/troubleshooting/>Troubleshooting</a>
-</div>
-</li>
-</ul>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/docs/gui/ class="dd-item haschildren">
-<div><i class="fa fa-angle-right fa-sm category-icon"></i>
-<a href=/docs/gui/>The Admin GUI</a>
-</div>
-<ul>
-<li data-nav-id=https://docs.velociraptor.app/docs/gui/clients/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/gui/clients/>Inspecting clients</a>
-</div>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/docs/gui/vfs/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/gui/vfs/>The VFS</a>
-</div>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/docs/gui/artifacts/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/gui/artifacts/>Artifacts</a>
-</div>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/docs/gui/hunting/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/gui/hunting/>Hunting</a>
-</div>
-</li>
-</ul>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/docs/vql/ class="dd-item haschildren">
-<div><i class="fa fa-angle-right fa-sm category-icon"></i>
-<a href=/docs/vql/>VQL Fundamentals</a>
-</div>
-<ul>
-<li data-nav-id=https://docs.velociraptor.app/docs/vql/notebooks/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/vql/notebooks/>Notebooks</a>
-</div>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/docs/vql/artifacts/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/vql/artifacts/>Artifacts</a>
-</div>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/docs/vql/events/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/vql/events/>Event Queries</a>
-</div>
-</li>
-</ul>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/docs/forensic/ class="dd-item haschildren">
-<div><i class="fa fa-angle-right fa-sm category-icon"></i>
-<a href=/docs/forensic/>Forensic Analysis</a>
-</div>
-<ul>
-<li data-nav-id=https://docs.velociraptor.app/docs/forensic/filesystem/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/forensic/filesystem/>Searching Filenames</a>
-</div>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/docs/forensic/searching/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/forensic/searching/>Searching Content</a>
-</div>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/docs/forensic/ntfs/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/forensic/ntfs/>NTFS Analysis</a>
-</div>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/docs/forensic/evidence_of_execution/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/forensic/evidence_of_execution/>Evidence Of Execution</a>
-</div>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/docs/forensic/event_logs/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/forensic/event_logs/>Event Logs</a>
-</div>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/docs/forensic/volatile/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/forensic/volatile/>Volatile State</a>
-</div>
-</li>
-</ul>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/docs/offline_triage/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/offline_triage/>Triage and acquisition</a>
-</div>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/docs/client_monitoring/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/client_monitoring/>Client Monitoring</a>
-</div>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/docs/extending_vql/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/extending_vql/>Extending VQL</a>
-</div>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/docs/server_automation/ class="dd-item haschildren">
-<div><i class="fa fa-angle-right fa-sm category-icon"></i>
-<a href=/docs/server_automation/>Server Automation</a>
-</div>
-<ul>
-<li data-nav-id=https://docs.velociraptor.app/docs/server_automation/server_api/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/server_automation/server_api/>Server API</a>
-</div>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/docs/server_automation/server_monitoring/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/server_automation/server_monitoring/>Server Monitoring</a>
-</div>
-</li>
-</ul>
-</li>
-</ul>
-</li><hr>
-<li data-nav-id=https://docs.velociraptor.app/vql_reference/ class="dd-item haschildren">
-<div><i class="fa fa-angle-right fa-sm category-icon"></i>
-<a href=/vql_reference/><i class="fas fa-book"></i>VQL Reference</a>
-</div>
-<ul>
-<li data-nav-id=https://docs.velociraptor.app/vql_reference/basic/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/vql_reference/basic/>Basic VQL</a>
-</div>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/vql_reference/windows/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/vql_reference/windows/>Windows Specific</a>
-</div>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/vql_reference/parsers/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/vql_reference/parsers/>Parsers</a>
-</div>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/vql_reference/server/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/vql_reference/server/>Server Side</a>
-</div>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/vql_reference/plugin/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/vql_reference/plugin/>Client Side</a>
-</div>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/vql_reference/event/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/vql_reference/event/>Event Plugins</a>
-</div>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/vql_reference/experimental/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/vql_reference/experimental/>Experimental</a>
-</div>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/vql_reference/misc/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/vql_reference/misc/>Misc</a>
-</div>
-</li>
-</ul>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/training/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/training/><i class="fas fa-graduation-cap"></i>Training</a>
-</div>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/blog/ class="dd-item parent haschildren">
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/blog/><i class="fas fa-newspaper"></i>Blog</a>
-</div>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/presentations/ class="dd-item haschildren">
-<div><i class="fa fa-angle-right fa-sm category-icon"></i>
-<a href=/presentations/><i class="fas fa-chalkboard-teacher"></i>Presentations</a>
-</div>
-<ul>
-<li data-nav-id=https://docs.velociraptor.app/presentations/2021_dfrws_us/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/presentations/2021_dfrws_us/>DFRWS US 2021 Workshop</a>
-</div>
-</li>
-</ul>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/exchange/ class="dd-item haschildren">
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/exchange/><i class="fas fa-code"></i>Artifact Exchange</a>
-</div>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/search/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/search/><i class="fas fa-search"></i>Search</a>
-</div>
-</li>
-</ul>
-<hr>
-<section id=shortcuts>
-<h3></h3>
-<ul>
-<li>
-<a class=padding href=https://github.com/Velocidex/velociraptor><i class="fab fa-github"></i>Github</a>
-</li>
-<li>
-<a class=padding href=https://docs.velociraptor.app/discord/><i class="fab fa-discord"></i>Discord</a>
-</li>
-<li>
-<a class=padding href=mailto:velociraptor-discuss@googlegroups.com><i class="fas fa-envelope"></i>Mailing List</a>
-</li>
-</ul>
-</section>
-<section id=footer>
-<div class=footer-copyright>Brought to you by
-<img src=/images/Rapid7_logo.svg class=rapid7>
-<br> <i class="fas fa-copyright"></i> 2021
-</div>
-</section>
-</div>
-</nav>
-<script>$("#sidebar i.fa-angle-right").each(function(){$(this).parent().parent().find("ul").hide()})</script>
-<section id=body>
-<div id=overlay></div>
-<div class="padding highlightable">
-<div>
-<div id=top-bar>
-<div id=top-github-link>
-<a class=github-link title="Edit this page" href=https://github.com/scudette/velociraptor-docs/edit/master/content/blog/html/2019/02/10/velociraptor_performance/_index.md target=blank>
-<i class="fas fa-code-branch"></i>
-<span id=top-github-link-text>Edit this page</span>
-</a>
-</div>
-<div id=breadcrumbs itemscope itemtype=http://data-vocabulary.org/Breadcrumb>
-<span id=sidebar-toggle-span>
-<a href=# id=sidebar-toggle data-sidebar-toggle>
-<i class="fas fa-bars"></i>
-</a>
-</span>
+<!doctype html><html lang=en class="js csstransforms3d"><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo 0.117.0"><meta name=description content="We are often asked how many resources does a Velociraptor deployment use? How should one spec a machine for a Velociraptor deployment?"><link rel=icon href=/images/favicon.png type=image/png><title>Velociraptor Performance :: Velociraptor - Digging deeper!</title><link href=/css/nucleus.css?1692614572 rel=stylesheet><link href=/css/fontawesome-all.min.css?1692614572 rel=stylesheet><link href=/css/featherlight.min.css?1692614572 rel=stylesheet><link href=/css/perfect-scrollbar.min.css?1692614572 rel=stylesheet><link href=/css/auto-complete.css?1692614572 rel=stylesheet><link href=/css/theme.css?1692614572 rel=stylesheet><link href=/css/tabs.css?1692614572 rel=stylesheet><link href=/css/hugo-theme.css?1692614572 rel=stylesheet><link href=/css/theme-mine.css?1692614572 rel=stylesheet><link href=/css/dark.css?1692614572 rel=stylesheet><link href=/css/syntax.css?1692614572 rel=stylesheet><link href=/css/light.css?1692614572 rel=stylesheet><link href=/css/hljs.css?1692614572 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1692614572 rel=stylesheet><script src=/js/jquery-3.3.1.min.js?1692614572></script><style>:root #header+#content>#left>#rlblock_left{display:none!important}</style><script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
+<script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-QYH72LMYCS",{anonymize_ip:!1})}</script><script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","G-QYH72LMYCS","auto"),ga("send","pageview"))</script><script async src=https://www.google-analytics.com/analytics.js></script>
+<script></script></head><body data-url=/blog/html/2019/02/10/velociraptor_performance/><nav id=sidebar><div id=header-wrapper><div id=header><script>function darkmode(){$("body").addClass("dark").removeClass("light"),document.cookie="theme=darkmode;path=/"}function lightmode(){$("body").removeClass("dark").addClass("light"),document.cookie="theme=lightmode;path=/"}const regex=new RegExp("theme=darkmode");regex.test(document.cookie)?darkmode():lightmode()</script><div class="btn btn-default ThemeSelector darkmode" onclick=darkmode()><i class="fas fa-moon"></i></div><div class="btn btn-default ThemeSelector lightmode" onclick=lightmode()><i class="fas fa-sun"></i></div><a href=https://docs.velociraptor.app/><img src=https://docs.velociraptor.app//images/logo.svg></a></div></div><div class=highlightable><ul class=topics><li data-nav-id=https://docs.velociraptor.app/announcements/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/announcements/><i class="fas fa-bullhorn"></i>Announcements</a></div><ul><li data-nav-id=https://docs.velociraptor.app/announcements/2023-cves/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/announcements/2023-cves/>Current CVEs</a></div></li><li data-nav-id=https://docs.velociraptor.app/announcements/2023-trainings/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/announcements/2023-trainings/>Trainings</a></div></li><li data-nav-id=https://docs.velociraptor.app/announcements/2023-velocon/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/announcements/2023-velocon/>VeloCON 2023</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/docs/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/docs/><i class="fas fa-book-reader"></i>Documentation</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/overview/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/docs/overview/>Velociraptor Overview</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/overview/history/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/overview/history/>History</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/overview/support/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/overview/support/>Support Policy</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/docs/deployment/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/docs/deployment/>Deployment</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/deployment/self-signed/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/deployment/self-signed/>Self-Signed SSL</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/deployment/cloud/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/docs/deployment/cloud/>Cloud Deployment</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/deployment/cloud/multifrontend/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/deployment/cloud/multifrontend/>Multi-Frontend</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/docs/deployment/clients/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/deployment/clients/>Deploying Clients</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/deployment/rbac/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/deployment/rbac/>Users and Roles</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/deployment/resources/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/deployment/resources/>Performance</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/deployment/troubleshooting/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/deployment/troubleshooting/>Troubleshooting</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/deployment/references/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/deployment/references/>Config Reference</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/docs/gui/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/docs/gui/>The Admin GUI</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/gui/clients/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/gui/clients/>Inspecting clients</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/gui/vfs/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/gui/vfs/>The VFS</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/gui/artifacts/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/gui/artifacts/>Artifacts</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/gui/hunting/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/gui/hunting/>Hunting</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/docs/vql/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/docs/vql/>VQL Fundamentals</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/vql/notebooks/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/vql/notebooks/>Notebooks</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/vql/artifacts/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/vql/artifacts/>Artifacts</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/vql/events/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/vql/events/>Event Queries</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/docs/forensic/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/docs/forensic/>Forensic Analysis</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/forensic/filesystem/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/forensic/filesystem/>Searching Filenames</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/forensic/searching/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/forensic/searching/>Searching Content</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/forensic/ntfs/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/forensic/ntfs/>NTFS Analysis</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/forensic/binary/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/forensic/binary/>Binary parsing</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/forensic/evidence_of_execution/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/forensic/evidence_of_execution/>Evidence Of Execution</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/forensic/event_logs/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/forensic/event_logs/>Event Logs</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/forensic/volatile/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/forensic/volatile/>Volatile State</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/docs/offline_triage/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/docs/offline_triage/>Triage and acquisition</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/offline_triage/remote_uploads/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/offline_triage/remote_uploads/>Remote Uploads</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/docs/client_monitoring/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/client_monitoring/>Client Monitoring</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/extending_vql/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/extending_vql/>Extending VQL</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/server_automation/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/docs/server_automation/>Server Automation</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/server_automation/server_api/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/server_automation/server_api/>Server API</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/server_automation/server_monitoring/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/server_automation/server_monitoring/>Server Monitoring</a></div></li></ul></li></ul></li><hr><li data-nav-id=https://docs.velociraptor.app/vql_reference/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/vql_reference/><i class="fas fa-book"></i>VQL Reference</a></div><ul><li data-nav-id=https://docs.velociraptor.app/vql_reference/basic/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/basic/>Basic VQL</a></div></li><li data-nav-id=https://docs.velociraptor.app/vql_reference/linux/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/linux/>Linux Specific</a></div></li><li data-nav-id=https://docs.velociraptor.app/vql_reference/windows/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/windows/>Windows Specific</a></div></li><li data-nav-id=https://docs.velociraptor.app/vql_reference/parsers/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/parsers/>Parsers</a></div></li><li data-nav-id=https://docs.velociraptor.app/vql_reference/server/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/server/>Server Side</a></div></li><li data-nav-id=https://docs.velociraptor.app/vql_reference/plugin/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/plugin/>Client Side</a></div></li><li data-nav-id=https://docs.velociraptor.app/vql_reference/event/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/event/>Event Plugins</a></div></li><li data-nav-id=https://docs.velociraptor.app/vql_reference/experimental/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/experimental/>Experimental</a></div></li><li data-nav-id=https://docs.velociraptor.app/vql_reference/misc/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/misc/>Misc</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/training/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/training/><i class="fas fa-graduation-cap"></i>Training</a></div></li><li data-nav-id=https://docs.velociraptor.app/blog/ class="dd-item parent haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/blog/><i class="fas fa-newspaper"></i>Blog</a></div></li><li data-nav-id=https://docs.velociraptor.app/presentations/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/presentations/><i class="fas fa-chalkboard-teacher"></i>Presentations</a></div><ul><li data-nav-id=https://docs.velociraptor.app/presentations/2022_linuxconf_au/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/presentations/2022_linuxconf_au/>Linux Conf Au 2022</a></div></li><li data-nav-id=https://docs.velociraptor.app/presentations/2022_auscert/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/presentations/2022_auscert/>Auscert 2022</a></div></li><li data-nav-id=https://docs.velociraptor.app/presentations/2022_dfrws_us/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/presentations/2022_dfrws_us/>DFRWS US 2022</a></div></li><li data-nav-id=https://docs.velociraptor.app/presentations/2022_tech_user_group_cbr/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/presentations/2022_tech_user_group_cbr/>Tech Users Group 2022</a></div></li><li data-nav-id=https://docs.velociraptor.app/presentations/2022_sans_summit/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/presentations/2022_sans_summit/>SANS Summit 2022</a></div></li><li data-nav-id=https://docs.velociraptor.app/presentations/2022_velocon/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/presentations/2022_velocon/>Velocon 2022</a></div></li><li data-nav-id=https://docs.velociraptor.app/presentations/2022_dfrws_apac/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/presentations/2022_dfrws_apac/>DFRWS APAC 2022</a></div></li><li data-nav-id=https://docs.velociraptor.app/presentations/2023_everything_open/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/presentations/2023_everything_open/>EverythingOpen 2023</a></div></li><li data-nav-id=https://docs.velociraptor.app/presentations/2023_auscert/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/presentations/2023_auscert/>Auscert 2023</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/exchange/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/exchange/><i class="fas fa-code"></i>Artifact Exchange</a></div></li><li data-nav-id=https://docs.velociraptor.app/artifact_references/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/artifact_references/><i class="fas fa-book"></i>Artifact Reference</a></div></li><li data-nav-id=https://docs.velociraptor.app/knowledge_base/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/knowledge_base/><i class="fas fa-brain"></i>Knowledge Base</a></div></li><li data-nav-id=https://docs.velociraptor.app/search/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/search/><i class='fas fa-search'></i>Search</a></div></li></ul><hr><section id=shortcuts><h3></h3><ul><li><a class=padding href=https://github.com/Velocidex/velociraptor><i class='fab fa-github'></i>Github</a></li><li><a class=padding href=https://docs.velociraptor.app/discord/><i class='fab fa-discord'></i>Discord</a></li><li><a class=padding href=mailto:velociraptor-discuss@googlegroups.com><i class='fas fa-envelope'></i>Mailing List</a></li><li><a class=padding href=https://docs.velociraptor.app/rss/><i class='fas fa-rss'></i>RSS</a></li></ul></section><section id=footer><div class=footer-copyright>Brought to you by
+<img src=/images/Rapid7_logo.svg class=rapid7><br><i class="fas fa-copyright"></i> 2022</div></section></div></nav><script>$("#sidebar i.fa-angle-right").each(function(){$(this).parent().parent().find("ul").hide()})</script><section id=body><div id=overlay></div><div class="padding highlightable"><div><div id=top-bar><div id=top-github-link><a class=github-link title='Edit this page' href=https://github.com/Velocidex/velociraptor-docs/edit/master/content/blog/html/2019/02/10/velociraptor_performance/_index.md target=blank><i class="fas fa-code-branch"></i>
+<span id=top-github-link-text>Edit this page</span></a></div><div id=breadcrumbs itemscope itemtype=http://data-vocabulary.org/Breadcrumb><span id=sidebar-toggle-span><a href=# id=sidebar-toggle data-sidebar-toggle><i class="fas fa-bars"></i></a></span>
 <span id=toc-menu><i class="fas fa-list-alt"></i></span>
-<span class=links>
-Velociraptor Performance
-</span>
-</div>
-<div class=progress>
-<div class=wrapper>
-<nav id=TableOfContents>
-<ul>
-<li><a href=#velociraptor-rate-limiting>Velociraptor rate limiting</a></li>
-</ul>
-<ul>
-<li><a href=#thanks>Thanks</a></li>
-</ul>
-</nav>
-</div>
-</div>
-</div>
-</div>
-<div id=head-tags>
-</div>
-<div id=body-inner>
-<h1>
-Velociraptor Performance
-</h1>
-<p>We are often asked how many resources does a Velociraptor deployment
-use? How should one spec a machine for a Velociraptor deployment?</p>
-<p>We have previously said that one of the reasons we developed
+<span class=links>Velociraptor Performance</span></div><div class=progress><div class=wrapper><nav id=TableOfContents><ul><li><a href=#velociraptor-rate-limiting>Velociraptor rate limiting</a></li></ul><ul><li><a href=#thanks>Thanks</a></li></ul></nav></div></div></div></div><div id=head-tags></div><div id=body-inner><h1>Velociraptor Performance</h1><p>We are often asked how many resources does a Velociraptor deployment
+use? How should one spec a machine for a Velociraptor deployment?</p><p>We have previously said that one of the reasons we developed
 Velociraptor was to improve on the performance of GRR which was not
-scalable for our use case.</p>
-<p>We've been working with the team at Klein & Co. on several intrusions
-over the past several months, which are providing valuable opportunities
-to deploy and test Velociraptor in a range of real world investigation
-scenarios. Through this process, we&rsquo;ve been able to extend
-Velociraptor&rsquo;s functionality and prove its performance on real client
-networks.</p>
-<p>I thought I would write a short blog post to show how Velociraptor
+scalable for our use case.</p><p>We have been working with the team at Klein & Co. on several
+intrusions over the past several months, which are providing valuable
+opportunities to deploy and test Velociraptor in a range of real world
+investigation scenarios. Through this process, we have been able to
+extend Velociraptor&rsquo;s functionality and prove its performance on real
+client networks.</p><p>I thought I would write a short blog post to show how Velociraptor
 performed on such a recent engagement. In this engagement we deployed
 Velociraptor on AWS and selectively pushed the client to around 600
-machines running a mix of MacOS and Windows.</p>
-<p>This post will hopefully give readers some idea of how scalable the tool
-is and the typical workloads we run with it.</p>
-<h1 id=the-server>The Server</h1>
-<p>Since this is a smallish deployment we used a single VM with 32Gb of RAM
+machines running a mix of MacOS and Windows.</p><p>This post will hopefully give readers some idea of how scalable the tool
+is and the typical workloads we run with it.</p><h1 id=the-server>The Server</h1><p>Since this is a smallish deployment we used a single VM with 32Gb of RAM
 and 8 cores. This was definitely over speced for this job as most of the
-time the server consumed less than 10% of one core:</p>
-<pre><code class=language-{.sourceCode>top - 06:26:13 up 29 days,  2:31,  5 users,  load average: 0.00, 0.01, 0.05
+time the server consumed less than 10% of one core:</p><pre><code class=language-{.sourceCode>top - 06:26:13 up 29 days,  2:31,  5 users,  load average: 0.00, 0.01, 0.05
 Tasks: 214 total,   1 running, 213 sleeping,   0 stopped,   0 zombie
 %Cpu(s):  0.5 us,  0.1 sy,  0.0 ni, 99.4 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
 KiB Mem:  32948060 total, 14877988 used, 18070072 free,   411192 buffers
@@ -442,106 +94,67 @@ KiB Swap:        0 total,        0 used,        0 free. 13381224 cached Mem
   PID USER      PR  NI    VIRT    RES    SHR S  %CPU %MEM     TIME+ COMMAND
 19334 root      20   0 1277924  94592  12616 S   3.0  0.3   9:11.03 ./velociraptor --config server.config.yaml frontend
     8 root      20   0       0      0      0 S   0.3  0.0   7:16.30 [rcuos/0]
-</code></pre>
-<p>You can see that the server consumed about 95mb when operating normally
-and CPU usage was around 3% of one core.</p>
-<p>For this engagement we knew that we would be collecting a lot of data
-and so we specified a large 500gb volume.</p>
-<h1 id=hunt-performance>Hunt performance</h1>
-<p>Velociraptor works by collecting "Artifacts" from clients. Artifacts
+</code></pre><p>You can see that the server consumed about 95mb when operating normally
+and CPU usage was around 3% of one core.</p><p>For this engagement we knew that we would be collecting a lot of data
+and so we specified a large 500gb volume.</p><h1 id=hunt-performance>Hunt performance</h1><p>Velociraptor works by collecting "Artifacts" from clients. Artifacts
 are simply encapsulated VQL queries which specify something to search
 for on the endpoint. Without going into the details of this engagement,
 we can say that we collected typical artifacts for a DFIR/Forensic
 investigation engagement. In the following I want to explore how well
 hunts performed for the following typical artifacts in order of
-complexity:</p>
-<ol>
-<li>Search the filesystem for a file glob.</li>
-<li>Download the $MFT from the root filesystem.</li>
-<li>Run a Yara scan over every file on all mounted filesystems.</li>
-</ol>
-<p>We ran these artifact collections over a large number of hosts (between
+complexity:</p><ol><li>Search the filesystem for a file glob.</li><li>Download the $MFT from the root filesystem.</li><li>Run a Yara scan over every file on all mounted filesystems.</li></ol><p>We ran these artifact collections over a large number of hosts (between
 400-500) that fell within the scope of our engagement. Although the
 number of hosts is not huge, we hope to demonstrate Velociraptor's
-scalability.</p>
-<h1 id=searching-for-a-file-glob>Searching for a file glob</h1>
-<p>One of the simplest and most common tasks in DFIR is to search the
+scalability.</p><h1 id=searching-for-a-file-glob>Searching for a file glob</h1><p>One of the simplest and most common tasks in DFIR is to search the
 filesystem for a glob based on filename. This requires traversing
 directories and matching the filename based on the user specified
 expression - for example, find all files with the extension *.exe
-within the C:\\Users directory.</p>
-<p>Velociraptor can glob over the entire filesystem or over a limited set
+within the C:\\Users directory.</p><p>Velociraptor can glob over the entire filesystem or over a limited set
 of files. Typically a full filesystem glob can take some minutes on the
 endpoint (it is equivalent to running the find unix command) and touches
 every file. We typically try to limit the scope of the glob as much as
 possible (e.g. only search system directories) but sometimes it is nice
 to run a glob over all mounted filesystems to make sure we don't miss
-anything. In this case we opted for a full filesystem scan.</p>
-<p>We searched the entire deployment using a hunt (The hunt is constructed
+anything. In this case we opted for a full filesystem scan.</p><p>We searched the entire deployment using a hunt (The hunt is constructed
 using the File Finder flow in the GUI) which just launches the artifact
 collection. Therefore the horizontal distance between the red and blue
 dot, in the graph below, represents the total time taken by the host to
-collect the artifact.</p>
-<p>
-<figure>
-<img src=FileNameSearch.svg alt=image class=captioned>
-<figcaption>image</figcaption>
-</figure>
-</p>
-<p>The graph shows how many hosts were recruited into this hunt on the Y
+collect the artifact.</p><p><figure><img src=FileNameSearch.svg alt=image class=captioned><figcaption>image</figcaption></figure></p><p>The graph shows how many hosts were recruited into this hunt on the Y
 axis. The X axis show the number of seconds since the hunt launch. The
 red points indicate the time when clients started their collection,
 while the blue dots indicate the time when the client completed the
-artifact collection and the server saved its results.</p>
-<p>The inset shows the same data but zoomed into the time origin.</p>
-<p>Velociraptor improves and builds on the initial ideas implemented within
+artifact collection and the server saved its results.</p><p>The inset shows the same data but zoomed into the time origin.</p><p>Velociraptor improves and builds on the initial ideas implemented within
 the GRR DFIR tool, and so it is interesting to compare this graph to a
 typical graph produced by GRR's hunt (reproduced from <a href=https://www.sciencedirect.com/science/article/pii/S1742287613000285>this
-paper</a>).</p>
-<p>
-<figure>
-<img src=grr_hunt.png alt=image class=captioned>
-<figcaption>image</figcaption>
-</figure>
-</p>
-<p>The first noticeable difference is that Velociraptor clients complete
+paper</a>).</p><p><figure><img src=grr_hunt.png alt=image class=captioned><figcaption>image</figcaption></figure></p><p>The first noticeable difference is that Velociraptor clients complete
 their collection much faster than GRR's (the horizontal distance
 between the red and blue dots represents the time between when the
-collection is issued and the time it completes).</p>
-<p>The main reason for this is that GRR's communication protocol relies on
+collection is issued and the time it completes).</p><p>The main reason for this is that GRR's communication protocol relies on
 polling (by default every 10 minutes). Also, since hunting is so
 resource intensive in GRR, the clients actually poll the hunt foreman
 task every 30 minutes by default. This means that GRR clients typically
-have to wait up to 30 minutes to run a hunt!</p>
-<p>The second difference is the slope of the line around the start of the
+have to wait up to 30 minutes to run a hunt!</p><p>The second difference is the slope of the line around the start of the
 hunt. GRR implements a hunt client rate - clients are recruited into the
 hunt slowly (by default 20 per minute) in order to limit the load on the
 frontends. Unlike GRR, Velociraptor does not implement a hunt rate since
 the Velociraptor frontend load is controlled by limiting concurrency
-instead (more on this below).</p>
-<p>This means that Velociraptor can deliver useful results within seconds
+instead (more on this below).</p><p>This means that Velociraptor can deliver useful results within seconds
 of the hunt starting. We see that this particular filename search
 typically takes 25-30 seconds and we see about 200 clients completing
 the hunt within this time consistently. The remaining clients are
 probably not online and they receive the hunt as they join the network.
-This makes Velociraptor hunts far more responsive and useful.</p>
-<p>You might also notice a few outliers which spend a long time collecting
+This makes Velociraptor hunts far more responsive and useful.</p><p>You might also notice a few outliers which spend a long time collecting
 this artifact - these machines have probably been shutdown or suspended
-while collecting this artifact.</p>
-<h1 id=mft-download>MFT Download</h1>
-<p>A common technique is to examine the Master File Table (MFT) of an NTFS
+while collecting this artifact.</p><h1 id=mft-download>MFT Download</h1><p>A common technique is to examine the Master File Table (MFT) of an NTFS
 volume. By forensically analyzing the MFT it is possible to detect
 deleted files, time stomping and build a timeline of the system using
-tools like <a href=https://github.com/dkovar/analyzeMFT>analyseMFT.py</a> or
-<a href=https://dmitrybrant.com/ntfswalker>ntfswalker</a> .</p>
-<p>In this case we decided to collect the $MFT from all the Windows hosts
+tools like <a href=https://github.com/dkovar/analyzeMFT><code>analyseMFT.py</code></a> or
+<a href=https://dmitrybrant.com/ntfswalker>ntfswalker</a> .</p><p>In this case we decided to collect the $MFT from all the Windows hosts
 and post-process them offline. Typically the MFT is around 300-400mb and
 could be larger. Therefore this artifact collection is about performance
-downloading large quantities of data from multiple hosts quickly.</p>
-<p>Velociraptor can read the raw NTFS partition and therefore read the
+downloading large quantities of data from multiple hosts quickly.</p><p>Velociraptor can read the raw NTFS partition and therefore read the
 $MFT file. We wrote the following artifact to just fetch the $MFT
-file:</p>
-<pre><code class=language-{.sourceCode>name: Artifact.NTFS.MFT_puller
+file:</p><pre><code class=language-{.sourceCode>name: Artifact.NTFS.MFT_puller
 description: |
    Uses an NTFS accessor to pull the $MFT
 
@@ -554,130 +167,71 @@ sources:
     SELECT OS From info() where OS = 'windows'
   queries:
   - SELECT upload(file=path, accessor=&quot;ntfs&quot;) as Upload from scope()
-</code></pre>
-<p>Here is the timing graph for this artifact collection:</p>
-<p>
-<figure>
-<img src=MFTDownload.svg alt=image class=captioned>
-<figcaption>image</figcaption>
-</figure>
-</p>
-<p>This collection takes a lot longer on each host as clients are uploading
+</code></pre><p>Here is the timing graph for this artifact collection:</p><p><figure><img src=MFTDownload.svg alt=image class=captioned><figcaption>image</figcaption></figure></p><p>This collection takes a lot longer on each host as clients are uploading
 around 400mb each to the server, but our server was in the cloud so it
 had fast bandwidth. Again we see the hosts that are currently up being
 tasked within seconds, while as hosts come online gradually we see them
-receiving the hunt and a few minutes later uploading their $MFT file.</p>
-<p>Was the frontend loaded at the time? I took a screenshot of top on the
-server seconds after launching the hunt:</p>
-<p>
-<figure>
-<img src=UploadingMFT.png alt=image class=captioned>
-<figcaption>image</figcaption>
-</figure>
-</p>
-<p>We can see that the CPU load is trivial (4.7%) but the major impact of a
+receiving the hunt and a few minutes later uploading their $MFT file.</p><p>Was the frontend loaded at the time? I took a screenshot of top on the
+server seconds after launching the hunt:</p><p><figure><img src=UploadingMFT.png alt=image class=captioned><figcaption>image</figcaption></figure></p><p>We can see that the CPU load is trivial (4.7%) but the major impact of a
 heavy upload collection is the memory used (about 4.7gb - up from about
 100mb). The reason is that each client is posting a large buffer of data
 (several mb) simultaneously. The server needs to buffer the data before
-it can decrypt and process it which takes memory.</p>
-<p>In order to limit the amount of memory used, Velociraptor limits the
+it can decrypt and process it which takes memory.</p><p>In order to limit the amount of memory used, Velociraptor limits the
 total number of connections it is actively processing to 8-10 concurrent
 connections. By carefully managing concurrency we are able to keep a
 limit on server memory use. We may lower the total memory use by
 reducing the concurrency (and therefore maybe fit into a smaller VM).
 Clients simply wait until the server is able to process their uploaded
 buffers. If the server takes too long, the clients automatically back
-off and retry to send the same buffer.</p>
-<h1 id=yara-scan-over-the-entire-filesystem>Yara scan over the entire filesystem</h1>
-<p>The final example of a very intense artifact is to scan the entire
+off and retry to send the same buffer.</p><h1 id=yara-scan-over-the-entire-filesystem>Yara scan over the entire filesystem</h1><p>The final example of a very intense artifact is to scan the entire
 filesystem with a YARA rule. This not only requires traversing the
-entire filesystem, but also opening each file and searching it.</p>
-<p>One of the dangers with such a scan is that users will be negatively
+entire filesystem, but also opening each file and searching it.</p><p>One of the dangers with such a scan is that users will be negatively
 impacted as their workstations start to read every file on disk! The
 main resources a YARA scan consumes is disk IO and CPU load. Users might
 complain and blame Velociraptor for their machine being slow (disk IO
-may negatively affect performance much more than CPU load!).</p>
-<p>However in this case, we don't care how long we take to scan the
+may negatively affect performance much more than CPU load!).</p><p>However in this case, we don't care how long we take to scan the
 user's system, as long as every file was scanned, and as long as the
 endpoint is not overloaded and the user's work is not affected. Luckily
 Velociraptor allows us to specify the trade-off between collection time
-and collection intensity.</p>
-<h2 id=velociraptor-rate-limiting>Velociraptor rate limiting</h2>
-<p>Velociraptor controls client side load by rate limiting the client's
+and collection intensity.</p><h2 id=velociraptor-rate-limiting>Velociraptor rate limiting</h2><p>Velociraptor controls client side load by rate limiting the client's
 VQL query. Each VQL plugin consumes an "operation" from the throttler.
 We define an "operation" as a notional unit of work - the heavier the
 VQL plugin's work, the more operations are consumed. For example for
 yara scanning, an operation is defined as 1mb of scanned data, or a
-single file if the file is smaller.</p>
-<p>When a user issues an artifact collection task, they may limit the rate
+single file if the file is smaller.</p><p>When a user issues an artifact collection task, they may limit the rate
 at which operations are performed by the client. The Velociraptor agent
 then limits the operations to the specified rate. For example, if the
-rate is 20 ops/sec then the client will scan less than 20mb per seconds.</p>
-<p>Other collections may run concurrently at different rates, though; The
+rate is 20 ops/sec then the client will scan less than 20mb per seconds.</p><p>Other collections may run concurrently at different rates, though; The
 client is not blocked while performing a single artifact collection.
 This makes sense since we often need to collect a low priority artifact
 slowly, but we do not want this to compromise rapid response to that
-host.</p>
-<p>For example, one of our targets was a server with large attached
+host.</p><p>For example, one of our targets was a server with large attached
 storage. We ran the Yara scan over this system, scanning the first 100Mb
 of each file, at a rate of 50 ops/sec. In total we scanned 1.5Tb of
-files and the scan took 14 hours (for a total scan rate of 30Mb/sec).</p>
-<p>Velociraptor by default collects the Generic.Client.Stats artifact,
+files and the scan took 14 hours (for a total scan rate of 30Mb/sec).</p><p>Velociraptor by default collects the Generic.Client.Stats artifact,
 which samples the client's CPU utilization and memory usage every 10
 seconds. These samples are streamed to the server and form a record of
 the client's footprint on the endpoint. We can use this data to
-visualize the effects of performing the yara scan on this host:</p>
-<p>
-<figure>
-<img src=cpu_utilization.svg alt=image class=captioned>
-<figcaption>image</figcaption>
-</figure>
-</p>
-<p>Above is the CPU usage on that particular server over the course of a
+visualize the effects of performing the yara scan on this host:</p><p><figure><img src=cpu_utilization.svg alt=image class=captioned><figcaption>image</figcaption></figure></p><p>Above is the CPU usage on that particular server over the course of a
 full day (24 hours). The 14 hour yara scan is clearly visible but at no
 time is CPU utilization exceeding 30% of one core. With endpoint disk IO
 limited to about 30mb/sec we have achieved a balance between performance
-and endpoint load we are happy with.</p>
-<p>
-<figure>
-<img src=YaraScanFull.svg alt=image class=captioned>
-<figcaption>image</figcaption>
-</figure>
-</p>
-<p>We can see that most endpoints take approximately an hour to perform
+and endpoint load we are happy with.</p><p><figure><img src=YaraScanFull.svg alt=image class=captioned><figcaption>image</figcaption></figure></p><p>We can see that most endpoints take approximately an hour to perform
 this yara scan, but server load is minimal since the server simply
-stores the results of the scans while doing minimal processing.</p>
-<h1 id=conclusions>Conclusions</h1>
-<p>This post provides some typical numbers for Velociraptor performance in
+stores the results of the scans while doing minimal processing.</p><h1 id=conclusions>Conclusions</h1><p>This post provides some typical numbers for Velociraptor performance in
 typical DFIR engagements. We also covered some considerations and
 trade-offs we must think about when issuing large artifact collections.
 Readers can use these as a guideline in their own deployments - please
 comment below about your experiences. Velociraptor is under very active
 development and this feedback is important to ensure we put in place the
-mechanisms to account for more use cases.</p>
-<h2 id=thanks>Thanks</h2>
-<p>We would like to thank the folk at
-<a href=https://www.kleinco.com.au/>Klein&Co</a> for their wonderful support and
-assistance in Velociraptor development.</p>
-<footer class=footline>
-</footer>
-</div>
-</div>
-<div id=navigation>
-</div>
-</section>
-<div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
-<div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
-</div>
-<script src=/js/clipboard.min.js?1637855120></script>
-<script src=/js/perfect-scrollbar.min.js?1637855120></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1637855120></script>
-<script src=/js/jquery.sticky.js?1637855120></script>
-<script src=/js/featherlight.min.js?1637855120></script>
-<script src=/js/highlight.min.js?1637855120></script>
-<script>hljs.highlightAll()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1637855120></script>
-<script src=/js/learn.js?1637855120></script>
-<script src=/js/hugo-learn.js?1637855120></script>
-</body>
-</html>
+mechanisms to account for more use cases.</p><h2 id=thanks>Thanks</h2><p>We would like to thank the folk at
+<a href=https://www.kleinco.com.au/>Klein&amp;Co</a> for their wonderful support and
+assistance in Velociraptor development.</p><footer class=footline></footer></div></div><div id=navigation></div></section><div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px><div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div></div><script src=/js/clipboard.min.js?1692614572></script>
+<script src=/js/perfect-scrollbar.min.js?1692614572></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1692614572></script>
+<script src=/js/jquery.sticky.js?1692614572></script>
+<script src=/js/featherlight.min.js?1692614572></script>
+<script src=/js/highlight.min.js?1692614572></script>
+<script>hljs.highlightAll()</script><script src=/js/modernizr.custom-3.6.0.js?1692614572></script>
+<script src=/js/learn.js?1692614572></script>
+<script src=/js/hugo-learn.js?1692614572></script></body></html>

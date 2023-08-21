@@ -1,0 +1,223 @@
+<!doctype html><html lang=en class="js csstransforms3d"><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo 0.117.0"><meta name=description content="Since 0.6.6, Velociraptor comes with a process tracker. What is it and how can it be used?
+"><link rel=icon href=/images/favicon.png type=image/png><title>The Velociraptor process tracker :: Velociraptor - Digging deeper!</title><link href=/css/nucleus.css?1692614572 rel=stylesheet><link href=/css/fontawesome-all.min.css?1692614572 rel=stylesheet><link href=/css/featherlight.min.css?1692614572 rel=stylesheet><link href=/css/perfect-scrollbar.min.css?1692614572 rel=stylesheet><link href=/css/auto-complete.css?1692614572 rel=stylesheet><link href=/css/theme.css?1692614572 rel=stylesheet><link href=/css/tabs.css?1692614572 rel=stylesheet><link href=/css/hugo-theme.css?1692614572 rel=stylesheet><link href=/css/theme-mine.css?1692614572 rel=stylesheet><link href=/css/dark.css?1692614572 rel=stylesheet><link href=/css/syntax.css?1692614572 rel=stylesheet><link href=/css/light.css?1692614572 rel=stylesheet><link href=/css/hljs.css?1692614572 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1692614572 rel=stylesheet><script src=/js/jquery-3.3.1.min.js?1692614572></script><style>:root #header+#content>#left>#rlblock_left{display:none!important}</style><script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
+<script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-QYH72LMYCS",{anonymize_ip:!1})}</script><script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","G-QYH72LMYCS","auto"),ga("send","pageview"))</script><script async src=https://www.google-analytics.com/analytics.js></script>
+<script></script></head><body data-url=/blog/2022/2022-08-17-process-tracker/><nav id=sidebar><div id=header-wrapper><div id=header><script>function darkmode(){$("body").addClass("dark").removeClass("light"),document.cookie="theme=darkmode;path=/"}function lightmode(){$("body").removeClass("dark").addClass("light"),document.cookie="theme=lightmode;path=/"}const regex=new RegExp("theme=darkmode");regex.test(document.cookie)?darkmode():lightmode()</script><div class="btn btn-default ThemeSelector darkmode" onclick=darkmode()><i class="fas fa-moon"></i></div><div class="btn btn-default ThemeSelector lightmode" onclick=lightmode()><i class="fas fa-sun"></i></div><a href=https://docs.velociraptor.app/><img src=https://docs.velociraptor.app//images/logo.svg></a></div></div><div class=highlightable><ul class=topics><li data-nav-id=https://docs.velociraptor.app/announcements/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/announcements/><i class="fas fa-bullhorn"></i>Announcements</a></div><ul><li data-nav-id=https://docs.velociraptor.app/announcements/2023-cves/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/announcements/2023-cves/>Current CVEs</a></div></li><li data-nav-id=https://docs.velociraptor.app/announcements/2023-trainings/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/announcements/2023-trainings/>Trainings</a></div></li><li data-nav-id=https://docs.velociraptor.app/announcements/2023-velocon/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/announcements/2023-velocon/>VeloCON 2023</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/docs/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/docs/><i class="fas fa-book-reader"></i>Documentation</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/overview/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/docs/overview/>Velociraptor Overview</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/overview/history/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/overview/history/>History</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/overview/support/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/overview/support/>Support Policy</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/docs/deployment/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/docs/deployment/>Deployment</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/deployment/self-signed/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/deployment/self-signed/>Self-Signed SSL</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/deployment/cloud/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/docs/deployment/cloud/>Cloud Deployment</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/deployment/cloud/multifrontend/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/deployment/cloud/multifrontend/>Multi-Frontend</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/docs/deployment/clients/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/deployment/clients/>Deploying Clients</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/deployment/rbac/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/deployment/rbac/>Users and Roles</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/deployment/resources/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/deployment/resources/>Performance</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/deployment/troubleshooting/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/deployment/troubleshooting/>Troubleshooting</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/deployment/references/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/deployment/references/>Config Reference</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/docs/gui/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/docs/gui/>The Admin GUI</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/gui/clients/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/gui/clients/>Inspecting clients</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/gui/vfs/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/gui/vfs/>The VFS</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/gui/artifacts/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/gui/artifacts/>Artifacts</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/gui/hunting/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/gui/hunting/>Hunting</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/docs/vql/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/docs/vql/>VQL Fundamentals</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/vql/notebooks/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/vql/notebooks/>Notebooks</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/vql/artifacts/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/vql/artifacts/>Artifacts</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/vql/events/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/vql/events/>Event Queries</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/docs/forensic/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/docs/forensic/>Forensic Analysis</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/forensic/filesystem/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/forensic/filesystem/>Searching Filenames</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/forensic/searching/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/forensic/searching/>Searching Content</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/forensic/ntfs/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/forensic/ntfs/>NTFS Analysis</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/forensic/binary/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/forensic/binary/>Binary parsing</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/forensic/evidence_of_execution/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/forensic/evidence_of_execution/>Evidence Of Execution</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/forensic/event_logs/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/forensic/event_logs/>Event Logs</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/forensic/volatile/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/forensic/volatile/>Volatile State</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/docs/offline_triage/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/docs/offline_triage/>Triage and acquisition</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/offline_triage/remote_uploads/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/offline_triage/remote_uploads/>Remote Uploads</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/docs/client_monitoring/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/client_monitoring/>Client Monitoring</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/extending_vql/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/extending_vql/>Extending VQL</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/server_automation/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/docs/server_automation/>Server Automation</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/server_automation/server_api/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/server_automation/server_api/>Server API</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/server_automation/server_monitoring/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/server_automation/server_monitoring/>Server Monitoring</a></div></li></ul></li></ul></li><hr><li data-nav-id=https://docs.velociraptor.app/vql_reference/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/vql_reference/><i class="fas fa-book"></i>VQL Reference</a></div><ul><li data-nav-id=https://docs.velociraptor.app/vql_reference/basic/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/basic/>Basic VQL</a></div></li><li data-nav-id=https://docs.velociraptor.app/vql_reference/linux/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/linux/>Linux Specific</a></div></li><li data-nav-id=https://docs.velociraptor.app/vql_reference/windows/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/windows/>Windows Specific</a></div></li><li data-nav-id=https://docs.velociraptor.app/vql_reference/parsers/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/parsers/>Parsers</a></div></li><li data-nav-id=https://docs.velociraptor.app/vql_reference/server/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/server/>Server Side</a></div></li><li data-nav-id=https://docs.velociraptor.app/vql_reference/plugin/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/plugin/>Client Side</a></div></li><li data-nav-id=https://docs.velociraptor.app/vql_reference/event/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/event/>Event Plugins</a></div></li><li data-nav-id=https://docs.velociraptor.app/vql_reference/experimental/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/experimental/>Experimental</a></div></li><li data-nav-id=https://docs.velociraptor.app/vql_reference/misc/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/misc/>Misc</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/training/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/training/><i class="fas fa-graduation-cap"></i>Training</a></div></li><li data-nav-id=https://docs.velociraptor.app/blog/ class="dd-item parent haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/blog/><i class="fas fa-newspaper"></i>Blog</a></div></li><li data-nav-id=https://docs.velociraptor.app/presentations/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/presentations/><i class="fas fa-chalkboard-teacher"></i>Presentations</a></div><ul><li data-nav-id=https://docs.velociraptor.app/presentations/2022_linuxconf_au/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/presentations/2022_linuxconf_au/>Linux Conf Au 2022</a></div></li><li data-nav-id=https://docs.velociraptor.app/presentations/2022_auscert/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/presentations/2022_auscert/>Auscert 2022</a></div></li><li data-nav-id=https://docs.velociraptor.app/presentations/2022_dfrws_us/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/presentations/2022_dfrws_us/>DFRWS US 2022</a></div></li><li data-nav-id=https://docs.velociraptor.app/presentations/2022_tech_user_group_cbr/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/presentations/2022_tech_user_group_cbr/>Tech Users Group 2022</a></div></li><li data-nav-id=https://docs.velociraptor.app/presentations/2022_sans_summit/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/presentations/2022_sans_summit/>SANS Summit 2022</a></div></li><li data-nav-id=https://docs.velociraptor.app/presentations/2022_velocon/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/presentations/2022_velocon/>Velocon 2022</a></div></li><li data-nav-id=https://docs.velociraptor.app/presentations/2022_dfrws_apac/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/presentations/2022_dfrws_apac/>DFRWS APAC 2022</a></div></li><li data-nav-id=https://docs.velociraptor.app/presentations/2023_everything_open/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/presentations/2023_everything_open/>EverythingOpen 2023</a></div></li><li data-nav-id=https://docs.velociraptor.app/presentations/2023_auscert/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/presentations/2023_auscert/>Auscert 2023</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/exchange/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/exchange/><i class="fas fa-code"></i>Artifact Exchange</a></div></li><li data-nav-id=https://docs.velociraptor.app/artifact_references/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/artifact_references/><i class="fas fa-book"></i>Artifact Reference</a></div></li><li data-nav-id=https://docs.velociraptor.app/knowledge_base/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/knowledge_base/><i class="fas fa-brain"></i>Knowledge Base</a></div></li><li data-nav-id=https://docs.velociraptor.app/search/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/search/><i class='fas fa-search'></i>Search</a></div></li></ul><hr><section id=shortcuts><h3></h3><ul><li><a class=padding href=https://github.com/Velocidex/velociraptor><i class='fab fa-github'></i>Github</a></li><li><a class=padding href=https://docs.velociraptor.app/discord/><i class='fab fa-discord'></i>Discord</a></li><li><a class=padding href=mailto:velociraptor-discuss@googlegroups.com><i class='fas fa-envelope'></i>Mailing List</a></li><li><a class=padding href=https://docs.velociraptor.app/rss/><i class='fas fa-rss'></i>RSS</a></li></ul></section><section id=footer><div class=footer-copyright>Brought to you by
+<img src=/images/Rapid7_logo.svg class=rapid7><br><i class="fas fa-copyright"></i> 2022</div></section></div></nav><script>$("#sidebar i.fa-angle-right").each(function(){$(this).parent().parent().find("ul").hide()})</script><section id=body><div id=overlay></div><div class="padding highlightable"><div><div id=top-bar><div id=top-github-link><a class=github-link title='Edit this page' href=https://github.com/Velocidex/velociraptor-docs/edit/master/content/blog/2022/2022-08-17-process-tracker/_index.md target=blank><i class="fas fa-code-branch"></i>
+<span id=top-github-link-text>Edit this page</span></a></div><div id=breadcrumbs itemscope itemtype=http://data-vocabulary.org/Breadcrumb><span id=sidebar-toggle-span><a href=# id=sidebar-toggle data-sidebar-toggle><i class="fas fa-bars"></i></a></span>
+<span id=toc-menu><i class="fas fa-list-alt"></i></span>
+<span class=links>The Velociraptor process tracker</span></div><div class=progress><div class=wrapper><nav id=TableOfContents><ul><li><a href=#a-typical-intrusion>A Typical intrusion</a></li><li><a href=#responding-to-this-system>Responding to this system.</a></li><li><a href=#using-velociraptor-to-gather-process-context>Using Velociraptor to gather process context</a></li><li><a href=#viewing-sibling-processes>Viewing sibling processes</a></li><li><a href=#how-can-velociraptor-show-the-complete-process-call-chain>How can Velociraptor show the complete process call chain?</a></li><li><a href=#accessing-the-tracker-from-vql>Accessing the tracker from VQL</a></li><li><a href=#comparing-the-process-tracker-to-edr>Comparing the process tracker to EDR</a></li><li><a href=#process-tracker-challenges>Process Tracker challenges</a><ul><li><a href=#process-id-reuse>Process ID reuse</a></li></ul></li><li><a href=#what-is-stored-in-the-process-tracker>What is stored in the process tracker.</a></li><li><a href=#conclusions>Conclusions</a></li></ul></nav></div></div></div></div><div id=head-tags><div class=tags><a class=tag-link href=/tags/vql>VQL</a></div></div><div id=body-inner><h1>The Velociraptor process tracker</h1><div class="author pull-right">Mike Cohen
+<span class=date>2022-09-07</span></div><p>One of the advantages of running Velociraptor on the endpoint
+constantly is the ability to monitor the endpoint using <a href=/docs/client_monitoring/>client
+monitoring queries</a>. Gaining
+visibility to volatile information is critical to reconstructing past
+activity and responding to new threats.</p><p>Commonly, attackers subvert the endpoint by creating new
+processes. For example, an attacker might execute malicious office
+macros as their initial compromise, but then follow it by launching
+PowerShell or C# code - or commonly Living Off The Land binaries
+(<code>LOLBins</code>).</p><p>We can use information about processes to identify suspicious
+processes which may represent malicious activity. In the next example
+I will explore a typical case and how it can be investigated using
+Velociraptor.</p><h2 id=a-typical-intrusion>A Typical intrusion</h2><p>A common lateral movement methodology is using <code>PsExec.exe</code> to create
+a system level service (usually remotely). I will run the following commands to emulate typical attacker activities:</p><pre><code>psexec.exe /s powershell
+ping.exe www.google.com
+curl.exe -o script.ps1 https://www.google.com/
+notepad.exe
+</code></pre><p>First I create a system level shell with <code>PsExec.exe</code>, then I perform
+some reconnaissance on the network. Then I download a tool from a
+remote system. Finally I run my malicious process (in this case I use
+<code>notepad.exe</code> but in real life this will be some backdoor like <code>Cobalt Strike</code>).</p><h2 id=responding-to-this-system>Responding to this system.</h2><p>For this example, suppose I was able to identify the malicious process
+(<code>notepad.exe</code>) using other means (for example the
+<code>Windows.Detection.Yara.Process</code> artifact by scanning process memory).</p><p>Now I need to get more context about this process:</p><ol><li>Where did it come from?</li><li>Who started it and when?</li><li>What other activity was done around the time the process was started?</li></ol><p>To answer the first question we need to see which process was the
+parent of the malicious process (and construct the full call chain).</p><p>For this example I will use <a href=https://processhacker.sourceforge.io/>Process
+Hacker</a> - a very popular GUI
+for inspecting processes.</p><p><figure><img src=process_hacker.png alt="Process Hacker output of our suspicious process" class=captioned><figcaption>Process Hacker output of our suspicious process</figcaption></figure></p><p>Normally Process Hacker displays processes in a tree form - we can see
+which process spawned each process. But in this case, there is no
+parent shown for <code>notepad.exe</code>. Closer inspection shows that the
+parent process has actually exited, so Process Hacker has no further
+information about it.</p><p>This limitation of process inspection is central to live triage - the
+API can not provide any information about processes that have already
+exited. Therefore, parent/child relationships are broken.</p><h2 id=using-velociraptor-to-gather-process-context>Using Velociraptor to gather process context</h2><p>Now, I will use Velociraptor&rsquo;s <code>Generic.System.Pstree</code> artifact to
+reconstruct the process call chain of all processes on the system. I
+will enable the collection of the process tree visualization.</p><p><figure><img src=collecting_pstree.png alt="Collecting the Process Tree" class=captioned><figcaption>Collecting the Process Tree</figcaption></figure></p><p>The artifact collects process call trace information from all
+processes by following their parent/child relationships. I now filter
+the table to just show the <code>notepad.exe</code> process, and see that the
+process call tree looks very suspicious!</p><p><figure><img src=pstree.png alt="Velociraptors Generic.System.Pstree artifact can clearly show the call chain" class=captioned><figcaption>Velociraptors Generic.System.Pstree artifact can clearly show the call chain</figcaption></figure></p><p>Velociraptor&rsquo;s <code>Generic.System.Pstree</code> artifact clearly shows the full
+call chain - the process was started through a <code>PSEXESVC.exe</code> service
+and powershell. This additional context shines light on the initial
+intrusion pathway.</p><h2 id=viewing-sibling-processes>Viewing sibling processes</h2><p>Launching <code>notepad.exe</code> is the final stage of a more complete attack
+chain. Let&rsquo;s inspect the parent process in our <code>PsTree</code> collection
+(<code>powershell.exe</code>) to learn what other sibling processes (to our
+suspicious <code>notepad.exe</code>) were launched as part of the original attack
+chain.</p><p><figure><img src=powershell.png alt="Inspecting the powershell process" class=captioned><figcaption>Inspecting the powershell process</figcaption></figure></p><p>Clicking the <code>Process Tree</code> button brings out the new Process Tree
+visualization - rendering all the children of the powershell and their
+respective children.</p><p><figure><img src=powershell_pstree.png alt="Inspecting the full process chain of the powershell process" class=captioned><figcaption>Inspecting the full process chain of the powershell process</figcaption></figure></p><p>As can be clearly seen from this visualization, Velociraptor reports
+seeing the <code>ping.exe</code> process first, then the <code>curl.exe</code> process and
+finally the <code>notepad.exe</code> process. You might also notice that
+<code>curl.exe</code> as shown in the visualization has already exited by the
+time the process tree was collected!</p><h2 id=how-can-velociraptor-show-the-complete-process-call-chain>How can Velociraptor show the complete process call chain?</h2><p>The process call chain is very useful for us to gather some important
+context but how does Velociraptor know about processes that have
+already exited? After all the API will not reveal this information
+which is why <code>Process Hacker</code> can not construct the full call chain?</p><p>One of the most exciting additions to Velociraptor in recent releases
+was the addition of the <code>process tracker</code>. The Process tracker is an
+internal tool that keeps track of processes and their children
+continuously. By tracking historical process activity on the end point
+we can answer questions like <code>Which process launched this Process ID?</code>
+quickly, even if the original parent has already exited - we do not
+need to rely on the API to gather this information.</p><p>The diagram below illustrates how the process tracker works</p><p><figure><img src=process_tracker.svg alt="The Velociraptor process tracker architecture" class=captioned><figcaption>The Velociraptor process tracker architecture</figcaption></figure></p><p>The tracker accepts process information from two potential sources:</p><ol><li>An event query to feed it real time process start/end events.</li><li>A VQL query that runs periodically to refresh the complete state of running processes.</li></ol><p>These are implemented by way of</p><ol><li><p>The <code>Windows.Events.TrackProcesses</code> artifact uses ETW to watch for
+the Sysmon Process start events (ID 1) for real time information,
+as well as periodically running a complete <code>pslist()</code> to
+synchronize its internal state.</p></li><li><p>If you do not want to run <code>Sysmon</code>, you can choose to collect the
+<code>Windows.Events.TrackProcessesBasic</code> artifact which only refreshes
+the tracker with a periodic <code>pslist()</code> API call.</p></li><li><p>If you do not collect any specialized artifacts to track processes,
+the tracker will fall back to a regular pslist() based dummy
+implementation. This will give the same results as before (i.e. it
+is unable to see previously exited processes) but all process
+tracker VQL commands work as usual.</p></li></ol><p>This means that as an artifact writer you can always use the process
+tracker as a complete substitution to the traditional <code>pslist()</code>
+plugin! Depending on how the administrator chooses to do the actual
+tracking, your artifact may gain access to more details.</p><p>While it is preferable to populate the process start events with live
+Sysmon events, it is not strictly necessary. Sysmon feed with provide
+a more accurate real time feed of process start events. While the
+alternative <code>pslist()</code> style tracking method is very low resource, it
+may miss short lived processes.</p><h2 id=accessing-the-tracker-from-vql>Accessing the tracker from VQL</h2><p>The tracker is available for use from VQL using the following VQL
+plugins:</p><ul><li><p><code>process_tracker_pslist()</code> This plugin is a drop in replacement for
+the <code>pslist()</code> plugin. If the tracker is enabled it will also
+contain exited process information.</p></li><li><p><code>process_tracker_callchain()</code> provides the full call chain for a
+given process ID as an array of process entries.</p></li><li><p><code>process_tracker_get()</code> Looks up a single Process ID in the tracker
+to return its entry if exists.</p></li><li><p><code>process_tracker_tree()</code> Provides the full process tree rooted at
+the specified process ID so it can be visualized in the GUI.</p></li></ul><h2 id=comparing-the-process-tracker-to-edr>Comparing the process tracker to EDR</h2><p>Collecting process call chains is very central to detection
+engineering and therefore is an integral feature of many EDR
+solutions.</p><p>Most EDR solutions work by relaying process start events to a central
+location such as a SIEM and then using database queries to reconstruct
+the process call chain from historical data. This also allows viewing
+historical process information.</p><p>Velociraptor&rsquo;s design philosophy is endpoint-centric - rather than
+forward all the data to a large backend and query across process start
+events from <strong>ALL</strong> endpoints, Velociraptor&rsquo;s process tracker limits
+the analysis to the process on the endpoint itself. This naturally
+limits the total number of process we need to track and makes tracking
+much easier because we do not need to query across the entire data set
+for all clients.</p><h2 id=process-tracker-challenges>Process Tracker challenges</h2><p>The following describes some of the issues in implementation of the
+process tracker we have found (so far).</p><h3 id=process-id-reuse>Process ID reuse</h3><p>While in theory process IDs uniquely identify a process, in reality
+(at least on Windows) process ID&rsquo;s are reused aggressively. Accounting
+for this is not trivial - For example, if a new process is discovered
+with a parent ID of 5, we can not just search for a process with ID 5
+as it&rsquo;s parent. Since this ID could have been reused and belong to a
+completely new process.</p><p>Velociraptor&rsquo;s tracker keeps track of reused process ID&rsquo;s by using the
+combination of process ID and start time to uniquely identify the
+process. If the tracker detects a process has exited, it renames the
+old process in the form of <code>pid-starttime</code> while creating a new
+process entry in the usual form of <code>pid</code>.</p><p><figure><img src=pid-reuse.png alt="Pid reuse causes process ID&amp;rsquo;s to be suffixed with their start time" class=captioned><figcaption>Pid reuse causes process ID&amp;rsquo;s to be suffixed with their start time</figcaption></figure></p><div class="mynotices note"><div heading=" Why not use a GUID? "><p>Other tools use a unique identifier such as a <code>GUID</code> to uniquely
+identify a process. For example, <code>Sysmon</code> derives a GUID based on
+process ID, start time, machine id etc to derive a globally unique
+identifier to a process.</p><p>While a GUID solves the issue of uniquely identifying a process within
+a single tool it is not a useful device for Velociraptor&rsquo;s queries,
+which typically enrich data from external sources.</p><p>For example, if we used <code>GUID</code> to uniquely identify processes in the
+tracker, a VQL query is unable to enrich the DNS ETW source with
+process call chains. The ETW subsystem only provides a Process ID as
+an indicator of the process that made the DNS query. There is no way
+for Velociraptor to go from a process ID to a unique <code>GUID</code> directly
+(precisely because a <code>PID</code> by itself is missing critical data that
+makes it a unique identifier).</p><p>Therefore Velociraptor&rsquo;s tracker retains the process ID in the tracker
+as the ultimate key by which we can query for a process. This way we
+can always convert a PID to a proper call chain without being confused
+by PID reuse. When the tracker detects the ID no longer represents the
+process uniquely (i.e. the PID has been reused) the tracker can update
+the ID and all references to it automatically, so a search for the
+same PID will fetch the new process not the old one.</p></div></div><h2 id=what-is-stored-in-the-process-tracker>What is stored in the process tracker.</h2><p>The Velociraptor Process Tracker is simply a database that stores
+information about each process. The process entry in the tracker can
+contain any arbitrary data as populated from the process information
+queries. For example, when using Sysmon as the process start source,
+we can populate the tracker with quite a lot of additional information
+such as executable hashes, original executable name etc.</p><p>We can choose to add additional enrichment to store in the tracker by
+enabling the <code>AddEnrichments</code> parameter when configuring the
+<code>Windows.Events.TrackProcesses</code> artifact. These may increase the
+overall load on the endpoint (due to the additional work in
+calculating hashes etc) but will provide better quality data in a
+response.</p><p><figure><img src=enrichment.png alt="Enriching tracked process information" class=captioned><figcaption>Enriching tracked process information</figcaption></figure></p><h2 id=conclusions>Conclusions</h2><p>The Process Tracker is a very exciting feature and can help resolve
+incidents quickly by providing invaluable context. However it is only
+useful when Velociraptor is constantly running on the endpoint. If you
+usually use Velociraptor&rsquo;s offline collector to just collect a point
+in time snapshot the process tracker will not be able to provide
+information about exited processes.</p><p>If you like the new process tracker feature, take <a href=https://github.com/Velocidex/velociraptor>Velociraptor for a
+spin</a>! It is a available
+on GitHub under an open source license. As always please file issues
+on the bug tracker or ask questions on our mailing list
+<a href=mailto:velociraptor-discuss@googlegroups.com>velociraptor-discuss@googlegroups.com</a>
+. You can also chat with us directly on discord
+<a href=https://www.velocidex.com/discord>https://www.velocidex.com/discord</a>
+.</p><footer class=footline></footer></div></div><div id=navigation></div></section><div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px><div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div></div><script src=/js/clipboard.min.js?1692614572></script>
+<script src=/js/perfect-scrollbar.min.js?1692614572></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1692614572></script>
+<script src=/js/jquery.sticky.js?1692614572></script>
+<script src=/js/featherlight.min.js?1692614572></script>
+<script src=/js/highlight.min.js?1692614572></script>
+<script>hljs.highlightAll()</script><script src=/js/modernizr.custom-3.6.0.js?1692614572></script>
+<script src=/js/learn.js?1692614572></script>
+<script src=/js/hugo-learn.js?1692614572></script></body></html>

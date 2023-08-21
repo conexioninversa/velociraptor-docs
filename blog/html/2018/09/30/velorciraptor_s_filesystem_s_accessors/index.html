@@ -1,436 +1,97 @@
-<!doctype html><html lang=en class="js csstransforms3d">
-<head>
-<meta charset=utf-8>
-<meta name=viewport content="width=device-width,initial-scale=1">
-<meta name=generator content="Hugo 0.89.4">
-<meta name=description content="The latest release of Velociraptor introduces the ability to access
+<!doctype html><html lang=en class="js csstransforms3d"><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo 0.117.0"><meta name=description content="The latest release of Velociraptor introduces the ability to access
 raw NTFS volumes, allowing users to read files which are normally
 locked by the operating system such as registry hives, pagefile and
 other locked files.
-">
-<link rel=icon href=/images/favicon.png type=image/png>
-<title>Velociraptor's filesystem's accessors :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1637855120 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1637855120 rel=stylesheet>
-<link href=/css/featherlight.min.css?1637855120 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1637855120 rel=stylesheet>
-<link href=/css/auto-complete.css?1637855120 rel=stylesheet>
-<link href=/css/theme.css?1637855120 rel=stylesheet>
-<link href=/css/tabs.css?1637855120 rel=stylesheet>
-<link href=/css/hugo-theme.css?1637855120 rel=stylesheet>
-<link href=/css/theme-mine.css?1637855120 rel=stylesheet>
-<link href=/css/dark.css?1637855120 rel=stylesheet><link href=/css/syntax.css?1637855120 rel=stylesheet><link href=/css/light.css?1637855120 rel=stylesheet><link href=/css/hljs.css?1637855120 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1637855120 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1637855120></script>
-<style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
-<script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-QYH72LMYCS',{anonymize_ip:!1})}</script>
-<script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga('create','G-QYH72LMYCS','auto'),ga('send','pageview'))</script>
-<script async src=https://www.google-analytics.com/analytics.js></script>
-<script></script>
-</head>
-<body data-url=/blog/html/2018/09/30/velorciraptor_s_filesystem_s_accessors/>
-<nav id=sidebar><div id=header-wrapper>
-<div id=header>
-<script>function darkmode(){$("body").addClass("dark").removeClass("light"),document.cookie="theme=darkmode;path=/"}function lightmode(){$("body").removeClass("dark").addClass("light"),document.cookie="theme=lightmode;path=/"}const regex=new RegExp('theme=darkmode');regex.test(document.cookie)?darkmode():lightmode()</script>
-<div class="btn btn-default ThemeSelector darkmode" onclick=darkmode()>
-<i class="fas fa-moon"></i>
-</div>
-<div class="btn btn-default ThemeSelector lightmode" onclick=lightmode()>
-<i class="fas fa-sun"></i>
-</div>
-<a href=https://docs.velociraptor.app/>
-<img src=https://docs.velociraptor.app//images/logo.svg>
-</a>
-</div>
-</div>
-<div class=highlightable>
-<ul class=topics>
-<li data-nav-id=https://docs.velociraptor.app/announcements/ class="dd-item haschildren">
-<div><i class="fa fa-angle-right fa-sm category-icon"></i>
-<a href=/announcements/><i class="fas fa-bullhorn"></i>Announcements</a>
-</div>
-<ul>
-<li data-nav-id=https://docs.velociraptor.app/announcements/2021-artifact-contest/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/announcements/2021-artifact-contest/>2021 Contest</a>
-</div>
-</li>
-</ul>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/docs/ class="dd-item haschildren">
-<div><i class="fa fa-angle-right fa-sm category-icon"></i>
-<a href=/docs/><i class="fas fa-book-reader"></i>Documentation</a>
-</div>
-<ul>
-<li data-nav-id=https://docs.velociraptor.app/docs/overview/ class="dd-item haschildren">
-<div><i class="fa fa-angle-right fa-sm category-icon"></i>
-<a href=/docs/overview/>Velociraptor Overview</a>
-</div>
-<ul>
-<li data-nav-id=https://docs.velociraptor.app/docs/overview/history/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/overview/history/>History</a>
-</div>
-</li>
-</ul>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/docs/deployment/ class="dd-item haschildren">
-<div><i class="fa fa-angle-right fa-sm category-icon"></i>
-<a href=/docs/deployment/>Deployment</a>
-</div>
-<ul>
-<li data-nav-id=https://docs.velociraptor.app/docs/deployment/self-signed/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/deployment/self-signed/>Self-Signed SSL</a>
-</div>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/docs/deployment/cloud/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/deployment/cloud/>Cloud Deployment</a>
-</div>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/docs/deployment/clients/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/deployment/clients/>Deploying Clients</a>
-</div>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/docs/deployment/rbac/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/deployment/rbac/>Users and Roles</a>
-</div>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/docs/deployment/resources/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/deployment/resources/>Performance</a>
-</div>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/docs/deployment/troubleshooting/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/deployment/troubleshooting/>Troubleshooting</a>
-</div>
-</li>
-</ul>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/docs/gui/ class="dd-item haschildren">
-<div><i class="fa fa-angle-right fa-sm category-icon"></i>
-<a href=/docs/gui/>The Admin GUI</a>
-</div>
-<ul>
-<li data-nav-id=https://docs.velociraptor.app/docs/gui/clients/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/gui/clients/>Inspecting clients</a>
-</div>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/docs/gui/vfs/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/gui/vfs/>The VFS</a>
-</div>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/docs/gui/artifacts/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/gui/artifacts/>Artifacts</a>
-</div>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/docs/gui/hunting/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/gui/hunting/>Hunting</a>
-</div>
-</li>
-</ul>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/docs/vql/ class="dd-item haschildren">
-<div><i class="fa fa-angle-right fa-sm category-icon"></i>
-<a href=/docs/vql/>VQL Fundamentals</a>
-</div>
-<ul>
-<li data-nav-id=https://docs.velociraptor.app/docs/vql/notebooks/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/vql/notebooks/>Notebooks</a>
-</div>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/docs/vql/artifacts/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/vql/artifacts/>Artifacts</a>
-</div>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/docs/vql/events/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/vql/events/>Event Queries</a>
-</div>
-</li>
-</ul>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/docs/forensic/ class="dd-item haschildren">
-<div><i class="fa fa-angle-right fa-sm category-icon"></i>
-<a href=/docs/forensic/>Forensic Analysis</a>
-</div>
-<ul>
-<li data-nav-id=https://docs.velociraptor.app/docs/forensic/filesystem/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/forensic/filesystem/>Searching Filenames</a>
-</div>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/docs/forensic/searching/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/forensic/searching/>Searching Content</a>
-</div>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/docs/forensic/ntfs/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/forensic/ntfs/>NTFS Analysis</a>
-</div>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/docs/forensic/evidence_of_execution/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/forensic/evidence_of_execution/>Evidence Of Execution</a>
-</div>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/docs/forensic/event_logs/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/forensic/event_logs/>Event Logs</a>
-</div>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/docs/forensic/volatile/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/forensic/volatile/>Volatile State</a>
-</div>
-</li>
-</ul>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/docs/offline_triage/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/offline_triage/>Triage and acquisition</a>
-</div>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/docs/client_monitoring/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/client_monitoring/>Client Monitoring</a>
-</div>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/docs/extending_vql/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/extending_vql/>Extending VQL</a>
-</div>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/docs/server_automation/ class="dd-item haschildren">
-<div><i class="fa fa-angle-right fa-sm category-icon"></i>
-<a href=/docs/server_automation/>Server Automation</a>
-</div>
-<ul>
-<li data-nav-id=https://docs.velociraptor.app/docs/server_automation/server_api/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/server_automation/server_api/>Server API</a>
-</div>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/docs/server_automation/server_monitoring/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/server_automation/server_monitoring/>Server Monitoring</a>
-</div>
-</li>
-</ul>
-</li>
-</ul>
-</li><hr>
-<li data-nav-id=https://docs.velociraptor.app/vql_reference/ class="dd-item haschildren">
-<div><i class="fa fa-angle-right fa-sm category-icon"></i>
-<a href=/vql_reference/><i class="fas fa-book"></i>VQL Reference</a>
-</div>
-<ul>
-<li data-nav-id=https://docs.velociraptor.app/vql_reference/basic/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/vql_reference/basic/>Basic VQL</a>
-</div>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/vql_reference/windows/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/vql_reference/windows/>Windows Specific</a>
-</div>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/vql_reference/parsers/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/vql_reference/parsers/>Parsers</a>
-</div>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/vql_reference/server/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/vql_reference/server/>Server Side</a>
-</div>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/vql_reference/plugin/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/vql_reference/plugin/>Client Side</a>
-</div>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/vql_reference/event/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/vql_reference/event/>Event Plugins</a>
-</div>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/vql_reference/experimental/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/vql_reference/experimental/>Experimental</a>
-</div>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/vql_reference/misc/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/vql_reference/misc/>Misc</a>
-</div>
-</li>
-</ul>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/training/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/training/><i class="fas fa-graduation-cap"></i>Training</a>
-</div>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/blog/ class="dd-item parent haschildren">
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/blog/><i class="fas fa-newspaper"></i>Blog</a>
-</div>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/presentations/ class="dd-item haschildren">
-<div><i class="fa fa-angle-right fa-sm category-icon"></i>
-<a href=/presentations/><i class="fas fa-chalkboard-teacher"></i>Presentations</a>
-</div>
-<ul>
-<li data-nav-id=https://docs.velociraptor.app/presentations/2021_dfrws_us/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/presentations/2021_dfrws_us/>DFRWS US 2021 Workshop</a>
-</div>
-</li>
-</ul>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/exchange/ class="dd-item haschildren">
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/exchange/><i class="fas fa-code"></i>Artifact Exchange</a>
-</div>
-</li>
-<li data-nav-id=https://docs.velociraptor.app/search/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/search/><i class="fas fa-search"></i>Search</a>
-</div>
-</li>
-</ul>
-<hr>
-<section id=shortcuts>
-<h3></h3>
-<ul>
-<li>
-<a class=padding href=https://github.com/Velocidex/velociraptor><i class="fab fa-github"></i>Github</a>
-</li>
-<li>
-<a class=padding href=https://docs.velociraptor.app/discord/><i class="fab fa-discord"></i>Discord</a>
-</li>
-<li>
-<a class=padding href=mailto:velociraptor-discuss@googlegroups.com><i class="fas fa-envelope"></i>Mailing List</a>
-</li>
-</ul>
-</section>
-<section id=footer>
-<div class=footer-copyright>Brought to you by
-<img src=/images/Rapid7_logo.svg class=rapid7>
-<br> <i class="fas fa-copyright"></i> 2021
-</div>
-</section>
-</div>
-</nav>
-<script>$("#sidebar i.fa-angle-right").each(function(){$(this).parent().parent().find("ul").hide()})</script>
-<section id=body>
-<div id=overlay></div>
-<div class="padding highlightable">
-<div>
-<div id=top-bar>
-<div id=top-github-link>
-<a class=github-link title="Edit this page" href=https://github.com/scudette/velociraptor-docs/edit/master/content/blog/html/2018/09/30/velorciraptor_s_filesystem_s_accessors/_index.md target=blank>
-<i class="fas fa-code-branch"></i>
-<span id=top-github-link-text>Edit this page</span>
-</a>
-</div>
-<div id=breadcrumbs itemscope itemtype=http://data-vocabulary.org/Breadcrumb>
-<span id=sidebar-toggle-span>
-<a href=# id=sidebar-toggle data-sidebar-toggle>
-<i class="fas fa-bars"></i>
-</a>
-</span>
+"><link rel=icon href=/images/favicon.png type=image/png><title>Velociraptor's filesystem's accessors :: Velociraptor - Digging deeper!</title><link href=/css/nucleus.css?1692614572 rel=stylesheet><link href=/css/fontawesome-all.min.css?1692614572 rel=stylesheet><link href=/css/featherlight.min.css?1692614572 rel=stylesheet><link href=/css/perfect-scrollbar.min.css?1692614572 rel=stylesheet><link href=/css/auto-complete.css?1692614572 rel=stylesheet><link href=/css/theme.css?1692614572 rel=stylesheet><link href=/css/tabs.css?1692614572 rel=stylesheet><link href=/css/hugo-theme.css?1692614572 rel=stylesheet><link href=/css/theme-mine.css?1692614572 rel=stylesheet><link href=/css/dark.css?1692614572 rel=stylesheet><link href=/css/syntax.css?1692614572 rel=stylesheet><link href=/css/light.css?1692614572 rel=stylesheet><link href=/css/hljs.css?1692614572 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1692614572 rel=stylesheet><script src=/js/jquery-3.3.1.min.js?1692614572></script><style>:root #header+#content>#left>#rlblock_left{display:none!important}</style><script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
+<script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-QYH72LMYCS",{anonymize_ip:!1})}</script><script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","G-QYH72LMYCS","auto"),ga("send","pageview"))</script><script async src=https://www.google-analytics.com/analytics.js></script>
+<script></script></head><body data-url=/blog/html/2018/09/30/velorciraptor_s_filesystem_s_accessors/><nav id=sidebar><div id=header-wrapper><div id=header><script>function darkmode(){$("body").addClass("dark").removeClass("light"),document.cookie="theme=darkmode;path=/"}function lightmode(){$("body").removeClass("dark").addClass("light"),document.cookie="theme=lightmode;path=/"}const regex=new RegExp("theme=darkmode");regex.test(document.cookie)?darkmode():lightmode()</script><div class="btn btn-default ThemeSelector darkmode" onclick=darkmode()><i class="fas fa-moon"></i></div><div class="btn btn-default ThemeSelector lightmode" onclick=lightmode()><i class="fas fa-sun"></i></div><a href=https://docs.velociraptor.app/><img src=https://docs.velociraptor.app//images/logo.svg></a></div></div><div class=highlightable><ul class=topics><li data-nav-id=https://docs.velociraptor.app/announcements/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/announcements/><i class="fas fa-bullhorn"></i>Announcements</a></div><ul><li data-nav-id=https://docs.velociraptor.app/announcements/2023-cves/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/announcements/2023-cves/>Current CVEs</a></div></li><li data-nav-id=https://docs.velociraptor.app/announcements/2023-trainings/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/announcements/2023-trainings/>Trainings</a></div></li><li data-nav-id=https://docs.velociraptor.app/announcements/2023-velocon/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/announcements/2023-velocon/>VeloCON 2023</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/docs/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/docs/><i class="fas fa-book-reader"></i>Documentation</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/overview/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/docs/overview/>Velociraptor Overview</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/overview/history/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/overview/history/>History</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/overview/support/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/overview/support/>Support Policy</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/docs/deployment/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/docs/deployment/>Deployment</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/deployment/self-signed/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/deployment/self-signed/>Self-Signed SSL</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/deployment/cloud/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/docs/deployment/cloud/>Cloud Deployment</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/deployment/cloud/multifrontend/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/deployment/cloud/multifrontend/>Multi-Frontend</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/docs/deployment/clients/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/deployment/clients/>Deploying Clients</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/deployment/rbac/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/deployment/rbac/>Users and Roles</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/deployment/resources/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/deployment/resources/>Performance</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/deployment/troubleshooting/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/deployment/troubleshooting/>Troubleshooting</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/deployment/references/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/deployment/references/>Config Reference</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/docs/gui/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/docs/gui/>The Admin GUI</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/gui/clients/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/gui/clients/>Inspecting clients</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/gui/vfs/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/gui/vfs/>The VFS</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/gui/artifacts/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/gui/artifacts/>Artifacts</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/gui/hunting/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/gui/hunting/>Hunting</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/docs/vql/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/docs/vql/>VQL Fundamentals</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/vql/notebooks/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/vql/notebooks/>Notebooks</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/vql/artifacts/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/vql/artifacts/>Artifacts</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/vql/events/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/vql/events/>Event Queries</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/docs/forensic/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/docs/forensic/>Forensic Analysis</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/forensic/filesystem/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/forensic/filesystem/>Searching Filenames</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/forensic/searching/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/forensic/searching/>Searching Content</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/forensic/ntfs/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/forensic/ntfs/>NTFS Analysis</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/forensic/binary/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/forensic/binary/>Binary parsing</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/forensic/evidence_of_execution/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/forensic/evidence_of_execution/>Evidence Of Execution</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/forensic/event_logs/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/forensic/event_logs/>Event Logs</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/forensic/volatile/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/forensic/volatile/>Volatile State</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/docs/offline_triage/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/docs/offline_triage/>Triage and acquisition</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/offline_triage/remote_uploads/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/offline_triage/remote_uploads/>Remote Uploads</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/docs/client_monitoring/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/client_monitoring/>Client Monitoring</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/extending_vql/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/extending_vql/>Extending VQL</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/server_automation/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/docs/server_automation/>Server Automation</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/server_automation/server_api/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/server_automation/server_api/>Server API</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/server_automation/server_monitoring/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/server_automation/server_monitoring/>Server Monitoring</a></div></li></ul></li></ul></li><hr><li data-nav-id=https://docs.velociraptor.app/vql_reference/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/vql_reference/><i class="fas fa-book"></i>VQL Reference</a></div><ul><li data-nav-id=https://docs.velociraptor.app/vql_reference/basic/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/basic/>Basic VQL</a></div></li><li data-nav-id=https://docs.velociraptor.app/vql_reference/linux/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/linux/>Linux Specific</a></div></li><li data-nav-id=https://docs.velociraptor.app/vql_reference/windows/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/windows/>Windows Specific</a></div></li><li data-nav-id=https://docs.velociraptor.app/vql_reference/parsers/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/parsers/>Parsers</a></div></li><li data-nav-id=https://docs.velociraptor.app/vql_reference/server/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/server/>Server Side</a></div></li><li data-nav-id=https://docs.velociraptor.app/vql_reference/plugin/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/plugin/>Client Side</a></div></li><li data-nav-id=https://docs.velociraptor.app/vql_reference/event/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/event/>Event Plugins</a></div></li><li data-nav-id=https://docs.velociraptor.app/vql_reference/experimental/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/experimental/>Experimental</a></div></li><li data-nav-id=https://docs.velociraptor.app/vql_reference/misc/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/misc/>Misc</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/training/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/training/><i class="fas fa-graduation-cap"></i>Training</a></div></li><li data-nav-id=https://docs.velociraptor.app/blog/ class="dd-item parent haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/blog/><i class="fas fa-newspaper"></i>Blog</a></div></li><li data-nav-id=https://docs.velociraptor.app/presentations/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/presentations/><i class="fas fa-chalkboard-teacher"></i>Presentations</a></div><ul><li data-nav-id=https://docs.velociraptor.app/presentations/2022_linuxconf_au/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/presentations/2022_linuxconf_au/>Linux Conf Au 2022</a></div></li><li data-nav-id=https://docs.velociraptor.app/presentations/2022_auscert/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/presentations/2022_auscert/>Auscert 2022</a></div></li><li data-nav-id=https://docs.velociraptor.app/presentations/2022_dfrws_us/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/presentations/2022_dfrws_us/>DFRWS US 2022</a></div></li><li data-nav-id=https://docs.velociraptor.app/presentations/2022_tech_user_group_cbr/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/presentations/2022_tech_user_group_cbr/>Tech Users Group 2022</a></div></li><li data-nav-id=https://docs.velociraptor.app/presentations/2022_sans_summit/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/presentations/2022_sans_summit/>SANS Summit 2022</a></div></li><li data-nav-id=https://docs.velociraptor.app/presentations/2022_velocon/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/presentations/2022_velocon/>Velocon 2022</a></div></li><li data-nav-id=https://docs.velociraptor.app/presentations/2022_dfrws_apac/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/presentations/2022_dfrws_apac/>DFRWS APAC 2022</a></div></li><li data-nav-id=https://docs.velociraptor.app/presentations/2023_everything_open/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/presentations/2023_everything_open/>EverythingOpen 2023</a></div></li><li data-nav-id=https://docs.velociraptor.app/presentations/2023_auscert/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/presentations/2023_auscert/>Auscert 2023</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/exchange/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/exchange/><i class="fas fa-code"></i>Artifact Exchange</a></div></li><li data-nav-id=https://docs.velociraptor.app/artifact_references/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/artifact_references/><i class="fas fa-book"></i>Artifact Reference</a></div></li><li data-nav-id=https://docs.velociraptor.app/knowledge_base/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/knowledge_base/><i class="fas fa-brain"></i>Knowledge Base</a></div></li><li data-nav-id=https://docs.velociraptor.app/search/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/search/><i class='fas fa-search'></i>Search</a></div></li></ul><hr><section id=shortcuts><h3></h3><ul><li><a class=padding href=https://github.com/Velocidex/velociraptor><i class='fab fa-github'></i>Github</a></li><li><a class=padding href=https://docs.velociraptor.app/discord/><i class='fab fa-discord'></i>Discord</a></li><li><a class=padding href=mailto:velociraptor-discuss@googlegroups.com><i class='fas fa-envelope'></i>Mailing List</a></li><li><a class=padding href=https://docs.velociraptor.app/rss/><i class='fas fa-rss'></i>RSS</a></li></ul></section><section id=footer><div class=footer-copyright>Brought to you by
+<img src=/images/Rapid7_logo.svg class=rapid7><br><i class="fas fa-copyright"></i> 2022</div></section></div></nav><script>$("#sidebar i.fa-angle-right").each(function(){$(this).parent().parent().find("ul").hide()})</script><section id=body><div id=overlay></div><div class="padding highlightable"><div><div id=top-bar><div id=top-github-link><a class=github-link title='Edit this page' href=https://github.com/Velocidex/velociraptor-docs/edit/master/content/blog/html/2018/09/30/velorciraptor_s_filesystem_s_accessors/_index.md target=blank><i class="fas fa-code-branch"></i>
+<span id=top-github-link-text>Edit this page</span></a></div><div id=breadcrumbs itemscope itemtype=http://data-vocabulary.org/Breadcrumb><span id=sidebar-toggle-span><a href=# id=sidebar-toggle data-sidebar-toggle><i class="fas fa-bars"></i></a></span>
 <span id=toc-menu><i class="fas fa-list-alt"></i></span>
-<span class=links>
-Velociraptor's filesystem's accessors
-</span>
-</div>
-<div class=progress>
-<div class=wrapper>
-<nav id=TableOfContents></nav>
-</div>
-</div>
-</div>
-</div>
-<div id=head-tags>
-</div>
-<div id=body-inner>
-<h1>
-Velociraptor's filesystem's accessors
-</h1>
-<p>In addition, Velociraptor can now also read <a href=https://docs.microsoft.com/en-us/windows/desktop/vss/volume-shadow-copy-service-portal>Volume Shadow
+<span class=links>Velociraptor's filesystem's accessors</span></div><div class=progress><div class=wrapper><nav id=TableOfContents></nav></div></div></div></div><div id=head-tags></div><div id=body-inner><h1>Velociraptor's filesystem's accessors</h1><p>In addition, Velociraptor can now also read <a href=https://docs.microsoft.com/en-us/windows/desktop/vss/volume-shadow-copy-service-portal>Volume Shadow
 Copy</a>
 snapshots. The gives a kind of time-machine ability to allow the
 investigator to look through the drive content at a previous point in
-the past.</p>
-<p>This blog post introduces the new features and describe how
+the past.</p><p>This blog post introduces the new features and describe how
 Velociraptor's filesystem accessors work to provide data from multiple
-sources to VQL queries.</p>
-<p>We have previously seen that Velociraptor can list and download files
+sources to VQL queries.</p><p>We have previously seen that Velociraptor can list and download files
 from the client's filesystem, as well as registry keys and values. The
 client's filesystem is made available to VQL plugins such as glob()
 allowing many Artifacts to be written that work on files, registry keys
-and raw NTFS volumes.</p>
-<p>While Velociraptor is a great remote response tool, everything that it
+and raw NTFS volumes.</p><p>While Velociraptor is a great remote response tool, everything that it
 can do remotely, it can also do locally using a command line interface.
 This gives the user an opportunity to interactively test their VQL
-queries while writing artifacts.</p>
-<p>The latest release adds a couple of convenient command line options
+queries while writing artifacts.</p><p>The latest release adds a couple of convenient command line options
 which allow the user to interact with the filesystem accessors. For
 example, to list the files in a directory we can use the "velociraptor
-fs ls" command:</p>
-<pre><code class=language-{.sourceCode>F:\&gt;velociraptor.exe fs ls
+fs ls" command:</p><pre><code class=language-{.sourceCode>F:\&gt;velociraptor.exe fs ls
 +------+------+------------+---------------------------+---------------------------------+
 | Name | Size |    Mode    |           mtime           |              Data               |
 +------+------+------------+---------------------------+---------------------------------+
@@ -451,20 +112,17 @@ fs ls" command:</p>
 +------+------+------------+---------------------------+---------------------------------+
 SELECT Name, Size, Mode.String AS Mode, timestamp(epoch=Mtime.Sec) AS mtime,
    Data FROM glob(globs=path, accessor=accessor)
-</code></pre>
-<p>The "fs ls" command instructs Velociraptor to list directories using
+</code></pre><p>The "fs ls" command instructs Velociraptor to list directories using
 its internal filesystem accessors. By default it will use the "file"
 accessor - which simply uses the usual Win32 api filesystem calls (i.e.
-CreateFile, FindFirstFile etc).</p>
-<p>On windows, the file accessor lists the drive letters at the root of the
+<code>CreateFile</code>, <code>FindFirstFile</code> etc).</p><p>On windows, the file accessor lists the drive letters at the root of the
 filesystem, then allows subdirectories to be listed under each letter.
 The above output shows some metadata for each drive letter (like its
 size etc) and below the table we can see the VQL query that was used to
 generate the table. To be clear, the "fs ls" command is simply a
 shortcut for producing a VQL query that ultimately uses the filesystem
 accessor in the glob() VQL plugin. Therefore, we can enter any glob
-expression to find files:</p>
-<pre><code class=language-{.sourceCode>F:\&gt;velociraptor.exe fs ls -v &quot;c:\program files\**\*.exe&quot;
+expression to find files:</p><pre><code class=language-{.sourceCode>F:\&gt;velociraptor.exe fs ls -v &quot;c:\program files\**\*.exe&quot;
 +--------------------------------+----------+------------+---------------------------+------+
 |            FullPath            |   Size   |    Mode    |           mtime           | Data |
 +--------------------------------+----------+------------+---------------------------+------+
@@ -484,12 +142,10 @@ expression to find files:</p>
 +--------------------------------+----------+------------+---------------------------+------+
 SELECT FullPath, Size, Mode.String AS Mode, timestamp(epoch=Mtime.Sec) AS mtime, Data FROM
 glob(globs=path, accessor=accessor)
-</code></pre>
-<p>When using the registry filesystem accessor, the registry appears like a
+</code></pre><p>When using the registry filesystem accessor, the registry appears like a
 filesystem, allowing us to run glob expressions against registry keys
 and values (Note that the registry accessor provides the value in the
-metadata):</p>
-<pre><code class=language-{.sourceCode>F:\&gt;velociraptor.exe fs --accessor reg ls &quot;HKEY_USERS\*\Software\Microsoft\Windows\CurrentVersion\{Run,RunOnce}\*&quot;
+metadata):</p><pre><code class=language-{.sourceCode>F:\&gt;velociraptor.exe fs --accessor reg ls &quot;HKEY_USERS\*\Software\Microsoft\Windows\CurrentVersion\{Run,RunOnce}\*&quot;
 +---------------+------+------------+---------------------------+---------------------------------+
 |     Name      | Size |    Mode    |           mtime           |             Data                |
 +---------------+------+------------+---------------------------+---------------------------------+
@@ -502,12 +158,10 @@ metadata):</p>
 +---------------+------+------------+---------------------------+---------------------------------+
 SELECT Name, Size, Mode.String AS Mode, timestamp(epoch=Mtime.Sec) AS mtime,
 Data FROM glob(globs=path, accessor=accessor)
-</code></pre>
-<p>Finally, the NTFS accessor can access files by parsing the NTFS
+</code></pre><p>Finally, the NTFS accessor can access files by parsing the NTFS
 filesystem directly. At the top level, the accessor shows all NTFS
 formatted partitions. These include regular drives as well as Volume
-Shadow Copies:</p>
-<pre><code class=language-{.sourceCode>F:\&gt;velociraptor.exe fs --accessor ntfs ls
+Shadow Copies:</p><pre><code class=language-{.sourceCode>F:\&gt;velociraptor.exe fs --accessor ntfs ls
 +--------------------------------+------+------------+---------------------------------------------------------+
 |              Name              | Size |    Mode    |                             Data                        |
 +--------------------------------+------+------------+---------------------------------------------------------+
@@ -532,12 +186,10 @@ Shadow Copies:</p>
 |                                |      |            | VolumeName: \\?\Volume{3dc4b590-0000-000-501f00000000}\ |
 +--------------------------------+------+------------+---------------------------------------------------------+
 SELECT Name, Size, Mode.String AS Mode, timestamp(epoch=Mtime.Sec) AS mtime,, Data FROM glob(globs=path, accessor=accessor) WHERE Sys.name_type != 'DOS'
-</code></pre>
-<p>The above example shows two volume shadow copies that Windows has taken
+</code></pre><p>The above example shows two volume shadow copies that Windows has taken
 on two different dates (highlighted above). We can browse these
 snapshots just like they were another drive (We can also apply any glob
-expressions to this path):</p>
-<pre><code class=language-{.sourceCode>F:\&gt;velociraptor.exe fs --accessor ntfs ls &quot;\\?\GLOBALROOT\Device\HarddiskVolumeShadowCopy1\
+expressions to this path):</p><pre><code class=language-{.sourceCode>F:\&gt;velociraptor.exe fs --accessor ntfs ls &quot;\\?\GLOBALROOT\Device\HarddiskVolumeShadowCopy1\
 Users\test\*.exe&quot;
 +------------------+----------+------------+---------------------------+------------------+
 |       Name       |   Size   |    Mode    |           mtime           |       Data       |
@@ -549,74 +201,40 @@ Users\test\*.exe&quot;
 +------------------+----------+------------+---------------------------+------------------+
 SELECT Name, Size, Mode.String AS Mode, timestamp(epoch=Mtime.Sec) AS mtime, Data FROM
 glob(globs=path, accessor=accessor) WHERE Sys.name_type != 'DOS'
-</code></pre>
-<p>Volume shadow copies are like a time machine - they can reveal data that
+</code></pre><p>Volume shadow copies are like a time machine - they can reveal data that
 was stored on the drive days or weeks prior to the time we inspected it
-which makes them very useful for some investigations.</p>
-<h1 id=using-filesystem-accessors-remotely---the-velociraptor-vfs>Using filesystem accessors remotely - The Velociraptor VFS</h1>
-<p>The above description shows how Velociraptor's command line interface
+which makes them very useful for some investigations.</p><h1 id=using-filesystem-accessors-remotely---the-velociraptor-vfs>Using filesystem accessors remotely - The Velociraptor VFS</h1><p>The above description shows how Velociraptor's command line interface
 can be used to interact with the various filesystem accessors. This is
 important for writing and collecting artifacts for triage and general
-system state exploration.</p>
-<p>However, how do filesystem accessors appear in the Velociraptor GUI?</p>
-<p>
-<figure>
-<img src=vfs1.png alt=image class=captioned>
-<figcaption>image</figcaption>
-</figure>
-</p>
-<p>The nice thing about Velociraptor's GUI is that it is just a way to
+system state exploration.</p><p>However, how do filesystem accessors appear in the Velociraptor GUI?</p><p><figure><img src=vfs1.png alt=image class=captioned><figcaption>image</figcaption></figure></p><p>The nice thing about Velociraptor's GUI is that it is just a way to
 present the same information that the "fs ls" command is getting by
-using the same VQL queries. Therefore the view is very familiar:</p>
-<ol>
-<li>The top level of the Velociraptor VFS represents all the filesystem
-accessors implemented in the client.</li>
-<li>Each of these accessors shows its own view:
-<ol>
-<li>The file accessor uses the OS APIs to list files and
+using the same VQL queries. Therefore the view is very familiar:</p><ol><li>The top level of the Velociraptor VFS represents all the filesystem
+accessors implemented in the client.</li><li>Each of these accessors shows its own view:<ol><li>The file accessor uses the OS APIs to list files and
 directories. Its top level is a list of mounted drives (which
-may be CDROM's or even network shares).</li>
-<li>The NTFS accessor shows all NTFS volumes accessible, including
-local drives and Volume Shadow Copies.</li>
-<li>The registry accessor uses Win32 APIs to access the registry and
+may be CDROM's or even network shares).</li><li>The NTFS accessor shows all NTFS volumes accessible, including
+local drives and Volume Shadow Copies.</li><li>The registry accessor uses Win32 APIs to access the registry and
 shows at the top level a list of all system hives currently
-attached.</li>
-</ol>
-</li>
-<li>For each file listed, the accessor also includes a Data attribute.
+attached.</li></ol></li><li>For each file listed, the accessor also includes a Data attribute.
 This contains accessor specific metadata about the file (for example
-the MFT entry).</li>
-</ol>
-<p>In the below screenshot we can see how the user may navigate into the
-Volume Shadow Copy and retrieve files from it:</p>
-<p>
-<figure>
-<img src=vfs2.png alt=image class=captioned>
-<figcaption>image</figcaption>
-</figure>
-</p>
-<h1 id=a-note-about-filenames>A note about filenames.</h1>
-<p>NTFS can have several different names to the same file. Typically, a
-short DOS 8.3 style filename (e.g. PROGRA~1), as well as a Win32 long
+the MFT entry).</li></ol><p>In the below screenshot we can see how the user may navigate into the
+Volume Shadow Copy and retrieve files from it:</p><p><figure><img src=vfs2.png alt=image class=captioned><figcaption>image</figcaption></figure></p><h1 id=a-note-about-filenames>A note about filenames.</h1><p>NTFS can have several different names to the same file. Typically, a
+short DOS 8.3 style filename (e.g. <code>PROGRA~1</code>), as well as a Win32 long
 filename (e.g. Program Files). You can see the short name for a file
-using the API GetShortPathName() (or the command dir /x), but a program
+using the API GetShortPathName() (or the command <code>dir /x</code>), but a program
 needs to deliberately ask for it. Most programs do not explicitly
-collect or show the short filename of a file.</p>
-<p>This can cause problems for DFIR applications. For example, Imagine we
+collect or show the short filename of a file.</p><p>This can cause problems for DFIR applications. For example, Imagine we
 discovered a Run key to C:\\Users\\test\\runme.exe. If we only
 considered the long filename (as for example returned by the Win32API
-FindFile() or the output of the dir command), then we would assume the
+FindFile() or the output of the <code>dir</code> command), then we would assume the
 file has been removed and the run key is not active. In reality however,
 the file may be called "This is some long filename.exe" with a DOS
 name of "runme.exe". Explorer (and most tools) will only show the long
 filename by default, but the runkey will still execute by referring to
-the DOS filename!</p>
-<p>Usually the short filename is some variation of the long filename with a
+the DOS filename!</p><p>Usually the short filename is some variation of the long filename with a
 ~1 or ~2 at the end. In reality it can be anything. In the snippet
 below, I am setting the short filename for the velociraptor.exe binary
 to be something completely unrelated, then I am running the binary using
-the unrelated filename:</p>
-<pre><code class=language-{.sourceCode>C:\Users\test&gt;fsutil file setshortname velociraptor.exe runme.exe
+the unrelated filename:</p><pre><code class=language-{.sourceCode>C:\Users\test&gt;fsutil file setshortname velociraptor.exe runme.exe
 C:\Users\test&gt;dir /x *.exe
  Volume in drive C has no label.
  Volume Serial Number is 9459-F443
@@ -630,56 +248,25 @@ C:\Users\test&gt;runme.exe -h
 usage: velociraptor [&lt;flags&gt;] &lt;command&gt; [&lt;args&gt; ...]
 
 An advanced incident response and monitoring agent.
-</code></pre>
-<p>You can see that Windows explorer shows no trace of the runme.exe file
-since it only displays the Win32 long file name:</p>
-<p>
-<figure>
-<img src=vfs3.png alt=image class=captioned>
-<figcaption>image</figcaption>
-</figure>
-</p>
-<p>It is important for DFIR investigators to be aware of this and test your
+</code></pre><p>You can see that Windows explorer shows no trace of the runme.exe file
+since it only displays the Win32 long file name:</p><p><figure><img src=vfs3.png alt=image class=captioned><figcaption>image</figcaption></figure></p><p>It is important for DFIR investigators to be aware of this and test your
 tools! You can see that sysinternals' autoruns program won't have any
 of these shenanigans when I added a runkey to "runme.exe". It shows
 the real filename velociraptor.exe even though the runkey indicates
-runme.exe:</p>
-<p>
-<figure>
-<img src=vfs4.png alt=image class=captioned>
-<figcaption>image</figcaption>
-</figure>
-</p>
-<p>Velociraptor treats a file's DOS name and Win32 Name as distinct
+runme.exe:</p><p><figure><img src=vfs4.png alt=image class=captioned><figcaption>image</figcaption></figure></p><p>Velociraptor treats a file's DOS name and Win32 Name as distinct
 entries in the NTFS directory listing. This allows us to find any
-references to the file by it's DOS name as well as its Win32 name.</p>
-<h1 id=conclusions>Conclusions</h1>
-<p>As Velociraptor gains more functionality, we envision more filesystem
+references to the file by it's DOS name as well as its Win32 name.</p><h1 id=conclusions>Conclusions</h1><p>As Velociraptor gains more functionality, we envision more filesystem
 accessors to become available. The nice thing about these accessors is
 that they just slot in to the rest of the VQL plugins. By providing a
 new accessor, we are able to glob, hash, yara scan etc the new
 abstraction. For example, to yara scan a registry key one simply calls
 the VQL plugin yara with an accessor of reg: yara(rules=myRules,
-files=my_reg_keys, accessor="reg")</p>
-<footer class=footline>
-</footer>
-</div>
-</div>
-<div id=navigation>
-</div>
-</section>
-<div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
-<div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
-</div>
-<script src=/js/clipboard.min.js?1637855120></script>
-<script src=/js/perfect-scrollbar.min.js?1637855120></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1637855120></script>
-<script src=/js/jquery.sticky.js?1637855120></script>
-<script src=/js/featherlight.min.js?1637855120></script>
-<script src=/js/highlight.min.js?1637855120></script>
-<script>hljs.highlightAll()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1637855120></script>
-<script src=/js/learn.js?1637855120></script>
-<script src=/js/hugo-learn.js?1637855120></script>
-</body>
-</html>
+files=my_reg_keys, accessor="reg")</p><footer class=footline></footer></div></div><div id=navigation></div></section><div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px><div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div></div><script src=/js/clipboard.min.js?1692614572></script>
+<script src=/js/perfect-scrollbar.min.js?1692614572></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1692614572></script>
+<script src=/js/jquery.sticky.js?1692614572></script>
+<script src=/js/featherlight.min.js?1692614572></script>
+<script src=/js/highlight.min.js?1692614572></script>
+<script>hljs.highlightAll()</script><script src=/js/modernizr.custom-3.6.0.js?1692614572></script>
+<script src=/js/learn.js?1692614572></script>
+<script src=/js/hugo-learn.js?1692614572></script></body></html>
