@@ -2137,6 +2137,16 @@
         "date": "2021-06-23"
     },
     {
+        "title": "Custom.Windows.Nirsoft.AlternateStreamView",
+        "author": "",
+        "description": "AlternateStreamView is a small utility that allows you to scan your NTFS drive, and find all hidden alternate streams stored in the file system. After scanning and finding the alternate streams, you can extract these streams into the specified folder, delete unwanted streams\n",
+        "link": "/exchange/artifacts/pages/custom.windows.nirsoft.alternatestreamview",
+        "tags": [],
+        "author_link": "",
+        "author_avatar": "",
+        "date": ""
+    },
+    {
         "title": "Custom.Windows.Nirsoft.BrowsingHistoryView",
         "author": "",
         "description": "BrowsingHistoryView is a utility that reads the history data of different Web browsers (Mozilla Firefox, Google Chrome, Internet Explorer, Microsoft Edge, Opera) and displays the browsing history of all these Web browsers in one table. The browsing history table includes the following information: Visited URL, Title, Visit Time, Visit Count, Web browser and User Profile. BrowsingHistoryView allows you to watch the browsing history of all user profiles in a running system, as well as to get the browsing history from external hard drive.\n",
