@@ -1,9 +1,8 @@
-<!doctype html><html lang=en class="js csstransforms3d"><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo 0.117.0"><meta name=description content><link rel=icon href=/images/favicon.png type=image/png><title>Server.Utils.CreateCollector :: Velociraptor - Digging deeper!</title><link href=/css/nucleus.css?1692701678 rel=stylesheet><link href=/css/fontawesome-all.min.css?1692701678 rel=stylesheet><link href=/css/featherlight.min.css?1692701678 rel=stylesheet><link href=/css/perfect-scrollbar.min.css?1692701678 rel=stylesheet><link href=/css/auto-complete.css?1692701678 rel=stylesheet><link href=/css/theme.css?1692701678 rel=stylesheet><link href=/css/tabs.css?1692701678 rel=stylesheet><link href=/css/hugo-theme.css?1692701678 rel=stylesheet><link href=/css/theme-mine.css?1692701678 rel=stylesheet><link href=/css/dark.css?1692701678 rel=stylesheet><link href=/css/syntax.css?1692701678 rel=stylesheet><link href=/css/light.css?1692701678 rel=stylesheet><link href=/css/hljs.css?1692701678 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1692701678 rel=stylesheet><script src=/js/jquery-3.3.1.min.js?1692701678></script><style>:root #header+#content>#left>#rlblock_left{display:none!important}</style><script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
+<!doctype html><html lang=en class="js csstransforms3d"><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo 0.117.0"><meta name=description content><link rel=icon href=/images/favicon.png type=image/png><title>Server.Utils.CreateCollector :: Velociraptor - Digging deeper!</title><link href=/css/nucleus.css?1692882169 rel=stylesheet><link href=/css/fontawesome-all.min.css?1692882169 rel=stylesheet><link href=/css/featherlight.min.css?1692882169 rel=stylesheet><link href=/css/perfect-scrollbar.min.css?1692882169 rel=stylesheet><link href=/css/auto-complete.css?1692882169 rel=stylesheet><link href=/css/theme.css?1692882169 rel=stylesheet><link href=/css/tabs.css?1692882169 rel=stylesheet><link href=/css/hugo-theme.css?1692882169 rel=stylesheet><link href=/css/theme-mine.css?1692882169 rel=stylesheet><link href=/css/dark.css?1692882169 rel=stylesheet><link href=/css/syntax.css?1692882169 rel=stylesheet><link href=/css/light.css?1692882169 rel=stylesheet><link href=/css/hljs.css?1692882169 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1692882169 rel=stylesheet><script src=/js/jquery-3.3.1.min.js?1692882169></script><style>:root #header+#content>#left>#rlblock_left{display:none!important}</style><script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-QYH72LMYCS",{anonymize_ip:!1})}</script><script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","G-QYH72LMYCS","auto"),ga("send","pageview"))</script><script async src=https://www.google-analytics.com/analytics.js></script>
 <script></script></head><body data-url=/artifact_references/pages/server.utils.createcollector/><nav id=sidebar><div id=header-wrapper><div id=header><script>function darkmode(){$("body").addClass("dark").removeClass("light"),document.cookie="theme=darkmode;path=/"}function lightmode(){$("body").removeClass("dark").addClass("light"),document.cookie="theme=lightmode;path=/"}const regex=new RegExp("theme=darkmode");regex.test(document.cookie)?darkmode():lightmode()</script><div class="btn btn-default ThemeSelector darkmode" onclick=darkmode()><i class="fas fa-moon"></i></div><div class="btn btn-default ThemeSelector lightmode" onclick=lightmode()><i class="fas fa-sun"></i></div><a href=https://docs.velociraptor.app/><img src=https://docs.velociraptor.app//images/logo.svg></a></div></div><div class=highlightable><ul class=topics><li data-nav-id=https://docs.velociraptor.app/announcements/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
 <a href=/announcements/><i class="fas fa-bullhorn"></i>Announcements</a></div><ul><li data-nav-id=https://docs.velociraptor.app/announcements/2023-cves/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/announcements/2023-cves/>Current CVEs</a></div></li><li data-nav-id=https://docs.velociraptor.app/announcements/2023-trainings/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/announcements/2023-trainings/>Trainings</a></div></li><li data-nav-id=https://docs.velociraptor.app/announcements/2023-velocon/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/announcements/2023-cves/>Current CVEs</a></div></li><li data-nav-id=https://docs.velociraptor.app/announcements/2023-velocon/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
 <a href=/announcements/2023-velocon/>VeloCON 2023</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/docs/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
 <a href=/docs/><i class="fas fa-book-reader"></i>Documentation</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/overview/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
 <a href=/docs/overview/>Velociraptor Overview</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/overview/history/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
@@ -168,7 +167,7 @@ parameters:
 
   - name: opt_output_directory
     default: &quot;&quot;
-    description: An optional output directory prefix
+    description: Where we actually write the collection to. You can specify this as a mapped drive to write over the network.
 
   - name: opt_filename_template
     default: &quot;Collection-%FQDN%-%TIMESTAMP%&quot;
@@ -297,8 +296,7 @@ parameters:
        FROM parse_csv(filename=&quot;/uploads/inventory.csv&quot;, accessor=&quot;me&quot;)
        WHERE log(message=&quot;Adding tool &quot; + ToolName)
 
-      LET baseline &lt;= SELECT Fqdn, dirname(path=Exe) AS ExePath,
-         basename(path=Exe) AS Exe,
+      LET baseline &lt;= SELECT Fqdn, dirname(path=Exe) AS ExePath, Exe,
          scope().CWD AS CWD FROM info()
 
       LET OutputPrefix &lt;= if(condition= OutputPrefix,
@@ -314,13 +312,17 @@ parameters:
                    `%Timestamp%`=timestamp(epoch=now()).MarshalText),
           source=Message)
 
-      // Make the filename safe on windows but we trust the OutputPrefix.
-      LET base_filename &lt;= OutputPrefix + regex_replace(
+      // Format the filename safely according to the filename
+      // template. This will be the name uploaded to the bucket.
+      LET formatted_zip_name &lt;= regex_replace(
           source=expand(path=FormatMessage(Message=FilenameTemplate)),
-          re=&quot;[^0-9A-Za-z\\-]&quot;, replace=&quot;_&quot;)
+          re=&quot;[^0-9A-Za-z\\-]&quot;, replace=&quot;_&quot;) + &quot;.zip&quot;
 
-      LET zip_filename &lt;= base_filename.Dirname + (base_filename.Basename + &quot;.zip&quot;)
-      LET log_filename &lt;= base_filename.Dirname + (base_filename.Basename + &quot;.log&quot;)
+      // This is where we write the files on the endpoint.
+      LET zip_filename &lt;= OutputPrefix + formatted_zip_name
+
+      // The log is always written to the executable path
+      LET log_filename &lt;= pathspec(parse= baseline[0].Exe + &quot;.log&quot;)
 
       -- Make a random hex string as a random password
       LET RandomPassword &lt;= SELECT format(format=&quot;%02x&quot;,
@@ -363,24 +365,22 @@ parameters:
     default: |
       LET TargetArgs &lt;= target_args
 
-      // Try to upload the log file now to see if we are even able to
-      // upload at all - we do this to avoid having to collect all the
-      // data and then failing the upload step.
-      LET _ &lt;= log(message=&quot;Uploading to %v&quot;, args=log_filename)
-      LET upload_test &lt;= upload_file(
-          filename=&quot;Test upload from &quot; + baseline[0].Exe,
-          accessor=&quot;data&quot;,
-          name=log_filename)
+      // When uploading to the cloud it is allowed to use directory //
+      // separators and we trust the filename template to be a valid
+      // filename.
+      LET upload_name &lt;= regex_replace(
+          source=expand(path=FormatMessage(Message=FilenameTemplate)),
+          re=&quot;[^0-9A-Za-z\\-/]&quot;, replace=&quot;_&quot;)
 
-      LET _ &lt;= log(message=&quot;Will collect package %v  and upload to cloud bucket %v&quot;,
+      LET _ &lt;= log(message=&quot;Will collect package %v and upload to cloud bucket %v&quot;,
          args=[zip_filename, TargetArgs.bucket])
 
-      LET collect_and_upload = SELECT
+      LET Result &lt;= SELECT
           upload_file(filename=Container,
-                      name=zip_filename,
+                      name= upload_name + &quot;.zip&quot;,
                       accessor=&quot;file&quot;) AS Upload,
           upload_file(filename=log_filename,
-                      name=log_filename,
+                      name= upload_name + &quot;.log&quot;,
                       accessor=&quot;file&quot;) AS LogUpload
 
       FROM collect(artifacts=Artifacts,
@@ -394,11 +394,12 @@ parameters:
           level=Level,
           metadata=ContainerMetadata)
 
-      LET _ &lt;= if(condition=NOT upload_test.Path,
-         then=log(message=&quot;Failed to upload to cloud bucket! Leaving the collection behind for manual upload!&quot;))
+      LET _ &lt;= if(condition=NOT Result[0].Upload.Path,
+         then=log(message=&quot;&lt;red&gt;Failed to upload to cloud bucket!&lt;/&gt; Leaving the collection behind for manual upload!&quot;),
+         else=log(message=&quot;&lt;green&gt;Collection Complete!&lt;/&gt; Please remove %v when you are sure it was properly transferred&quot;, args=zip_filename))
 
-      SELECT * FROM collect_and_upload
-      WHERE log(message=&quot;&lt;green&gt;Collection Complete!&lt;/green&gt; Please remove %v when you are sure it was properly transferred&quot;, args=zip_filename)
+      SELECT * FROM Result
+
 
   - name: FetchBinaryOverride
     type: hidden
@@ -443,8 +444,10 @@ sources:
        a={ SELECT &quot;VelociraptorWindows&quot; AS Type FROM scope() WHERE OS = &quot;Windows&quot;},
        b={ SELECT &quot;VelociraptorWindows_x86&quot; AS Type FROM scope() WHERE OS = &quot;Windows_x86&quot;},
        c={ SELECT &quot;VelociraptorLinux&quot; AS Type FROM scope() WHERE OS = &quot;Linux&quot;},
-       d={ SELECT &quot;VelociraptorDarwin&quot; AS Type FROM scope() WHERE OS = &quot;MacOS&quot;},
-       e={ SELECT &quot;&quot; AS Type FROM scope()
+       d={ SELECT &quot;VelociraptorCollector&quot; AS Type FROM scope() WHERE OS = &quot;MacOS&quot;},
+       e={ SELECT &quot;VelociraptorCollector&quot; AS Type FROM scope() WHERE OS = &quot;MacOSArm&quot;},
+       f={ SELECT &quot;VelociraptorCollector&quot; AS Type FROM scope() WHERE OS = &quot;Generic&quot;},
+       g={ SELECT &quot;&quot; AS Type FROM scope()
            WHERE NOT log(message=&quot;Unknown target type &quot; + OS) }
       )
 
@@ -569,12 +572,12 @@ sources:
            config=serialize(format='json', item=autoexec))
       FROM scope()
 
-</code></pre><footer class=footline></footer></div></div><div id=navigation></div></section><div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px><div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div></div><script src=/js/clipboard.min.js?1692701678></script>
-<script src=/js/perfect-scrollbar.min.js?1692701678></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1692701678></script>
-<script src=/js/jquery.sticky.js?1692701678></script>
-<script src=/js/featherlight.min.js?1692701678></script>
-<script src=/js/highlight.min.js?1692701678></script>
-<script>hljs.highlightAll()</script><script src=/js/modernizr.custom-3.6.0.js?1692701678></script>
-<script src=/js/learn.js?1692701678></script>
-<script src=/js/hugo-learn.js?1692701678></script></body></html>
+</code></pre><footer class=footline></footer></div></div><div id=navigation></div></section><div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px><div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div></div><script src=/js/clipboard.min.js?1692882169></script>
+<script src=/js/perfect-scrollbar.min.js?1692882169></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1692882169></script>
+<script src=/js/jquery.sticky.js?1692882169></script>
+<script src=/js/featherlight.min.js?1692882169></script>
+<script src=/js/highlight.min.js?1692882169></script>
+<script>hljs.highlightAll()</script><script src=/js/modernizr.custom-3.6.0.js?1692882169></script>
+<script src=/js/learn.js?1692882169></script>
+<script src=/js/hugo-learn.js?1692882169></script></body></html>
